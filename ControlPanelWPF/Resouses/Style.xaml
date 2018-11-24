@@ -2,9 +2,27 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ControlPanelWPF.Resouses">
 	<SolidColorBrush x:Key="BrushBackground" Color="#1E1E1E"></SolidColorBrush>
-	<SolidColorBrush x:Key="BrushPanelBackground" Color="#252526"></SolidColorBrush>
-	<SolidColorBrush x:Key="BrushToolbarBackground" Color="#2D2D30"></SolidColorBrush>
-	<SolidColorBrush x:Key="BrushToolbarLightBackground" Color="#333337"></SolidColorBrush>
-	<SolidColorBrush x:Key="BrushForeground" Color="#EEE"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushBackgroundPanel" Color="#252526"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushBackgroundControl" Color="#252526"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushBackgroundToolbar" Color="#2D2D30"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushBackgroundToolbarLight" Color="#333337"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushForeground" Color="#DDD"></SolidColorBrush>
 	<SolidColorBrush x:Key="BrushForegroundToggleOn" Color="#007ACC"></SolidColorBrush>
+
+	<Style x:Key="StyleControlBase" TargetType="Control">
+		<Setter Property="Background" Value="{DynamicResource BrushBackgroundControl}"/>
+		<Setter Property="Foreground" Value="{DynamicResource BrushForeground}"/>
+	</Style>
+	
+	
+	<Style x:Key="StyleButtonBase" TargetType="Button" BasedOn="{StaticResource StyleControlBase}">
+		<Setter Property="Padding" Value="4"/>
+	</Style>
+	<Style TargetType="Button" BasedOn="{StaticResource StyleButtonBase}">
+
+	</Style>
+
+	<Style TargetType="GridSplitter">
+		<Setter Property="Background" Value="{DynamicResource BrushBackgroundControl}"/>
+	</Style>
 </ResourceDictionary>

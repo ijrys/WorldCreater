@@ -6,10 +6,84 @@
         xmlns:local="clr-namespace:ControlPanelWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="{DynamicResource BrushBackground}">
+	<Window.Resources>
+		<ControlTemplate x:Key="CTemplateTabPanelButton" TargetType="{x:Type ButtonBase}">
+			<Grid x:Name="border" Background="{DynamicResource BrushBackgroundPanel}" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="4px"/>
+					<ColumnDefinition Width="auto"/>
+				</Grid.ColumnDefinitions>
+				<ContentPresenter x:Name="contentPresenter"
+								  ContentTemplate="{TemplateBinding ContentTemplate}"
+								  Content="{TemplateBinding Content}"
+								  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+								  Focusable="False"
+								  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								  Margin="{TemplateBinding Padding}"
+								  RecognizesAccessKey="True"
+								  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								  RenderTransformOrigin="0.5,0.5"
+								  Grid.Column="1">
+					<ContentPresenter.LayoutTransform>
+						<RotateTransform Angle="90"/>
+					</ContentPresenter.LayoutTransform>
+				</ContentPresenter>
+				<TextBlock></TextBlock>
+				<Border Grid.Column="0" x:Name="block" Background="{DynamicResource BrushBackgroundToolbarLight}"></Border>
+			</Grid>
+			<ControlTemplate.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
+					<Setter TargetName="block" Property="Background" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
+				</Trigger>
+				<Trigger Property="IsPressed" Value="True">
+					<Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
+					<Setter TargetName="block" Property="Background" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
+				</Trigger>
+			</ControlTemplate.Triggers>
+		</ControlTemplate>
+	</Window.Resources>
+	<Grid Background="{DynamicResource BrushBackground}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="32px"/>
 			<RowDefinition Height="1*"/>
 		</Grid.RowDefinitions>
-    </Grid>
+		<!--ToolBar-->
+		<StackPanel Background="{DynamicResource BrushBackgroundControl}">
+			
+		</StackPanel>
+		
+		<!--Show-->
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="128px"/>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="128px"/>
+			</Grid.ColumnDefinitions>
+			<GridSplitter Grid.Column="1" Width="4"></GridSplitter>
+			<GridSplitter Grid.Column="3" Width="4"></GridSplitter>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="32px"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Background="{DynamicResource BrushBackgroundPanel}">
+					<StackPanel.Resources>
+						<ResourceDictionary>
+							<Style TargetType="Button" BasedOn="{StaticResource StyleButtonBase}">
+								<Setter Property="Background" Value="{DynamicResource BrushPanelBackground}"/>
+								<Setter Property="Margin" Value="0 6"/>
+								<Setter Property="Template" Value="{StaticResource ResourceKey=CTemplateTabPanelButton}"/>
+							</Style>
+						</ResourceDictionary>
+					</StackPanel.Resources>
+					<Button>新建地形</Button>
+					<Button>记录列表</Button>
+				</StackPanel>
+			</Grid>
+		</Grid>
+	</Grid>
 </Window>
