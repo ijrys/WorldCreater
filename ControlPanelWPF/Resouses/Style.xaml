@@ -25,4 +25,8 @@
 	<Style TargetType="GridSplitter">
 		<Setter Property="Background" Value="{DynamicResource BrushBackgroundControl}"/>
 	</Style>
+	<!--<Style TargetType="ScrollBar">
+		<Setter Property="Background" Value="{DynamicResource BrushBackgroundControl}"/>
+		<Setter Property="Foreground" Value="{DynamicResource BrushBackgroundToolbar}"/>
+	</Style>-->
 </ResourceDictionary>

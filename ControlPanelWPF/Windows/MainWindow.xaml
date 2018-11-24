@@ -43,17 +43,19 @@
 				</Trigger>
 			</ControlTemplate.Triggers>
 		</ControlTemplate>
+	
 	</Window.Resources>
 	<Grid Background="{DynamicResource BrushBackground}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="32px"/>
 			<RowDefinition Height="1*"/>
+			<RowDefinition Height="24px"/>
 		</Grid.RowDefinitions>
 		<!--ToolBar-->
 		<StackPanel Background="{DynamicResource BrushBackgroundControl}">
-			
+
 		</StackPanel>
-		
+
 		<!--Show-->
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
@@ -84,6 +86,37 @@
 					<Button>记录列表</Button>
 				</StackPanel>
 			</Grid>
+
+			<Grid Grid.Column="2">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="32px"/>
+				</Grid.RowDefinitions>
+				<ScrollViewer HorizontalScrollBarVisibility="Visible"
+							  VerticalScrollBarVisibility="Visible">
+					<Image Source="pack://application:,,,/Resouses\img.png"></Image>
+				</ScrollViewer>
+				<StackPanel Grid.Row="1" Background="{DynamicResource BrushBackgroundToolbar}" Orientation="Horizontal">
+					<ComboBox Width="64px">
+						<ComboBoxItem>Auto</ComboBoxItem>
+						<ComboBoxItem IsEnabled="False">---</ComboBoxItem>
+						<ComboBoxItem>10%</ComboBoxItem>
+						<ComboBoxItem>20%</ComboBoxItem>
+						<ComboBoxItem>25%</ComboBoxItem>
+						<ComboBoxItem>50%</ComboBoxItem>
+						<ComboBoxItem>100%</ComboBoxItem>
+						<ComboBoxItem>150%</ComboBoxItem>
+						<ComboBoxItem>200%</ComboBoxItem>
+						<ComboBoxItem>250%</ComboBoxItem>
+						<ComboBoxItem>300%</ComboBoxItem>
+						<ComboBoxItem>350%</ComboBoxItem>
+						<ComboBoxItem>400%</ComboBoxItem>
+					</ComboBox>
+				</StackPanel>
+			</Grid>
 		</Grid>
+		
+		<!--ProgressBar-->
+		<Border Grid.Row="2" Background="{DynamicResource BrushForegroundToggleOn}"/>
 	</Grid>
 </Window>
