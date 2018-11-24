@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:ControlPanelWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="{DynamicResource BrushBackground}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="32px"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
     </Grid>
 </Window>

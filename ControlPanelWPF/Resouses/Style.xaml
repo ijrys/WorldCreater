@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ControlPanelWPF.Resouses">
+	<SolidColorBrush x:Key="BrushBackground" Color="#1E1E1E"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushPanelBackground" Color="#252526"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushToolbarBackground" Color="#2D2D30"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushToolbarLightBackground" Color="#333337"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushForeground" Color="#EEE"></SolidColorBrush>
+	<SolidColorBrush x:Key="BrushForegroundToggleOn" Color="#007ACC"></SolidColorBrush>
+</ResourceDictionary>
