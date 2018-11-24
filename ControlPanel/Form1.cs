@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseType;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,12 +35,15 @@ namespace ControlPanel {
 				if (_picAutoSize == value) return;
 				if (value) {
 					pictureBox1.Dock = DockStyle.Fill;
-				} else {
+				}
+				else {
 					pictureBox1.Dock = DockStyle.None;
 				}
 				_picAutoSize = value;
 			}
 		}
+
+		private ResaultShowInfoColl _res = null;
 
 
 		public Image ShowImg {
@@ -48,7 +52,8 @@ namespace ControlPanel {
 				pictureBox1.Image = value;
 				if (value == null) return;
 				if (PicAutoSize) {
-				} else {
+				}
+				else {
 					pictureBox1.Width = value.Width * PicPersent / 100;
 					pictureBox1.Height = value.Height * PicPersent / 100;
 				}
@@ -86,7 +91,7 @@ namespace ControlPanel {
 		/// </summary>
 		/// <param name="img"></param>
 		public void AsyncSetShowImage(Image img) {
-			pictureBox1.BeginInvoke(new EventDelegate((object[] args)=> {
+			pictureBox1.BeginInvoke(new EventDelegate((object[] args) => {
 				SetShowImage(img);
 				this.Refresh();
 			}));
@@ -95,7 +100,7 @@ namespace ControlPanel {
 		/// 更换正在展示的图像，异步调用时请使用AsyncSetShowImage
 		/// </summary>
 		/// <param name="img"></param>
-		public void SetShowImage (Image img) {
+		public void SetShowImage(Image img) {
 			ShowImg = img;
 		}
 
@@ -117,11 +122,11 @@ namespace ControlPanel {
 
 		private void btnRTWay_Click(object sender, EventArgs e) {
 			BaseType.Config config = new BaseType.Config() {
-				BlockSize = 8,
-				BlockNumW = 2,
-				BlockNumH = 2,
+				BlockSize = 6,
+				BlockNumW = 16,
+				BlockNumH = 16,
 				RandomLevel = 4096,
-				RandomKey = 1234
+				RandomKey = (int)DateTime.Now.Ticks, //1234
 			};
 			RandomTend.RandomTend th = new RandomTend.RandomTend(config);
 			th.OnProcessing += (byte persent, string message, bool freshMap, int[,] newMap) => {
@@ -134,8 +139,46 @@ namespace ControlPanel {
 			th.CreateMap();
 
 			//th.Resault.SetShowInfoMap("bwimg", ShowImg);
+			int[,] rv = th.Resault.GetShowInfoMap("RandomValue") as int[,];
 
-			SetShowImage(MapConvert.HeightToImage.ColorImage(th.Resault.GetResault(), -2097152, 2097152));
+			Bitmap rvm = null;
+			Bitmap heim = null;
+			Bitmap colorm = null;
+
+			colorm = MapConvert.HeightToImage.ColorImage(th.Resault.GetResault(), -2097152, 2097152);
+			heim = MapConvert.HeightToImage.BWImage(th.Resault.GetResault(), -2097152, 2097152, true);
+			if (rv != null) {
+				rvm = MapConvert.HeightToImage.BWImage(rv, -2097152, 2097152, true);
+			}
+			this._res = new ResaultShowInfoColl(th.Resault, rvm, heim, colorm);
+			SetShowImage(colorm);
 		}
+
+		#region 展示信息切换按钮
+		/// <summary>
+		/// 展示随机值按钮事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void btnShowImgRandom_Click(object sender, EventArgs e) {
+			SetShowImage(_res.RandomMap);
+		}
+		/// <summary>
+		/// 展示高度图按钮事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void btnShowImgHeight_Click(object sender, EventArgs e) {
+			SetShowImage(_res.HeightMap);
+		}
+		/// <summary>
+		/// 展示彩图按钮事件
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void btnShowImgColor_Click(object sender, EventArgs e) {
+			SetShowImage(_res.ColorMap);
+		} 
+		#endregion
 	}
 }

@@ -24,6 +24,7 @@ namespace RandomTend {
 				for (int j = 0; j < w; j++) _rv[i, j] = r.Next(-1048576, 1048576);
 			}
 
+			
 			this.OnProcessing?.Invoke(50, "正在准备数据", true, _rv);
 
 			for (int i = 0; i < h; i += blockw) {
@@ -64,6 +65,7 @@ namespace RandomTend {
 
 
 			this.Resault = new Resault(_map);
+			Resault.SetShowInfoMap("RandomValue", _rv);
 		}
 	}
 }

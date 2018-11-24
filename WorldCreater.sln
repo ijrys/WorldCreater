@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomTend", "RandomTend\Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapConvert", "MapConvert\MapConvert.csproj", "{6DB22A15-A415-4B8F-8EDE-32770D1ADB18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlPanelWPF", "ControlPanelWPF\ControlPanelWPF.csproj", "{F28A774A-E4ED-431B-A32C-C91E9B39D395}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6DB22A15-A415-4B8F-8EDE-32770D1ADB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DB22A15-A415-4B8F-8EDE-32770D1ADB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DB22A15-A415-4B8F-8EDE-32770D1ADB18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F28A774A-E4ED-431B-A32C-C91E9B39D395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F28A774A-E4ED-431B-A32C-C91E9B39D395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F28A774A-E4ED-431B-A32C-C91E9B39D395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F28A774A-E4ED-431B-A32C-C91E9B39D395}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -27,6 +27,7 @@
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.splitContainer2 = new System.Windows.Forms.SplitContainer();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.btnRTWay = new System.Windows.Forms.Button();
 			this.textMessage = new System.Windows.Forms.TextBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
@@ -37,7 +38,11 @@
 			this.btnPicAuto = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.btnRTWay = new System.Windows.Forms.Button();
+			this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+			this.btnShowImgRandom = new System.Windows.Forms.Button();
+			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+			this.btnShowImgHeight = new System.Windows.Forms.Button();
+			this.btnShowImgColor = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -51,6 +56,11 @@
 			this.flowLayoutPanel2.SuspendLayout();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+			this.splitContainer3.Panel1.SuspendLayout();
+			this.splitContainer3.Panel2.SuspendLayout();
+			this.splitContainer3.SuspendLayout();
+			this.flowLayoutPanel3.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -67,7 +77,7 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-			this.splitContainer1.Size = new System.Drawing.Size(812, 381);
+			this.splitContainer1.Size = new System.Drawing.Size(812, 449);
 			this.splitContainer1.SplitterDistance = 207;
 			this.splitContainer1.SplitterWidth = 7;
 			this.splitContainer1.TabIndex = 0;
@@ -82,13 +92,13 @@
 			// 
 			// splitContainer2.Panel1
 			// 
-			this.splitContainer2.Panel1.Controls.Add(this.flowLayoutPanel1);
+			this.splitContainer2.Panel1.Controls.Add(this.splitContainer3);
 			// 
 			// splitContainer2.Panel2
 			// 
 			this.splitContainer2.Panel2.Controls.Add(this.textMessage);
-			this.splitContainer2.Size = new System.Drawing.Size(207, 381);
-			this.splitContainer2.SplitterDistance = 262;
+			this.splitContainer2.Size = new System.Drawing.Size(207, 449);
+			this.splitContainer2.SplitterDistance = 308;
 			this.splitContainer2.SplitterWidth = 7;
 			this.splitContainer2.TabIndex = 0;
 			// 
@@ -99,8 +109,18 @@
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(5);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(207, 262);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(207, 154);
 			this.flowLayoutPanel1.TabIndex = 0;
+			// 
+			// btnRTWay
+			// 
+			this.btnRTWay.Location = new System.Drawing.Point(3, 3);
+			this.btnRTWay.Name = "btnRTWay";
+			this.btnRTWay.Size = new System.Drawing.Size(160, 32);
+			this.btnRTWay.TabIndex = 0;
+			this.btnRTWay.Text = "随机趋势化算法";
+			this.btnRTWay.UseVisualStyleBackColor = true;
+			this.btnRTWay.Click += new System.EventHandler(this.btnRTWay_Click);
 			// 
 			// textMessage
 			// 
@@ -109,7 +129,7 @@
 			this.textMessage.Margin = new System.Windows.Forms.Padding(5);
 			this.textMessage.Multiline = true;
 			this.textMessage.Name = "textMessage";
-			this.textMessage.Size = new System.Drawing.Size(207, 112);
+			this.textMessage.Size = new System.Drawing.Size(207, 134);
 			this.textMessage.TabIndex = 0;
 			// 
 			// tableLayoutPanel1
@@ -125,18 +145,19 @@
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(598, 381);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(598, 449);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// flowLayoutPanel2
 			// 
+			this.flowLayoutPanel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.flowLayoutPanel2.Controls.Add(this.labPciScalSize);
 			this.flowLayoutPanel2.Controls.Add(this.btnPicSub);
 			this.flowLayoutPanel2.Controls.Add(this.btnPicAdd);
 			this.flowLayoutPanel2.Controls.Add(this.btnPic100);
 			this.flowLayoutPanel2.Controls.Add(this.btnPicAuto);
 			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 314);
+			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 382);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
 			this.flowLayoutPanel2.Size = new System.Drawing.Size(592, 64);
 			this.flowLayoutPanel2.TabIndex = 0;
@@ -194,11 +215,12 @@
 			// panel1
 			// 
 			this.panel1.AutoScroll = true;
+			this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.panel1.Controls.Add(this.pictureBox1);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel1.Location = new System.Drawing.Point(3, 3);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(592, 305);
+			this.panel1.Size = new System.Drawing.Size(592, 373);
 			this.panel1.TabIndex = 1;
 			// 
 			// pictureBox1
@@ -211,21 +233,70 @@
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
 			// 
-			// btnRTWay
+			// splitContainer3
 			// 
-			this.btnRTWay.Location = new System.Drawing.Point(3, 3);
-			this.btnRTWay.Name = "btnRTWay";
-			this.btnRTWay.Size = new System.Drawing.Size(165, 32);
-			this.btnRTWay.TabIndex = 0;
-			this.btnRTWay.Text = "随机趋势化算法";
-			this.btnRTWay.UseVisualStyleBackColor = true;
-			this.btnRTWay.Click += new System.EventHandler(this.btnRTWay_Click);
+			this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer3.Name = "splitContainer3";
+			this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// splitContainer3.Panel1
+			// 
+			this.splitContainer3.Panel1.Controls.Add(this.flowLayoutPanel1);
+			// 
+			// splitContainer3.Panel2
+			// 
+			this.splitContainer3.Panel2.Controls.Add(this.flowLayoutPanel3);
+			this.splitContainer3.Size = new System.Drawing.Size(207, 308);
+			this.splitContainer3.SplitterDistance = 154;
+			this.splitContainer3.TabIndex = 1;
+			// 
+			// btnShowImgRandom
+			// 
+			this.btnShowImgRandom.Location = new System.Drawing.Point(3, 3);
+			this.btnShowImgRandom.Name = "btnShowImgRandom";
+			this.btnShowImgRandom.Size = new System.Drawing.Size(160, 32);
+			this.btnShowImgRandom.TabIndex = 0;
+			this.btnShowImgRandom.Text = "随机值图";
+			this.btnShowImgRandom.UseVisualStyleBackColor = true;
+			this.btnShowImgRandom.Click += new System.EventHandler(this.btnShowImgRandom_Click);
+			// 
+			// flowLayoutPanel3
+			// 
+			this.flowLayoutPanel3.Controls.Add(this.btnShowImgRandom);
+			this.flowLayoutPanel3.Controls.Add(this.btnShowImgHeight);
+			this.flowLayoutPanel3.Controls.Add(this.btnShowImgColor);
+			this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+			this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+			this.flowLayoutPanel3.Size = new System.Drawing.Size(207, 150);
+			this.flowLayoutPanel3.TabIndex = 0;
+			// 
+			// btnShowImgHeight
+			// 
+			this.btnShowImgHeight.Location = new System.Drawing.Point(3, 41);
+			this.btnShowImgHeight.Name = "btnShowImgHeight";
+			this.btnShowImgHeight.Size = new System.Drawing.Size(160, 32);
+			this.btnShowImgHeight.TabIndex = 1;
+			this.btnShowImgHeight.Text = "黑白图";
+			this.btnShowImgHeight.UseVisualStyleBackColor = true;
+			this.btnShowImgHeight.Click += new System.EventHandler(this.btnShowImgHeight_Click);
+			// 
+			// btnShowImgColor
+			// 
+			this.btnShowImgColor.Location = new System.Drawing.Point(3, 79);
+			this.btnShowImgColor.Name = "btnShowImgColor";
+			this.btnShowImgColor.Size = new System.Drawing.Size(160, 32);
+			this.btnShowImgColor.TabIndex = 2;
+			this.btnShowImgColor.Text = "彩色图";
+			this.btnShowImgColor.UseVisualStyleBackColor = true;
+			this.btnShowImgColor.Click += new System.EventHandler(this.btnShowImgColor_Click);
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(812, 381);
+			this.ClientSize = new System.Drawing.Size(812, 449);
 			this.Controls.Add(this.splitContainer1);
 			this.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.Margin = new System.Windows.Forms.Padding(5);
@@ -246,6 +317,11 @@
 			this.flowLayoutPanel2.PerformLayout();
 			this.panel1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			this.splitContainer3.Panel1.ResumeLayout(false);
+			this.splitContainer3.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+			this.splitContainer3.ResumeLayout(false);
+			this.flowLayoutPanel3.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -266,6 +342,11 @@
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button btnRTWay;
+		private System.Windows.Forms.SplitContainer splitContainer3;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+		private System.Windows.Forms.Button btnShowImgRandom;
+		private System.Windows.Forms.Button btnShowImgHeight;
+		private System.Windows.Forms.Button btnShowImgColor;
 	}
 }
 

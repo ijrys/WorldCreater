@@ -78,7 +78,6 @@ namespace MapConvert {
 			}
 
 			return re;
-
 		}
 	}
 }
