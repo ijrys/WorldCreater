@@ -29,4 +29,12 @@
 		<Setter Property="Background" Value="{DynamicResource BrushBackgroundControl}"/>
 		<Setter Property="Foreground" Value="{DynamicResource BrushBackgroundToolbar}"/>
 	</Style>-->
+	<Style TargetType="ComboBox">
+		<Setter Property="Background" Value="{DynamicResource BrushBackgroundControl}"/>
+	</Style>
+
+	<Style TargetType="ListBox">
+		<Setter Property="Background" Value="{DynamicResource BrushBackgroundPanel}"/>
+		<Setter Property="Foreground" Value="{DynamicResource BrushForeground}"/>
+	</Style>
 </ResourceDictionary>

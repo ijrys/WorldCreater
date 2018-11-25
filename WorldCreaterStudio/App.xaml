@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:ControlPanelWPF"
              StartupUri="Windows\MainWindow.xaml">
 	<Application.Resources>
-		<ResourceDictionary Source="Resouses\Style.xaml"/>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resouses\Style.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplate.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>

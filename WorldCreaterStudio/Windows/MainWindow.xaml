@@ -3,48 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ControlPanelWPF"
+        xmlns:local="clr-namespace:WorldCreaterStudio"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-	<Window.Resources>
-		<ControlTemplate x:Key="CTemplateTabPanelButton" TargetType="{x:Type ButtonBase}">
-			<Grid x:Name="border" Background="{DynamicResource BrushBackgroundPanel}" SnapsToDevicePixels="True" RenderTransformOrigin="0.5,0.5">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="4px"/>
-					<ColumnDefinition Width="auto"/>
-				</Grid.ColumnDefinitions>
-				<ContentPresenter x:Name="contentPresenter"
-								  ContentTemplate="{TemplateBinding ContentTemplate}"
-								  Content="{TemplateBinding Content}"
-								  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-								  Focusable="False"
-								  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-								  Margin="{TemplateBinding Padding}"
-								  RecognizesAccessKey="True"
-								  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-								  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-								  RenderTransformOrigin="0.5,0.5"
-								  Grid.Column="1">
-					<ContentPresenter.LayoutTransform>
-						<RotateTransform Angle="90"/>
-					</ContentPresenter.LayoutTransform>
-				</ContentPresenter>
-				<TextBlock></TextBlock>
-				<Border Grid.Column="0" x:Name="block" Background="{DynamicResource BrushBackgroundToolbarLight}"></Border>
-			</Grid>
-			<ControlTemplate.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
-					<Setter TargetName="block" Property="Background" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
-				</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
-					<Setter TargetName="block" Property="Background" Value="{DynamicResource ResourceKey=BrushForegroundToggleOn}"/>
-				</Trigger>
-			</ControlTemplate.Triggers>
-		</ControlTemplate>
-	
-	</Window.Resources>
+
 	<Grid Background="{DynamicResource BrushBackground}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="32px"/>
@@ -97,7 +59,7 @@
 					<Image Source="pack://application:,,,/Resouses\img.png"></Image>
 				</ScrollViewer>
 				<StackPanel Grid.Row="1" Background="{DynamicResource BrushBackgroundToolbar}" Orientation="Horizontal">
-					<ComboBox Width="64px">
+					<ComboBox Width="64px" IsEditable="True" Background="{DynamicResource BrushBackgroundControl}" Foreground="{DynamicResource BrushForeground}" Template="{DynamicResource ComboBoxControlTemplate}">
 						<ComboBoxItem>Auto</ComboBoxItem>
 						<ComboBoxItem IsEnabled="False">---</ComboBoxItem>
 						<ComboBoxItem>10%</ComboBoxItem>
@@ -114,6 +76,12 @@
 					</ComboBox>
 				</StackPanel>
 			</Grid>
+
+			<ListBox Grid.Column="4">
+				<ListBoxItem>123</ListBoxItem>
+				<ListBoxItem>456</ListBoxItem>
+				<ListBoxItem>789</ListBoxItem>
+			</ListBox>
 		</Grid>
 		
 		<!--ProgressBar-->
