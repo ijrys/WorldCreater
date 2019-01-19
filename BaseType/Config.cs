@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaseType {
+namespace WorldCreater.BaseType {
 	public class Config {
 		byte _blockSize;
 		int _blockNumW, _blockNumH, _randomLevel, _randomKey;

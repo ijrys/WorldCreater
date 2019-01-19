@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseType {
+namespace WorldCreater.BaseType {
 	public interface ICreaterAble {
 		/// <summary>
 		/// 获取结果

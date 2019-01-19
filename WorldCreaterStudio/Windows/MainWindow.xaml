@@ -83,7 +83,7 @@
 				<ListBoxItem>789</ListBoxItem>
 			</ListBox>
 		</Grid>
-		
+		<Image></Image>
 		<!--ProgressBar-->
 		<Border Grid.Row="2" Background="{DynamicResource BrushForegroundToggleOn}"/>
 	</Grid>

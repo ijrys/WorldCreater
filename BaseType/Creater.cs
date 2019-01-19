@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaseType {
+namespace WorldCreater.BaseType {
 	/// <summary>
 	/// 进程改变时委托类型
 	/// </summary>

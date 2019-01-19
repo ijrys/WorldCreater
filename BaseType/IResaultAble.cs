@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaseType {
+namespace WorldCreater.BaseType {
 	public interface IResaultAble {
 		/// <summary>
 		/// 获取结果矩阵

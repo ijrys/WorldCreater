@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BaseType {
+namespace WorldCreater.BaseType {
 	public class Resault : IResaultAble {
 		private Dictionary<string, object> _res = new Dictionary<string, object>();
 		private int[,] _rmap;

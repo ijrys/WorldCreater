@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapConvert", "MapConvert\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreaterStudio", "WorldCreaterStudio\WorldCreaterStudio.csproj", "{F28A774A-E4ED-431B-A32C-C91E9B39D395}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreaterStudio_Core", "WorldCreaterStudio_Core\WorldCreaterStudio_Core.csproj", "{F953B410-F0F7-4C96-84E6-18CB8909AEAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDemo", "UIDemo\UIDemo.csproj", "{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{F28A774A-E4ED-431B-A32C-C91E9B39D395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F28A774A-E4ED-431B-A32C-C91E9B39D395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F28A774A-E4ED-431B-A32C-C91E9B39D395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F953B410-F0F7-4C96-84E6-18CB8909AEAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F953B410-F0F7-4C96-84E6-18CB8909AEAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F953B410-F0F7-4C96-84E6-18CB8909AEAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F953B410-F0F7-4C96-84E6-18CB8909AEAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

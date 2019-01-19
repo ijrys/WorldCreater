@@ -20,6 +20,9 @@ namespace WorldCreaterStudio {
 	public partial class MainWindow : Window {
 		public MainWindow() {
 			InitializeComponent();
+
+			BitmapImage bmp = new BitmapImage();
+			bmp.
 		}
 	}
 }
