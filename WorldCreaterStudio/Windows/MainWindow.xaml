@@ -4,87 +4,70 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldCreaterStudio"
+		xmlns:localcore="clr-namespace:WorldCreaterStudio_Core;assembly=WorldCreaterStudio_Core"
+		xmlns:res="clr-namespace:WorldCreaterStudio.Properties"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+		<!--xmlns:localres="clr-namespace:WorldCreaterStudio_Resouses.Properties"-->
 
-	<Grid Background="{DynamicResource BrushBackground}">
+	<Window.Resources>
+		<ResourceDictionary>
+			<SolidColorBrush x:Key="ThemeColor" Color="#37D"/>
+		</ResourceDictionary>
+	</Window.Resources>
+	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="32px"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
 			<RowDefinition Height="1*"/>
-			<RowDefinition Height="24px"/>
+			<RowDefinition Height="auto"/>
 		</Grid.RowDefinitions>
-		<!--ToolBar-->
-		<StackPanel Background="{DynamicResource BrushBackgroundControl}">
-
-		</StackPanel>
-
-		<!--Show-->
-		<Grid Grid.Row="1">
+		<Menu Grid.Row="0" Background="{StaticResource ThemeColor}" FontSize="16">
+			<MenuItem Header="文件">
+				<MenuItem Header="新建工程"></MenuItem>
+				<MenuItem Header="打开工程"></MenuItem>
+			</MenuItem>
+			<MenuItem Header="设置">
+			</MenuItem>
+			<MenuItem Header="关于">
+			</MenuItem>
+		</Menu>
+		<ToolBar Grid.Row="1">
+			<Button>Save</Button>
+			<Button>open</Button>
+		</ToolBar>
+		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="128px"/>
-				<ColumnDefinition Width="auto"/>
 				<ColumnDefinition Width="1*"/>
 				<ColumnDefinition Width="auto"/>
-				<ColumnDefinition Width="128px"/>
+				<ColumnDefinition Width="128"/>
 			</Grid.ColumnDefinitions>
-			<GridSplitter Grid.Column="1" Width="4"></GridSplitter>
-			<GridSplitter Grid.Column="3" Width="4"></GridSplitter>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="32px"/>
-					<ColumnDefinition Width="1*"/>
-				</Grid.ColumnDefinitions>
-				<StackPanel Background="{DynamicResource BrushBackgroundPanel}">
-					<StackPanel.Resources>
-						<ResourceDictionary>
-							<Style TargetType="Button" BasedOn="{StaticResource StyleButtonBase}">
-								<Setter Property="Background" Value="{DynamicResource BrushPanelBackground}"/>
-								<Setter Property="Margin" Value="0 6"/>
-								<Setter Property="Template" Value="{StaticResource ResourceKey=CTemplateTabPanelButton}"/>
-							</Style>
-						</ResourceDictionary>
-					</StackPanel.Resources>
-					<Button>新建地形</Button>
-					<Button>记录列表</Button>
-				</StackPanel>
-			</Grid>
+			<Image Source="pack://application:,,,/Resouses\img.png"></Image>
 
-			<Grid Grid.Column="2">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="1*"/>
-					<RowDefinition Height="auto"/>
-				</Grid.RowDefinitions>
-				<ScrollViewer HorizontalScrollBarVisibility="Visible"
-							  VerticalScrollBarVisibility="Visible">
-					<Image Source="pack://application:,,,/Resouses\img.png"></Image>
-				</ScrollViewer>
-				<StackPanel Grid.Row="1" Background="{DynamicResource BrushBackgroundToolbar}" Orientation="Horizontal">
-					<ComboBox Width="64px" IsEditable="True" Background="{DynamicResource BrushBackgroundControl}" Foreground="{DynamicResource BrushForeground}" Template="{DynamicResource ComboBoxControlTemplate}">
-						<ComboBoxItem>Auto</ComboBoxItem>
-						<ComboBoxItem IsEnabled="False">---</ComboBoxItem>
-						<ComboBoxItem>10%</ComboBoxItem>
-						<ComboBoxItem>20%</ComboBoxItem>
-						<ComboBoxItem>25%</ComboBoxItem>
-						<ComboBoxItem>50%</ComboBoxItem>
-						<ComboBoxItem>100%</ComboBoxItem>
-						<ComboBoxItem>150%</ComboBoxItem>
-						<ComboBoxItem>200%</ComboBoxItem>
-						<ComboBoxItem>250%</ComboBoxItem>
-						<ComboBoxItem>300%</ComboBoxItem>
-						<ComboBoxItem>350%</ComboBoxItem>
-						<ComboBoxItem>400%</ComboBoxItem>
-					</ComboBox>
+			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>
+			<ScrollViewer Grid.Column="2" Background="#999">
+				<StackPanel Background="#999" Width="128px">
+					<StackPanel Orientation="Horizontal">
+						<!--<Image VerticalAlignment="Center" Source="pack://application:,,,/Resouses/Icon_Pro_20_20.png" Width="20" Height="20" Margin="0,0,0,0"/>-->
+						<Image VerticalAlignment="Center" Width="20" Height="20" Margin="0,0,0,0"/>
+						<TextBlock VerticalAlignment="Center" Text="解决方案"></TextBlock>
+					</StackPanel>
+					<TreeView x:Name="Tree_Project">
+						<TreeView.ItemTemplate>
+							<HierarchicalDataTemplate DataType="{x:Type localcore:IWorkLogicNodeAble}" ItemsSource="{Binding Path=Childrens}">
+								<StackPanel Orientation="Horizontal">
+									<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
+									<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
+								</StackPanel>
+							</HierarchicalDataTemplate>
+						</TreeView.ItemTemplate>
+					</TreeView>
 				</StackPanel>
-			</Grid>
-
-			<ListBox Grid.Column="4">
-				<ListBoxItem>123</ListBoxItem>
-				<ListBoxItem>456</ListBoxItem>
-				<ListBoxItem>789</ListBoxItem>
-			</ListBox>
+			</ScrollViewer>
 		</Grid>
-		<Image></Image>
-		<!--ProgressBar-->
-		<Border Grid.Row="2" Background="{DynamicResource BrushForegroundToggleOn}"/>
+		<StatusBar Grid.Row="3" Background="{StaticResource ThemeColor}" FontSize="16">
+			<TextBlock>就绪</TextBlock>
+		</StatusBar>
 	</Grid>
+
 </Window>

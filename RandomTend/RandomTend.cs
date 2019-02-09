@@ -1,5 +1,5 @@
 ﻿using System;
-using BaseType;
+using WorldCreater.BaseType;
 
 namespace RandomTend {
 	public class RandomTend : Creater {

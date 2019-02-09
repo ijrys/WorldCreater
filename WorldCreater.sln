@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreaterStudio_Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDemo", "UIDemo\UIDemo.csproj", "{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreaterStudio_Resouses", "WorldCreaterStudio_Resouses\WorldCreaterStudio_Resouses.csproj", "{3DC94112-32E4-4EDF-9FEC-5A45D0F10F73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{909698C3-8959-4D4E-AAE3-5CDE146E8C03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E006F37E-5C76-4ED0-9388-A0ED076A1BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC94112-32E4-4EDF-9FEC-5A45D0F10F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC94112-32E4-4EDF-9FEC-5A45D0F10F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC94112-32E4-4EDF-9FEC-5A45D0F10F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC94112-32E4-4EDF-9FEC-5A45D0F10F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{909698C3-8959-4D4E-AAE3-5CDE146E8C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{909698C3-8959-4D4E-AAE3-5CDE146E8C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{909698C3-8959-4D4E-AAE3-5CDE146E8C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{909698C3-8959-4D4E-AAE3-5CDE146E8C03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

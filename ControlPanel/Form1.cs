@@ -1,4 +1,4 @@
-﻿using BaseType;
+﻿using WorldCreater.BaseType;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -121,10 +121,10 @@ namespace ControlPanel {
 		}
 
 		private void btnRTWay_Click(object sender, EventArgs e) {
-			BaseType.Config config = new BaseType.Config() {
+			Config config = new Config() {
 				BlockSize = 6,
-				BlockNumW = 16,
-				BlockNumH = 16,
+				BlockNumW = 2,
+				BlockNumH = 2,
 				RandomLevel = 4096,
 				RandomKey = (int)DateTime.Now.Ticks, //1234
 			};
@@ -178,7 +178,22 @@ namespace ControlPanel {
 		/// <param name="e"></param>
 		private void btnShowImgColor_Click(object sender, EventArgs e) {
 			SetShowImage(_res.ColorMap);
-		} 
+		}
 		#endregion
+
+		private void button1_Click(object sender, EventArgs e) {
+			Image img = pictureBox1.Image;
+			if (img == null) return;
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+				try {
+					img.Save(saveFileDialog.FileName);
+				} catch {
+					Message("取消时发生错误");
+				}
+			} else { 
+				Message("取消保存");
+			}
+		}
 	}
 }

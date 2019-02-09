@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F28A774A-E4ED-431B-A32C-C91E9B39D395}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ControlPanelWPF</RootNamespace>
-    <AssemblyName>ControlPanelWPF</AssemblyName>
+    <RootNamespace>WorldCreaterStudio</RootNamespace>
+    <AssemblyName>WorldCreaterStudio</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -81,6 +81,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Resouses\Icons.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -101,7 +102,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -120,6 +121,13 @@
       <Project>{f953b410-f0f7-4c96-84e6-18cb8909aeab}</Project>
       <Name>WorldCreaterStudio_Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WorldCreaterStudio_Resouses\WorldCreaterStudio_Resouses.csproj">
+      <Project>{3dc94112-32e4-4edf-9fec-5a45d0f10f73}</Project>
+      <Name>WorldCreaterStudio_Resouses</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

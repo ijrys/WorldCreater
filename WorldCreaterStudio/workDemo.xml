@@ -1,10 +1,10 @@
-<work>
+<work guid="">
 	<images>
 		<image key="res_1" name="this is a name" file="path base on project flodar/images" description="description"/>
 		<image key="res_2" name="Random Map" file="f-random.png" description="the radom value of whole map"/>
 	</images>
 
-	<FirstFactory>
+	<FrontEndFactory>
 		<Creater creater="Tend">
 			<add key="blocksize" value="6" />
 
@@ -13,14 +13,14 @@
 				<image key="res_1">
 			</images>
 		</Creater>
-	</FirstFactory>
+	</FrontEndFactory>
 
-	<LaterFactory>
+	<BackEndFactory>
 		<Factory name="空气运动" progress="AirMotion" factory="">
 			<data file="airmotion.data" />
 			<images>
 				<image key="res_2">
 			</images>
 		</Factory>
-	</LaterFactory>
+	</BackEndFactory>
 </work>

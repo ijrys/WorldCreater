@@ -1,27 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Xml;
 using WorldCreater.BaseType;
 
 namespace WorldCreaterStudio_Core {
-	class Work {
-		/// <summary>
-		/// 缓存的图像文件
-		/// </summary>
-		class Image {
-			string name;
-			string filePath;
-			string description;
+	public class DirectoryExistedException : Exception {
+		public DirectoryExistedException(string path) : base("work directory has existed") {
+			Data["path"] = path;
+		}
+	}
+
+	public class Work : IWorkLogicNodeAble {
+		DirectoryInfo _workDirectionary;
+		DirectoryInfo _workResousesDirectionary;
+		FileInfo _workFile;
+		Guid _guid;
+		bool _changed;
+
+		Config _config;
+
+		public UIElement ShowPanel { get; private set; }
+		public string NodeName { get; private set; }
+		public ImageSource Icon { get; private set; }
+
+
+		public ImageResoureseManager Images { get; private set; }
+		public FrontEndFactory FrontEndNodes { get; private set; }
+		public BackEndFactory BackEndNodes { get; private set; }
+		public Dictionary<string, ImageResourse> first;
+
+		public IEnumerable<IWorkLogicNodeAble> Childrens { get; private set; }
+		public Guid Guid { get => _guid; }
+
+		public XmlElement XmlNode(XmlDocument xmlDocument) {
+			throw new NotImplementedException();
 		}
 
-
-		string _guid;
-		Config _config;
-		Dictionary<string, Image> Images;
-
-		Dictionary<string, Image> first
 
 		/// <summary>
 		/// 随机值
@@ -37,5 +59,127 @@ namespace WorldCreaterStudio_Core {
 		/// 地势图【起伏程度】
 		/// </summary>
 		byte[,] _terrainMap;
+
+		public void Save(bool saveEvenUnchanged = false) {
+			if (!saveEvenUnchanged && !_changed) return;
+			XmlDocument document = new XmlDocument();
+			XmlElement root = document.CreateElement("work");
+			document.AppendChild(root);
+			root.SetAttribute("guid", Guid.ToString());
+
+			// image recourses
+			XmlNode imgRes = Images.XmlNode(document);
+			root.AppendChild(imgRes);
+			Images.Save();
+
+			// front end work
+			if (FrontEndNodes != null) {
+				XmlNode fefactory = FrontEndNodes.XmlNode(document);
+				root.AppendChild(fefactory);
+			}
+
+			// back end work
+			if (BackEndNodes != null) {
+				XmlNode befactory = BackEndNodes.XmlNode(document);
+				root.AppendChild(befactory);
+			}
+
+			document.Save(_workFile.FullName);
+
+			_changed = false;
+		}
+
+		private Work(string workPath, string filename, string workName) {
+			_workDirectionary = new DirectoryInfo(workPath);
+			string imgDir = Path.Combine(workPath, "Images");
+			_workResousesDirectionary = new DirectoryInfo(imgDir);
+			string workFileFullPath = Path.Combine(workPath, filename);
+			_workFile = new FileInfo(workFileFullPath);
+
+			NodeName = workName;
+			Guid = Guid.NewGuid();
+			_changed = false;
+			Images = new ImageResoureseManager(_workResousesDirectionary);
+		}
+		//private Work(string workPath, string filename, string workName, Guid guid) {
+		//	_workDirectionary = new DirectoryInfo(workPath);
+		//	string imgDir = Path.Combine(workPath, "Images");
+		//	_workResousesDirectionary = new DirectoryInfo(imgDir);
+		//	string workFileFullPath = Path.Combine(workPath, filename);
+		//	_workFile = new FileInfo(workFileFullPath);
+
+		//	NodeName = workName;
+		//	_guid = guid;
+		//	_changed = false;
+		//	Images = new ImageResoureseManager(_workResousesDirectionary);
+		//}
+
+		public static Work NewWork(string workPath, string filename, string workName) {
+			if (Directory.Exists(workPath)) {
+				throw new DirectoryExistedException(workPath);
+			}
+			Work work = new Work(workPath, filename, workName);
+			//文件、目录准备
+			work._workDirectionary.Create();
+			work._workResousesDirectionary.Create();
+
+			work.Save(true);
+
+			return work;
+		}
+
+		public static Work OpenWork(string workPath, string filename, string workName) {
+			Work work = new Work(workPath, filename, workName);
+
+			XmlDocument document = new XmlDocument();
+			document.Load(work._workFile.FullName);
+			XmlNode root = document.FirstChild;
+
+			work.Guid = new Guid(root.Attributes["guid"].Value);
+			foreach (XmlElement item in root.ChildNodes) {
+				switch (item.Name.ToLower()) {
+					case "images": //进入图片资源节点
+						if (item.HasChildNodes) {
+							work.Images = ImageResoureseManager.LoadFromXmlNode(item, work._workResousesDirectionary);
+						}
+						break;
+					case "frontendfactory": //前端工厂
+
+						break;
+					case "backendfactory": //后端工厂
+
+						break;
+				}
+				if (item.Name.ToLower() == "images") {
+
+				}
+			}
+
+			return work;
+		}
+
+
+		private static BitmapImage GetBitmapFromFile(string path) {
+			if (!File.Exists(path)) return null;
+			BitmapImage result = new BitmapImage();
+			try {
+				FileStream stream = new FileStream(path, FileMode.Open);
+				//注意：转换的图片的原始格式ImageFormat设为BMP、JPG、PNG等
+
+				stream.Position = 0;
+				result.BeginInit();
+				result.CacheOption = BitmapCacheOption.OnLoad;
+				result.StreamSource = stream;
+				result.EndInit();
+				result.Freeze();
+			}
+			catch (Exception ex) {
+				Console.WriteLine("read image fail");
+				Console.WriteLine(ex.Message);
+				result = null;
+			}
+
+			return result;
+		}
 	}
 }
