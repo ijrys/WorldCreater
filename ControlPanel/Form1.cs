@@ -122,9 +122,9 @@ namespace ControlPanel {
 
 		private void btnRTWay_Click(object sender, EventArgs e) {
 			Config config = new Config() {
-				BlockSize = 6,
-				BlockNumW = 2,
-				BlockNumH = 2,
+				BlockSize = 8,
+				BlockNumW = 8,
+				BlockNumH = 8,
 				RandomLevel = 4096,
 				RandomKey = (int)DateTime.Now.Ticks, //1234
 			};

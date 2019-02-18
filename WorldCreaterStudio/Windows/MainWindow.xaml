@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldCreaterStudio"
 		xmlns:localcore="clr-namespace:WorldCreaterStudio_Core;assembly=WorldCreaterStudio_Core"
-		xmlns:res="clr-namespace:WorldCreaterStudio.Properties"
+		xmlns:res="clr-namespace:WorldCreaterStudio.Resouses"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-		<!--xmlns:localres="clr-namespace:WorldCreaterStudio_Resouses.Properties"-->
+	<!--xmlns:localres="clr-namespace:WorldCreaterStudio_Resouses.Properties"-->
 
 	<Window.Resources>
 		<ResourceDictionary>
@@ -24,8 +24,11 @@
 		</Grid.RowDefinitions>
 		<Menu Grid.Row="0" Background="{StaticResource ThemeColor}" FontSize="16">
 			<MenuItem Header="文件">
-				<MenuItem Header="新建工程"></MenuItem>
-				<MenuItem Header="打开工程"></MenuItem>
+				<MenuItem Header="新建工程" Command="New"></MenuItem>
+				<MenuItem Header="打开工程" Command="Open"></MenuItem>
+				<Separator/>
+				<MenuItem Header="新建工作" Command="New"></MenuItem>
+
 			</MenuItem>
 			<MenuItem Header="设置">
 			</MenuItem>
@@ -35,6 +38,7 @@
 		<ToolBar Grid.Row="1">
 			<Button>Save</Button>
 			<Button>open</Button>
+			<Button>New Work</Button>
 		</ToolBar>
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
@@ -45,25 +49,28 @@
 			<Image Source="pack://application:,,,/Resouses\img.png"></Image>
 
 			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>
-			<ScrollViewer Grid.Column="2" Background="#999">
-				<StackPanel Background="#999" Width="128px">
-					<StackPanel Orientation="Horizontal">
-						<!--<Image VerticalAlignment="Center" Source="pack://application:,,,/Resouses/Icon_Pro_20_20.png" Width="20" Height="20" Margin="0,0,0,0"/>-->
-						<Image VerticalAlignment="Center" Width="20" Height="20" Margin="0,0,0,0"/>
-						<TextBlock VerticalAlignment="Center" Text="解决方案"></TextBlock>
-					</StackPanel>
-					<TreeView x:Name="Tree_Project">
-						<TreeView.ItemTemplate>
-							<HierarchicalDataTemplate DataType="{x:Type localcore:IWorkLogicNodeAble}" ItemsSource="{Binding Path=Childrens}">
-								<StackPanel Orientation="Horizontal">
-									<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
-									<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
-								</StackPanel>
-							</HierarchicalDataTemplate>
-						</TreeView.ItemTemplate>
-					</TreeView>
+
+			<Grid Grid.Column="2" Background="#999">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="auto"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+				<StackPanel Orientation="Horizontal">
+					<!--<Image VerticalAlignment="Center" Source="pack://application:,,,/Resouses/Icon_Pro_20_20.png" Width="20" Height="20" Margin="0,0,0,0"/>-->
+					<Image VerticalAlignment="Center" Width="20" Height="20" Margin="0,0,0,0" Source="{x:Static res:Icons.Dark_Icon_Pro}"/>
+					<TextBlock VerticalAlignment="Center" Text="解决方案"></TextBlock>
 				</StackPanel>
-			</ScrollViewer>
+				<TreeView x:Name="Tree_Project" Grid.Row="1">
+					<TreeView.ItemTemplate>
+						<HierarchicalDataTemplate DataType="{x:Type localcore:IWorkLogicNodeAble}" ItemsSource="{Binding Path=Childrens}">
+							<StackPanel Orientation="Horizontal">
+								<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
+								<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
+							</StackPanel>
+						</HierarchicalDataTemplate>
+					</TreeView.ItemTemplate>
+				</TreeView>
+			</Grid>
 		</Grid>
 		<StatusBar Grid.Row="3" Background="{StaticResource ThemeColor}" FontSize="16">
 			<TextBlock>就绪</TextBlock>

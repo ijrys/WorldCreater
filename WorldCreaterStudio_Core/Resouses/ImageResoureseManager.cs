@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core {
-	public class ImageResoureseManager:IWorkLogicNodeAble {
+	public class ImageResoureseManager : IWorkLogicNodeAble, INotifyPropertyChanged {
 		private Dictionary<string, ImageResourse> _res;
 		private ObservableCollection<IWorkLogicNodeAble> _imgs;
 		private DirectoryInfo _workResousesDir;
+		private ImageSource _icon;
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		ImageResourse this[string key] {
 			get {
@@ -34,9 +38,9 @@ namespace WorldCreaterStudio_Core {
 
 		public string NodeName => "Image Resourese";
 
-		public ImageSource Icon => throw new NotImplementedException();
+		public ImageSource Icon { get=>_icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
 
-		public IEnumerable<IWorkLogicNodeAble> Childrens {
+		public ObservableCollection<IWorkLogicNodeAble> Childrens {
 			get { return _imgs; }
 		}
 

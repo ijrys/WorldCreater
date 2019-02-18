@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,36 +13,36 @@ using System.Xml;
 using WorldCreater.BaseType;
 
 namespace WorldCreaterStudio_Core {
-	public class DirectoryExistedException : Exception {
-		public DirectoryExistedException(string path) : base("work directory has existed") {
-			Data["path"] = path;
-		}
-	}
-
-	public class Work : IWorkLogicNodeAble {
+	public class Work : IWorkLogicNodeAble, INotifyPropertyChanged {
 		DirectoryInfo _workDirectionary;
 		DirectoryInfo _workResousesDirectionary;
 		FileInfo _workFile;
 		Guid _guid;
 		bool _changed;
-
+		ImageSource _icon;
 		Config _config;
 
 		public UIElement ShowPanel { get; private set; }
 		public string NodeName { get; private set; }
-		public ImageSource Icon { get; private set; }
-
+		public ImageSource Icon { get=>_icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
 
 		public ImageResoureseManager Images { get; private set; }
 		public FrontEndFactory FrontEndNodes { get; private set; }
 		public BackEndFactory BackEndNodes { get; private set; }
 		public Dictionary<string, ImageResourse> first;
 
-		public IEnumerable<IWorkLogicNodeAble> Childrens { get; private set; }
-		public Guid Guid { get => _guid; }
+		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
+		public Guid Guid { get => _guid; private set => _guid = value; }
 
 		public XmlElement XmlNode(XmlDocument xmlDocument) {
-			throw new NotImplementedException();
+			XmlElement node = xmlDocument.CreateElement("work");
+			node.SetAttribute("guid", Guid.ToString());
+
+			node.SetAttribute("dictionary", _workDirectionary.Name);
+			node.SetAttribute("file", _workFile.Name);
+			node.SetAttribute("name", NodeName);
+
+			return node;
 		}
 
 
@@ -59,6 +60,8 @@ namespace WorldCreaterStudio_Core {
 		/// 地势图【起伏程度】
 		/// </summary>
 		byte[,] _terrainMap;
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public void Save(bool saveEvenUnchanged = false) {
 			if (!saveEvenUnchanged && !_changed) return;
@@ -100,6 +103,7 @@ namespace WorldCreaterStudio_Core {
 			Guid = Guid.NewGuid();
 			_changed = false;
 			Images = new ImageResoureseManager(_workResousesDirectionary);
+			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
 		}
 		//private Work(string workPath, string filename, string workName, Guid guid) {
 		//	_workDirectionary = new DirectoryInfo(workPath);
@@ -116,7 +120,7 @@ namespace WorldCreaterStudio_Core {
 
 		public static Work NewWork(string workPath, string filename, string workName) {
 			if (Directory.Exists(workPath)) {
-				throw new DirectoryExistedException(workPath);
+				throw new Exceptions.DirectoryExistedException(workPath);
 			}
 			Work work = new Work(workPath, filename, workName);
 			//文件、目录准备
@@ -125,6 +129,7 @@ namespace WorldCreaterStudio_Core {
 
 			work.Save(true);
 
+			work.Childrens.Add(work.Images);
 			return work;
 		}
 
@@ -154,7 +159,7 @@ namespace WorldCreaterStudio_Core {
 
 				}
 			}
-
+			work.Childrens.Append(work.Images);
 			return work;
 		}
 
@@ -181,5 +186,6 @@ namespace WorldCreaterStudio_Core {
 
 			return result;
 		}
+
 	}
 }

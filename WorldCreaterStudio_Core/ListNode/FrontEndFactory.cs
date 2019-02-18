@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace WorldCreaterStudio_Core {
 
 		public ImageSource Icon { get; set; }
 
-		public IEnumerable<IWorkLogicNodeAble> Childrens => null;
+		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
 		public XmlElement XmlNode(XmlDocument xmlDocument) {
 			throw new NotImplementedException();

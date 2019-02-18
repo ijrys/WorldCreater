@@ -11,37 +11,57 @@ using  WorldCreaterStudio_Resouses;
 namespace Demo {
 	class Program {
 		static void Main(string[] args) {
-			string workDir = "a:/demo work";
+			//DoFun1();
+			DoFun2();
+
+			Console.WriteLine("end work, press enter to exit");
+			Console.ReadLine();
+		}
+
+		static void DoFun2 () {
+			string fname = "123..456//{[(\\|\"':;!@#$%^&*+-*/)]}aa";
+			string outname = WorldCreaterStudio_Core.Tools.Path.GetAFileName(fname);
+
+			Console.WriteLine(fname);
+			Console.WriteLine(outname);
+		}
+
+		static void DoFun1 () {
+			string proDir = "a:/demo Pro";
 			Console.WriteLine("清除缓存集");
-			if (Directory.Exists(workDir)) {
-				Directory.Delete(workDir, true);
+			if (Directory.Exists(proDir)) {
+				Directory.Delete(proDir, true);
 			}
 			Console.WriteLine("缓存集清除完毕，press enter to continue");
 			Console.ReadLine();
 
+			Project project = Project.NewProject(proDir, "demo Pro.mriwcpro", "DemoPro");
+
+			string workDir = Path.Combine(proDir, "demowork");
+
 			//创建工作集
-			Work work = Work.NewWork(workDir, "demowork.mriwcw", "测试工作集");
+			Work work = project.NewWork("demowork", "demowork.mriwcw", "测试工作集");
 			Console.WriteLine("work creat finish");
 
 			//修改工作集并保存
 			work.Images.Add("image1", Images.Dark_Icon_Pro, "测试图片1-工作集图标");
-			work.Save(true);
-			Console.WriteLine("work save finish");
 
-			//打开工作集
-			Work work2 = Work.OpenWork(workDir, "demowork.mriwcw", "测试工作集");
-			PrintWork(work2);
-
-			//修改工作集并保存
-			work2.Images.Add("image2", Images.Dark_Icon_Gra, "测试图片1-地形图标");
-			work2.Save(true);
-			PrintWork(work2);
+			project.Save(true);
 			Console.WriteLine("work save finish");
 
 
+			//打开工程
+			project = Project.OpenProject(proDir, "demo Pro.mriwcpro");
+			PrintProject(project);
+		}
 
-			Console.WriteLine("end work, press enter to exit");
-			Console.ReadLine();
+		static void PrintProject (Project project) {
+			Console.WriteLine($"Project: {project.NodeName}");
+
+			foreach (var item in project.Childrens) {
+				if (!(item is Work)) continue;
+				PrintWork(item as Work);
+			}
 		}
 
 		static void PrintWork (Work work) {

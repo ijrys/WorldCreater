@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,6 @@ namespace WorldCreaterStudio_Core {
 
 		public abstract XmlElement XmlNode(XmlDocument xmlDocument);
 
-		public IEnumerable<IWorkLogicNodeAble> Childrens { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+		public ObservableCollection<IWorkLogicNodeAble> Childrens { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 	}
 }

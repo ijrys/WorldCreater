@@ -70,7 +70,7 @@ namespace WorldCreaterStudio_Core {
 
 		public ImageSource Icon { get; set; }
 
-		public IEnumerable<IWorkLogicNodeAble> Childrens => null;
+		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
 		public void Save(string basePath = "") {
 			if (DataChanged && Image != null) {
