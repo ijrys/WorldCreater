@@ -7,12 +7,26 @@
 		xmlns:localcore="clr-namespace:WorldCreaterStudio_Core;assembly=WorldCreaterStudio_Core"
 		xmlns:res="clr-namespace:WorldCreaterStudio.Resouses"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-	<!--xmlns:localres="clr-namespace:WorldCreaterStudio_Resouses.Properties"-->
-
+        Title="MainWindow" Height="450" Width="800"
+		Background="{DynamicResource Brush_Panel_BG_Normal_Normal}">
 	<Window.Resources>
 		<ResourceDictionary>
-			<SolidColorBrush x:Key="ThemeColor" Color="#37D"/>
+			<Style TargetType="{x:Type Button}" BasedOn="{StaticResource StyleButton}"/>
+			<Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource StyleGroupBox}">
+				<Setter Property="Margin" Value="8 4"/>
+			</Style>
+			<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StyleTextBox}"/>
+			<Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource StyleToggleButton}"/>
+			<Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource StyleCheckBox}"/>
+			<Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StyleScrollBar}"/>
+			<Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource StyleScrollViewer}"/>
+			<Style TargetType="RadioButton" BasedOn="{StaticResource StyleRadioButton}"/>
+			<Style TargetType="ComboBox" BasedOn="{StaticResource StyleComboBox}"/>
+			<Style TargetType="TreeView" BasedOn="{StaticResource StyleTreeView}"/>
+			<Style TargetType="TreeViewItem" BasedOn="{StaticResource StyleTreeViewItem}"/>
+			<Style TargetType="Menu" BasedOn="{StaticResource StyleMenu}"/>
+			<Style TargetType="MenuItem" BasedOn="{StaticResource StyleMenuItem}"/>
+			<Style TargetType="ToolBar" BasedOn="{StaticResource StyleToolBar}"/>
 		</ResourceDictionary>
 	</Window.Resources>
 	<Grid>
@@ -22,12 +36,12 @@
 			<RowDefinition Height="1*"/>
 			<RowDefinition Height="auto"/>
 		</Grid.RowDefinitions>
-		<Menu Grid.Row="0" Background="{StaticResource ThemeColor}" FontSize="16">
+		<Menu Grid.Row="0" FontSize="16">
 			<MenuItem Header="文件">
-				<MenuItem Header="新建工程" Command="New"></MenuItem>
+				<MenuItem Header="新建工程" Command="local:Commands.NewProject"></MenuItem>
 				<MenuItem Header="打开工程" Command="Open"></MenuItem>
 				<Separator/>
-				<MenuItem Header="新建工作" Command="New"></MenuItem>
+				<MenuItem Header="新建工作" Command="local:Commands.NewWork"></MenuItem>
 
 			</MenuItem>
 			<MenuItem Header="设置">
@@ -72,7 +86,7 @@
 				</TreeView>
 			</Grid>
 		</Grid>
-		<StatusBar Grid.Row="3" Background="{StaticResource ThemeColor}" FontSize="16">
+		<StatusBar Background="{StaticResource Brush_Control_BG_Normal_Normal}" Grid.Row="3" FontSize="16">
 			<TextBlock>就绪</TextBlock>
 		</StatusBar>
 	</Grid>

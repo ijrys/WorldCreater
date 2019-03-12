@@ -19,11 +19,16 @@ namespace WorldCreaterStudio.Windows {
 	/// NewProject.xaml 的交互逻辑
 	/// </summary>
 	public partial class NewProject : Window {
-		public Project Project { get; private set; }
+		private Project Project { get; set; }
+		private Work Work { get; set; }
+		private bool CreateNewProject { get; set; }
+
 		public DialogResult DialogResult { get; private set; }
 
 		public NewProject() {
 			InitializeComponent();
+
+			list_CreaterType.ItemsSource = Resouses.StoreRoom.MapCreaterCollection;
 		}
 
 		private void BtnDirSelect_Click(object sender, RoutedEventArgs e) {
@@ -33,14 +38,21 @@ namespace WorldCreaterStudio.Windows {
 			}
 		}
 
-		public new void ShowDialog () {
+		private void ShowDialog(Project project) {
+			this.Project = project;
+			this.DialogResult = DialogResult.Cancel;
+
+			base.ShowDialog();
+		}
+
+		public new void ShowDialog() {
 			this.Project = null;
 			this.DialogResult = DialogResult.Cancel;
 
 			base.ShowDialog();
 		}
 
-		public new void Show () {
+		public new void Show() {
 			this.Project = null;
 			this.DialogResult = DialogResult.Cancel;
 
@@ -48,6 +60,10 @@ namespace WorldCreaterStudio.Windows {
 		}
 
 		public Project GetNewProject() {
+			txtProPath.IsReadOnly = false;
+			txtProName.IsReadOnly = false;
+			CreateNewProject = true;
+
 			ShowDialog();
 			if (DialogResult == DialogResult.OK) {
 				return Project;
@@ -56,10 +72,34 @@ namespace WorldCreaterStudio.Windows {
 			return null;
 		}
 
+		public Work GetNewWork(Project project) {
+			txtProPath.IsReadOnly = true;
+			txtProName.IsReadOnly = true;
+			btnPathSelect.IsEnabled = false;
+			CreateNewProject = false;
+			//Project = project;
+			txtProPath.Text = project.ProjectDirectionary.FullName;
+			txtProName.Text = project.NodeName;
+
+			ShowDialog(project);
+			if (DialogResult == DialogResult.OK) {
+				return Work;
+			}
+
+			return null;
+		}
+
 		private void BtnOk_Click(object sender, RoutedEventArgs e) {
-			string proFileName = WorldCreaterStudio_Core.Tools.Path.GetAFileName(txtProName.Text);
+
 			try {
-				Project = Project.NewProject(System.IO.Path.Combine(txtProPath.Text, proFileName), proFileName + ".mrimcpro", txtProName.Text);
+				if (CreateNewProject) { //新工程模式
+					string proFileName = WorldCreaterStudio_Core.Tools.Path.GetAFileName(txtProName.Text);
+					Project = Project.NewProject(System.IO.Path.Combine(txtProPath.Text, proFileName), proFileName + ".mrimcpro", txtProName.Text);
+				}
+
+				//添加work
+				string workPath = WorldCreaterStudio_Core.Tools.Path.GetAFileName(txtWorkName.Text);
+				Work = Project.NewWork(workPath, workPath + ".mrimcwork", txtWorkName.Text);
 				DialogResult = DialogResult.OK;
 				Close();
 			} catch (Exception ex) {
@@ -71,9 +111,9 @@ namespace WorldCreaterStudio.Windows {
 			Close();
 		}
 
-		private void Tree_CreaterType_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e) {
-			Resouses.NewWork.MapCreaterCollectionNode coll = tree_CreaterType.SelectedItem as Resouses.NewWork.MapCreaterCollectionNode;
-			list_CreaterSelecter.ItemsSource = coll?.Creaters;
+		private void List_CreaterType_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+			Resouses.NewWork.MapCreaterTypeNode createrType = list_CreaterType.SelectedItem as Resouses.NewWork.MapCreaterTypeNode;
+			list_CreaterSelecter.ItemsSource = createrType.Creaters;
 		}
 	}
 }

@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreaterStudio_Resouses
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{909698C3-8959-4D4E-AAE3-5CDE146E8C03}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontEndFactorys", "FrontEndFactorys", "{ABEEDE3E-0F44-43A6-A946-3DD8C2B288F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomTend", "FrontEndFactorys\RandomTend\RandomTend.csproj", "{80514C05-AAC1-490F-A637-92F99C91D95E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,9 +67,16 @@ Global
 		{909698C3-8959-4D4E-AAE3-5CDE146E8C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{909698C3-8959-4D4E-AAE3-5CDE146E8C03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{909698C3-8959-4D4E-AAE3-5CDE146E8C03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80514C05-AAC1-490F-A637-92F99C91D95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80514C05-AAC1-490F-A637-92F99C91D95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80514C05-AAC1-490F-A637-92F99C91D95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80514C05-AAC1-490F-A637-92F99C91D95E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{80514C05-AAC1-490F-A637-92F99C91D95E} = {ABEEDE3E-0F44-43A6-A946-3DD8C2B288F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {986E020B-A6E8-49C5-9F4E-4F3994BBB567}

@@ -65,17 +65,70 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands.cs" />
     <Compile Include="Resouses\StoreRoom.cs" />
     <Compile Include="Windows\NewProject.xaml.cs">
       <DependentUpon>NewProject.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resouses\ControlTemplate.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Resouses\ControlTemplates\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resouses\Style.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Resouses\ControlTemplates\CheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\ComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\Menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\MenuItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\ScrollView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\TextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\ToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\ControlTemplates\TreeViewItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resouses\Theme\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +178,10 @@
     <Resource Include="Resouses\img.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FrontEndFactorys\RandomTend\RandomTend.csproj">
+      <Project>{80514c05-aac1-490f-a637-92f99c91d95e}</Project>
+      <Name>RandomTend</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WorldCreaterStudio_Core\WorldCreaterStudio_Core.csproj">
       <Project>{f953b410-f0f7-4c96-84e6-18cb8909aeab}</Project>
       <Name>WorldCreaterStudio_Core</Name>

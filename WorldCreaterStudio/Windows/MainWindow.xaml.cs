@@ -23,22 +23,6 @@ namespace WorldCreaterStudio {
 	/// MainWindow.xaml 的交互逻辑
 	/// </summary>
 	public partial class MainWindow : Window {
-		public static class Commands {
-			public static RoutedUICommand NewWork { get; private set; }
-			public static RoutedUICommand NewProject { get; private set; }
-			static Commands() {
-				//New Work
-				InputGestureCollection igc1 = new InputGestureCollection();
-				igc1.Add(new KeyGesture(Key.N, ModifierKeys.Control, "Ctrl+N"));
-				NewWork = new RoutedUICommand("New Work", "NewWork", typeof(Commands), igc1);
-
-				//New Project
-				igc1 = new InputGestureCollection();
-				igc1.Add(new KeyGesture(Key.N, ModifierKeys.Control | ModifierKeys.Shift, "Ctrl+Shift+N"));
-				NewProject = new RoutedUICommand("New Project", "NewProject", typeof(Commands), igc1);
-			}
-		}
-
 		/// <summary>
 		/// 属性Project改变的Event基本类型
 		/// </summary>
@@ -62,28 +46,7 @@ namespace WorldCreaterStudio {
 		public bool CanNewWork { get; private set; }
 
 		public MainWindow() {
-			//string workDir = "A:\\ProjectDemo";
-			//if (Directory.Exists(workDir)) {
-			//	foreach(string dpath in Directory.GetDirectories(workDir)) {
-			//		Directory.Delete(dpath, true);
-			//	}
-			//	foreach (string fpath in Directory.GetFiles(workDir)) {
-			//		File.Delete(fpath);
-			//	}
-			//}
-
 			InitializeComponent();
-
-			//ObservableCollection<WorldCreaterStudio_Core.Work> works = new ObservableCollection<WorldCreaterStudio_Core.Work>();
-			//Tree_Project.ItemsSource = works;
-
-			//WorldCreaterStudio_Core.Work work1 = WorldCreaterStudio_Core.Work.NewWork("A:\\ProjectDemo\\Work1", "Work1.mrimcw", "work1");
-			//WorldCreaterStudio_Core.Work work2 = WorldCreaterStudio_Core.Work.NewWork("A:\\ProjectDemo\\Work2", "Work2.mrimcw", "work2");
-			//work1.Icon = Resouses.Icons.Dark_Icon_Work;
-			//work2.Icon = Resouses.Icons.Dark_Icon_Work;
-
-			//works.Add(work1);
-			//works.Add(work2);
 
 			CommandBinding newCommand = new CommandBinding(Commands.NewProject);
 			newCommand.Executed += Command_NewProject_Executed;
@@ -97,11 +60,9 @@ namespace WorldCreaterStudio {
 		private void Command_NewWork_Executed(object sender, ExecutedRoutedEventArgs e) {
 			Windows.NewProject newProject = new Windows.NewProject();
 
-			WorldCreaterStudio_Core.Project project = newProject.GetNewProject();
-			if (project == null) {
+			Work work = newProject.GetNewWork(this.Project);
+			if (work == null) {
 				MessageBox.Show("操作已取消");
-			} else {
-				Project = project;
 			}
 		}
 

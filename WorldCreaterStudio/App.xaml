@@ -6,8 +6,23 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="Resouses\Style.xaml"/>
-				<ResourceDictionary Source="Resouses\ControlTemplate.xaml"/>
+				<!--<ResourceDictionary Source="Resouses\Style.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplate.xaml"/>-->
+				<ResourceDictionary Source="Resouses\Theme\Dark.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\Button.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\GroupBox.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\TextBox.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\ToggleButton.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\CheckBox.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\ScrollBar.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\ScrollView.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\RadioButton.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\ComboBox.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\TreeView.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\TreeViewItem.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\Menu.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\MenuItem.xaml"/>
+				<ResourceDictionary Source="Resouses\ControlTemplates\ToolBar.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

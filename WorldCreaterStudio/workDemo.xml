@@ -1,4 +1,4 @@
-<work guid="">
+﻿<work guid="">
 	<images>
 		<image key="res_1" name="this is a name" file="path base on project flodar/images" description="description"/>
 		<image key="res_2" name="Random Map" file="f-random.png" description="the radom value of whole map"/>

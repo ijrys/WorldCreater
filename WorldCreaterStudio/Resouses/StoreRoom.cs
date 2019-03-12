@@ -6,40 +6,40 @@ using System.Threading.Tasks;
 
 namespace WorldCreaterStudio.Resouses {
 	namespace NewWork {
-		public class MapCreaterCollectionNode {
-			public string CollectionName { get; set; }
-			public List<MapCreaterCollectionNode> Childrens { get; private set; }
+		public class MapCreaterTypeNode {
+			public string TypeName { get; set; }
+			//public List<MapCreaterTypeNode> Childrens { get; private set; }
 
-			public List<string> Creaters { get; set; }
+			public List<WorldCreaterStudio_Core.MapCreater.MapCreaterFactory> Creaters { get; set; }
 
-			public MapCreaterCollectionNode() {
-				Childrens = new List<MapCreaterCollectionNode>();
-				Creaters = new List<string>();
+			public MapCreaterTypeNode() {
+				//Childrens = new List<MapCreaterTypeNode>();
+				Creaters = new List<WorldCreaterStudio_Core.MapCreater.MapCreaterFactory>();
 			}
 
-			public MapCreaterCollectionNode(IEnumerable<string> creaters) : this() {
+			public MapCreaterTypeNode(IEnumerable<WorldCreaterStudio_Core.MapCreater.MapCreaterFactory> creaters) : this() {
 				Creaters.AddRange(creaters);
 			}
 
-			public MapCreaterCollectionNode(IEnumerable<MapCreaterCollectionNode> childrens) : this() {
-				Childrens.AddRange(childrens);
-			}
-			public MapCreaterCollectionNode(IEnumerable<MapCreaterCollectionNode> childrens, IEnumerable<string> creaters) : this() {
-				Creaters.AddRange(creaters);
-				Childrens.AddRange(childrens);
-			}
+			//public MapCreaterTypeNode(IEnumerable<MapCreaterTypeNode> childrens) : this() {
+			//	Childrens.AddRange(childrens);
+			//}
+			//public MapCreaterTypeNode(IEnumerable<MapCreaterTypeNode> childrens, IEnumerable<string> creaters) : this() {
+			//	Creaters.AddRange(creaters);
+			//	Childrens.AddRange(childrens);
+			//}
 		}
 
 	}
 
 	public static class StoreRoom {
-		public static List<NewWork.MapCreaterCollectionNode> MapCreaterCollection { get; private set; } = new List<NewWork.MapCreaterCollectionNode>() {
-			new NewWork.MapCreaterCollectionNode(new string[] { "Random Tend"}) {
-				CollectionName="Random Tend"
+		public static List<NewWork.MapCreaterTypeNode> MapCreaterCollection { get; private set; } = new List<NewWork.MapCreaterTypeNode>() {
+			new NewWork.MapCreaterTypeNode(new WorldCreaterStudio_Core.MapCreater.MapCreaterFactory[] { new RandomTend.RandomTendFactory()}) {
+				TypeName="Random Tend"
 			},
-			new NewWork.MapCreaterCollectionNode(new string[] { "Empty"}) {
-				CollectionName="Others"
-			}
+			//new NewWork.MapCreaterTypeNode(new string[] { "Empty"}) {
+			//	TypeName="Others"
+			//}
 		};
 
 

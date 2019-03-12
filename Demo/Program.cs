@@ -12,7 +12,11 @@ namespace Demo {
 	class Program {
 		static void Main(string[] args) {
 			//DoFun1();
-			DoFun2();
+			//DoFun2();
+			Type type = typeof(RandomTend.RandomTend);
+			Console.WriteLine(type.FullName);
+			Console.WriteLine(type.Module);
+			Console.WriteLine(type.GUID);
 
 			Console.WriteLine("end work, press enter to exit");
 			Console.ReadLine();

@@ -51,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FrontEndFactorys\RandomTend\RandomTend.csproj">
+      <Project>{80514c05-aac1-490f-a637-92f99c91d95e}</Project>
+      <Name>RandomTend</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WorldCreaterStudio_Core\WorldCreaterStudio_Core.csproj">
       <Project>{f953b410-f0f7-4c96-84e6-18cb8909aeab}</Project>
       <Name>WorldCreaterStudio_Core</Name>

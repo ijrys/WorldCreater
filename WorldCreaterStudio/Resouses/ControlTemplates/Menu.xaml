@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style x:Key="StyleMenu" TargetType="{x:Type Menu}">
+		<Setter Property="Background" Value="{DynamicResource Brush_Control_BG_Normal_Normal}"/>
+		<Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}"/>
+		<Setter Property="FontSize" Value="{DynamicResource {x:Static SystemFonts.MenuFontSizeKey}}"/>
+		<Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}"/>
+		<Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}"/>
+		<Setter Property="Foreground" Value="{DynamicResource Brush_Control_FG_Normal_Normal}"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+	</Style>
+</ResourceDictionary>
