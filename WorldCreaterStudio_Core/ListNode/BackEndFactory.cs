@@ -10,6 +10,8 @@ using System.Xml;
 
 namespace WorldCreaterStudio_Core {
 	public class BackEndFactory : IWorkLogicNodeAble {
+		public Work Work { get; private set; }
+
 		public UIElement ShowPanel { get; set; }
 
 		public string NodeName => "后端工厂";
@@ -18,8 +20,13 @@ namespace WorldCreaterStudio_Core {
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
+
 		public XmlElement XmlNode(XmlDocument xmlDocument) {
 			throw new NotImplementedException();
+		}
+
+		public BackEndFactory (Work work) {
+			this.Work = work;
 		}
 	}
 }

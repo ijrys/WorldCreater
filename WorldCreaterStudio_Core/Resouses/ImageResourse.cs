@@ -8,7 +8,7 @@ using System.Windows;
 using System.Xml;
 using System.Collections.ObjectModel;
 
-namespace WorldCreaterStudio_Core {
+namespace WorldCreaterStudio_Core.Resouses {
 	/// <summary>
 	/// 缓存的图像文件
 	/// </summary>
@@ -71,6 +71,8 @@ namespace WorldCreaterStudio_Core {
 		public ImageSource Icon { get; set; }
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
+
+		public Work Work { get; private set; }
 
 		public void Save(string basePath = "") {
 			if (DataChanged && Image != null) {

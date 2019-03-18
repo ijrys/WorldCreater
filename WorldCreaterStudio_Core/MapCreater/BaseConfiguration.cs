@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 
 namespace WorldCreaterStudio_Core.MapCreater {
 	public class BaseConfiguration : Configuration {
@@ -22,6 +23,18 @@ namespace WorldCreaterStudio_Core.MapCreater {
 
 		public void RandomTheSeed() {
 			RandomSeed = new Random().Next();
+		}
+
+		public override void LoadFromXMLNode(XmlElement xmlnode) {
+			//throw new NotImplementedException();
+			// todo
+		}
+
+		public override XmlElement XmlNode(XmlDocument xmlDocument) {
+			//throw new NotImplementedException();
+			// todo
+
+			return null;
 		}
 	}
 }

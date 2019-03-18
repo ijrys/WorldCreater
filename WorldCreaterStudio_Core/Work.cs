@@ -22,17 +22,19 @@ namespace WorldCreaterStudio_Core {
 		ImageSource _icon;
 		Config _config;
 
+		Work IWorkLogicNodeAble.Work => this;
 		public UIElement ShowPanel { get; private set; }
 		public string NodeName { get; private set; }
 		public ImageSource Icon { get=>_icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
 
-		public ImageResourceManager Images { get; private set; }
+		public Resouses.ImageResourceManager Images { get; private set; }
 		public FrontEndFactory FrontEndNodes { get; private set; }
 		public BackEndFactory BackEndNodes { get; private set; }
-		public Dictionary<string, ImageResourse> first;
+		public Dictionary<string, Resouses.ImageResourse> first;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
 		public Guid Guid { get => _guid; private set => _guid = value; }
+
 
 		public XmlElement XmlNode(XmlDocument xmlDocument) {
 			XmlElement node = xmlDocument.CreateElement("work");
@@ -102,7 +104,7 @@ namespace WorldCreaterStudio_Core {
 			NodeName = workName;
 			Guid = Guid.NewGuid();
 			_changed = false;
-			Images = new ImageResourceManager(_workResousesDirectionary);
+			Images = new Resouses.ImageResourceManager(_workResousesDirectionary);
 			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
 		}
 		//private Work(string workPath, string filename, string workName, Guid guid) {
@@ -145,7 +147,7 @@ namespace WorldCreaterStudio_Core {
 				switch (item.Name.ToLower()) {
 					case "images": //进入图片资源节点
 						if (item.HasChildNodes) {
-							work.Images = ImageResourceManager.LoadFromXmlNode(item, work._workResousesDirectionary);
+							work.Images = Resouses.ImageResourceManager.LoadFromXmlNode(item, work._workResousesDirectionary);
 						}
 						break;
 					case "frontendfactory": //前端工厂

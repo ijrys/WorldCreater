@@ -15,6 +15,7 @@ namespace WorldCreaterStudio_Core {
 		DirectoryInfo _projectDirectionary;
 		FileInfo _projectFile;
 
+		public Work Work => null;
 
 		public UIElement ShowPanel => null;
 		public string NodeName { get; private set; }
@@ -40,6 +41,7 @@ namespace WorldCreaterStudio_Core {
 		/// 工程文件是否发生更改
 		/// </summary>
 		public bool Changed { get; private set; }
+
 
 		public XmlElement XmlNode(XmlDocument xmlDocument) {
 			throw new NotImplementedException();

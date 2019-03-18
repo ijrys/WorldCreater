@@ -10,6 +10,8 @@ using System.Xml;
 
 namespace WorldCreaterStudio_Core {
 	public abstract class WorkLogicNode : IWorkLogicNodeAble {
+		public abstract Work Work { get; }
+
 		public UIElement ShowPanel { get; set; }
 		public string NodeName { get; set; }
 		public ImageSource Icon { get; set; }
@@ -17,5 +19,6 @@ namespace WorldCreaterStudio_Core {
 		public abstract XmlElement XmlNode(XmlDocument xmlDocument);
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 	}
 }

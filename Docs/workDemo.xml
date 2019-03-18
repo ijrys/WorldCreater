@@ -9,7 +9,7 @@
 			<add key="" value="" />
 		</setting>
 		<images>
-			<image key="res_1">
+			<ir key="res_1">
 		</images>
 	</FrontEndFactory>
 
@@ -17,7 +17,7 @@
 		<Factory name="空气运动" progress="AirMotion" factory="BE.MiRaI.AirMotion|0.1">
 			<data file="airmotion.data" />
 			<images>
-				<image key="res_2">
+				<ir key="res_2">
 			</images>
 		</Factory>
 	</BackEndFactory>

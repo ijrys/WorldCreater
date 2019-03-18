@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
 
-namespace WorldCreaterStudio_Core {
+namespace WorldCreaterStudio_Core.Resouses {
 	/// <summary>
 	/// 用于管理整个工作中使用到的图片资源
 	/// </summary>
@@ -37,6 +37,8 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
+		public Work Work { get; private set; }
+
 		public UIElement ShowPanel => null;
 
 		public string NodeName => "Image Resourese";
@@ -47,6 +49,13 @@ namespace WorldCreaterStudio_Core {
 			get { return _imgs; }
 		}
 
+
+		/// <summary>
+		/// 添加一个资源
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="image"></param>
+		/// <param name="description"></param>
 		public void Add(string key, BitmapImage image, string description) {
 			if (_res.ContainsKey(key)) {
 				_res[key].Image = image;
@@ -59,6 +68,11 @@ namespace WorldCreaterStudio_Core {
 				_imgs.Add(imgres);
 			}
 		}
+
+		/// <summary>
+		/// 添加一个资源
+		/// </summary>
+		/// <param name="resourse"></param>
 		public void Add(ImageResourse resourse) {
 			string key = resourse.Key;
 			if (_res.ContainsKey(key)) {
@@ -69,6 +83,10 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
+		/// <summary>
+		/// 移除一个资源
+		/// </summary>
+		/// <param name="key"></param>
 		public void Remove (string key) {
 			if (_res.ContainsKey(key)) {
 				ImageResourse item = _res[key];
@@ -83,6 +101,7 @@ namespace WorldCreaterStudio_Core {
 		public void Save() {
 			Save(_workResousesDir.FullName);
 		}
+
 		/// <summary>
 		/// 保存资源文件到指定文件夹
 		/// </summary>

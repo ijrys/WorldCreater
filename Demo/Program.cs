@@ -72,7 +72,7 @@ namespace Demo {
 			Console.WriteLine($"{work.NodeName} -- {work.Guid}");
 			Console.WriteLine("|-- [image resouses]");
 			foreach (var item in work.Images.Childrens) {
-				Console.WriteLine($"|   |-- {item.NodeName} : {(item as ImageResourse).Description}");
+				Console.WriteLine($"|   |-- {item.NodeName} : {(item as WorldCreaterStudio_Core.Resouses.ImageResourse).Description}");
 			}
 
 			Console.WriteLine("|");
