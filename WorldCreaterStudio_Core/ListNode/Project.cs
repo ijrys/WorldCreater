@@ -11,6 +11,9 @@ using System.Xml;
 using System.IO;
 
 namespace WorldCreaterStudio_Core {
+	/// <summary>
+	/// 表示一个工程
+	/// </summary>
 	public class Project : IWorkLogicNodeAble {
 		DirectoryInfo _projectDirectionary;
 		FileInfo _projectFile;

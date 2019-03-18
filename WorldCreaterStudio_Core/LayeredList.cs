@@ -8,28 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorldCreaterStudio_Core {
-	class LayeredList : IEnumerable<IWorkLogicNodeAble>, INotifyCollectionChanged {
-		public ObservableCollection<IWorkLogicNodeAble> Top { get; private set; }
-		public ObservableCollection<IWorkLogicNodeAble> Middium { get; private set; }
-		public ObservableCollection<IWorkLogicNodeAble> Bottom { get; private set; }
+	//class LayeredList : IEnumerable<IWorkLogicNodeAble>, INotifyCollectionChanged {
+	//	public ObservableCollection<IWorkLogicNodeAble> Top { get; private set; }
+	//	public ObservableCollection<IWorkLogicNodeAble> Middium { get; private set; }
+	//	public ObservableCollection<IWorkLogicNodeAble> Bottom { get; private set; }
 
 
-		public event NotifyCollectionChangedEventHandler CollectionChanged;
+	//	public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-		public IEnumerator<IWorkLogicNodeAble> GetEnumerator() {
-			throw new NotImplementedException();
-		}
+	//	public IEnumerator<IWorkLogicNodeAble> GetEnumerator() {
+	//		throw new NotImplementedException();
+	//	}
 
-		IEnumerator IEnumerable.GetEnumerator() {
-			throw new NotImplementedException();
-		}
+	//	IEnumerator IEnumerable.GetEnumerator() {
+	//		throw new NotImplementedException();
+	//	}
 
 
 
-		public LayeredList () {
-			Top = new ObservableCollection<IWorkLogicNodeAble>();
-			Middium = new ObservableCollection<IWorkLogicNodeAble>();
-			Bottom = new ObservableCollection<IWorkLogicNodeAble>();
-		}
-	}
+	//	public LayeredList () {
+	//		Top = new ObservableCollection<IWorkLogicNodeAble>();
+	//		Middium = new ObservableCollection<IWorkLogicNodeAble>();
+	//		Bottom = new ObservableCollection<IWorkLogicNodeAble>();
+	//	}
+	//}
 }

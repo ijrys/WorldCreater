@@ -58,13 +58,13 @@
     <Compile Include="Resouses\ImageResourceReference.cs" />
     <Compile Include="Resouses\ImageResourceReferenceManager.cs" />
     <Compile Include="Resouses\ImageResourse.cs" />
-    <Compile Include="ListNode\ImageResousesNode.cs" />
+    <Compile Include="ListNode\[del]ImageResousesNode.cs" />
     <Compile Include="Resouses\IResourseAble.cs" />
-    <Compile Include="Project.cs" />
+    <Compile Include="ListNode\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoreRoom\MapCreaterDictionary.cs" />
     <Compile Include="Tools\Path.cs" />
-    <Compile Include="Work.cs" />
+    <Compile Include="ListNode\Work.cs" />
     <Compile Include="ListNode\IWorkLogicNodeAble.cs" />
     <Compile Include="WorkLogicNode.cs" />
   </ItemGroup>
