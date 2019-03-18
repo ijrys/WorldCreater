@@ -2,8 +2,8 @@
 
 namespace WorldCreaterStudio_Core.MapCreater {
 	public abstract class MapCreaterFactory {
-		public abstract string Name { get; }
-		public abstract string Type { get; }
+		public abstract string DisplayName { get; }
+		public abstract string DisplayType { get; }
 
 		public abstract string CreaterProgramSet { get; }
 

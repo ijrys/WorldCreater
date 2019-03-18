@@ -23,7 +23,7 @@ namespace WorldCreaterStudio.Windows {
 		private Work Work { get; set; }
 		private bool CreateNewProject { get; set; }
 
-		public DialogResult DialogResult { get; private set; }
+		public DialogResult WindowResult { get; private set; }
 
 		public NewProject() {
 			InitializeComponent();
@@ -38,23 +38,28 @@ namespace WorldCreaterStudio.Windows {
 			}
 		}
 
+		/// <summary>
+		/// 用于以独占方式弹出窗体，并记录传入的Project对象
+		/// 用于创建一个新工作时确定工作所属的工程
+		/// </summary>
+		/// <param name="project">所属的工程</param>
 		private void ShowDialog(Project project) {
 			this.Project = project;
-			this.DialogResult = DialogResult.Cancel;
+			this.WindowResult = System.Windows.Forms.DialogResult.Cancel;
 
 			base.ShowDialog();
 		}
 
 		public new void ShowDialog() {
 			this.Project = null;
-			this.DialogResult = DialogResult.Cancel;
+			this.WindowResult = System.Windows.Forms.DialogResult.Cancel;
 
 			base.ShowDialog();
 		}
 
 		public new void Show() {
 			this.Project = null;
-			this.DialogResult = DialogResult.Cancel;
+			this.WindowResult = System.Windows.Forms.DialogResult.Cancel;
 
 			base.Show();
 		}
@@ -65,7 +70,7 @@ namespace WorldCreaterStudio.Windows {
 			CreateNewProject = true;
 
 			ShowDialog();
-			if (DialogResult == DialogResult.OK) {
+			if (WindowResult == System.Windows.Forms.DialogResult.OK) {
 				return Project;
 			}
 
@@ -82,7 +87,7 @@ namespace WorldCreaterStudio.Windows {
 			txtProName.Text = project.NodeName;
 
 			ShowDialog(project);
-			if (DialogResult == DialogResult.OK) {
+			if (WindowResult == System.Windows.Forms.DialogResult.OK) {
 				return Work;
 			}
 
@@ -100,7 +105,7 @@ namespace WorldCreaterStudio.Windows {
 				//添加work
 				string workPath = WorldCreaterStudio_Core.Tools.Path.GetAFileName(txtWorkName.Text);
 				Work = Project.NewWork(workPath, workPath + ".mrimcwork", txtWorkName.Text);
-				DialogResult = DialogResult.OK;
+				WindowResult = System.Windows.Forms.DialogResult.OK;
 				Close();
 			} catch (Exception ex) {
 				System.Windows.MessageBox.Show(ex.Message);

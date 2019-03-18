@@ -4,19 +4,17 @@
 		<image key="res_2" name="Random Map" file="f-random.png" description="the radom value of whole map"/>
 	</images>
 
-	<FrontEndFactory>
-		<Creater creater="Tend">
-			<add key="blocksize" value="6" />
-
-
-			<images>
-				<image key="res_1">
-			</images>
-		</Creater>
+	<FrontEndFactory creater="MiRaI.RandomTend.RandomTend|0.1">
+		<setting>
+			<add key="" value="" />
+		</setting>
+		<images>
+			<image key="res_1">
+		</images>
 	</FrontEndFactory>
 
 	<BackEndFactory>
-		<Factory name="空气运动" progress="AirMotion" factory="">
+		<Factory name="空气运动" progress="AirMotion" factory="BE.MiRaI.AirMotion|0.1">
 			<data file="airmotion.data" />
 			<images>
 				<image key="res_2">

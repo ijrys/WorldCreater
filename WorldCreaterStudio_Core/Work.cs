@@ -26,7 +26,7 @@ namespace WorldCreaterStudio_Core {
 		public string NodeName { get; private set; }
 		public ImageSource Icon { get=>_icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
 
-		public ImageResoureseManager Images { get; private set; }
+		public ImageResourceManager Images { get; private set; }
 		public FrontEndFactory FrontEndNodes { get; private set; }
 		public BackEndFactory BackEndNodes { get; private set; }
 		public Dictionary<string, ImageResourse> first;
@@ -102,7 +102,7 @@ namespace WorldCreaterStudio_Core {
 			NodeName = workName;
 			Guid = Guid.NewGuid();
 			_changed = false;
-			Images = new ImageResoureseManager(_workResousesDirectionary);
+			Images = new ImageResourceManager(_workResousesDirectionary);
 			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
 		}
 		//private Work(string workPath, string filename, string workName, Guid guid) {
@@ -145,7 +145,7 @@ namespace WorldCreaterStudio_Core {
 				switch (item.Name.ToLower()) {
 					case "images": //进入图片资源节点
 						if (item.HasChildNodes) {
-							work.Images = ImageResoureseManager.LoadFromXmlNode(item, work._workResousesDirectionary);
+							work.Images = ImageResourceManager.LoadFromXmlNode(item, work._workResousesDirectionary);
 						}
 						break;
 					case "frontendfactory": //前端工厂

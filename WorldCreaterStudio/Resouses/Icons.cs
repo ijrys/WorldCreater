@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace WorldCreaterStudio.Resouses {
-	class Icons {
+	static class Icons {
 		/// <summary>
 		/// 暗色主题 工程
 		/// </summary>

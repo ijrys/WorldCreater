@@ -69,10 +69,10 @@ namespace RandomTend {
 
 
 	[Guid("7B2C4FC1-378A-47E3-A82D-F32D9CDCB288")]
-	public class RandomTend : MapCreater {
-		public override string CreaterProgramSet => "MiRaI.RandomTend.RandomTend";
+	public class RandomTendCreater : MapCreater {
+		public override string CreaterProgramSet => "MiRaI.RandomTend.RandomTend|0.1";
 
-		public override Guid CreaterGuid => typeof(RandomTend).GUID;
+		public override Guid CreaterGuid => typeof(RandomTendCreater).GUID;
 
 		public override int[,] CreatAMap(Configuration configuration) {
 			if (!(configuration is RTConfiguration)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException(typeof(RTConfiguration), configuration.GetType());
@@ -85,17 +85,17 @@ namespace RandomTend {
 		}
 	}
 
-	public class RandomTendFactory : MapCreaterFactory {
-		public override string Name => "Random Tend";
+	public class RandomTendCreaterFactory : MapCreaterFactory {
+		public override string DisplayName => "Random Tend";
 
-		public override string Type => "Random Tend";
+		public override string DisplayType => "Random Tend";
 
-		public override string CreaterProgramSet => "MiRaI.RandomTend.RandomTend";
+		public override string CreaterProgramSet => "MiRaI.RandomTend.RandomTend|0.1";
 
 		public override Guid CreaterGuid => new Guid("FDAAD2ED-3072-4110-B685-AD1D5139F90B");
 
 		public override MapCreater GetACreater() {
-			return new RandomTend();
+			return new RandomTendCreater();
 		}
 	}
 }

@@ -13,7 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core {
-	public class ImageResoureseManager : IWorkLogicNodeAble, INotifyPropertyChanged {
+	/// <summary>
+	/// 用于管理整个工作中使用到的图片资源
+	/// </summary>
+	public class ImageResourceManager : IWorkLogicNodeAble, INotifyPropertyChanged {
 		private Dictionary<string, ImageResourse> _res;
 		private ObservableCollection<IWorkLogicNodeAble> _imgs;
 		private DirectoryInfo _workResousesDir;
@@ -113,10 +116,10 @@ namespace WorldCreaterStudio_Core {
 		/// <param name="xmlnode"></param>
 		/// <param name="resDir"></param>
 		/// <returns></returns>
-		public static ImageResoureseManager LoadFromXmlNode(XmlElement xmlnode, DirectoryInfo resDir) {
+		public static ImageResourceManager LoadFromXmlNode(XmlElement xmlnode, DirectoryInfo resDir) {
 			if (xmlnode.Name != "images") return null;
 
-			ImageResoureseManager re = new ImageResoureseManager(resDir);
+			ImageResourceManager re = new ImageResourceManager(resDir);
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
 				ImageResourse ir = ImageResourse.LoadFromXmlNode(item, resDir.FullName);
@@ -126,7 +129,7 @@ namespace WorldCreaterStudio_Core {
 			return re;
 		}
 
-		public ImageResoureseManager (DirectoryInfo resDir) {
+		public ImageResourceManager (DirectoryInfo resDir) {
 			_res = new Dictionary<string, ImageResourse>();
 			_imgs = new ObservableCollection<IWorkLogicNodeAble>();
 			_workResousesDir = resDir;

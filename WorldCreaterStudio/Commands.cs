@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace WorldCreaterStudio {
+	/// <summary>
+	/// Studio使用到的自定义命令
+	/// </summary>
 	public static class Commands {
 		public static RoutedUICommand NewWork { get; private set; }
 		public static RoutedUICommand NewProject { get; private set; }

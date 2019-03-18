@@ -26,8 +26,8 @@ namespace WorldCreaterStudio {
 		/// <summary>
 		/// 属性Project改变的Event基本类型
 		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="value"></param>
+		/// <param name="sender">触发改变的对象</param>
+		/// <param name="value">新的Project</param>
 		public delegate void ProjectChangedEventType(object sender, Project value);
 		private Project _project;
 		public Project Project {
@@ -43,7 +43,7 @@ namespace WorldCreaterStudio {
 		/// </summary>
 		public event ProjectChangedEventType ProjectChanged;
 
-		public bool CanNewWork { get; private set; }
+		//public bool CanNewWork { get; private set; }
 
 		public MainWindow() {
 			InitializeComponent();

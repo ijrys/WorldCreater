@@ -54,7 +54,8 @@
     <Compile Include="ListNode\BackEndFactory.cs" />
     <Compile Include="ListNode\FrontEndFactory.cs" />
     <Compile Include="MapCreater\MapCreaterFactory.cs" />
-    <Compile Include="Resouses\ImageResoureseManager.cs" />
+    <Compile Include="Resouses\ImageResourceManager.cs" />
+    <Compile Include="Resouses\ImageResourceReferenceManager.cs" />
     <Compile Include="Resouses\ImageResourse.cs" />
     <Compile Include="ListNode\ImageResousesNode.cs" />
     <Compile Include="Resouses\IResourseAble.cs" />
