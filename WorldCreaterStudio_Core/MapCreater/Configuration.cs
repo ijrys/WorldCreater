@@ -1,10 +1,13 @@
-﻿using System.Xml;
+﻿using System.Windows;
+using System.Xml;
 
 namespace WorldCreaterStudio_Core.MapCreater {
 	public abstract class Configuration {
 		public abstract int GetWidth();
 		public abstract int GetHeight();
 		public abstract int GetRandomSeed();
+
+		public abstract UIElement ShowPanel { get; }
 
 		/// <summary>
 		/// 从xml节点中加载设置

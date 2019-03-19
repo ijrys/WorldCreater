@@ -20,7 +20,6 @@ namespace WorldCreaterStudio_Core {
 		Guid _guid;
 		bool _changed;
 		ImageSource _icon;
-		Config _config;
 
 		Work IWorkLogicNodeAble.Work => this;
 		public UIElement ShowPanel { get; private set; }
@@ -30,7 +29,7 @@ namespace WorldCreaterStudio_Core {
 		public Resouses.ImageResourceManager Images { get; private set; }
 		public FrontEndFactory FrontEndNodes { get; private set; }
 		public BackEndFactory BackEndNodes { get; private set; }
-		public Dictionary<string, Resouses.ImageResourse> first;
+		//public Dictionary<string, Resouses.ImageResourse> first;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
 		public Guid Guid { get => _guid; private set => _guid = value; }
@@ -107,18 +106,6 @@ namespace WorldCreaterStudio_Core {
 			Images = new Resouses.ImageResourceManager(_workResousesDirectionary);
 			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
 		}
-		//private Work(string workPath, string filename, string workName, Guid guid) {
-		//	_workDirectionary = new DirectoryInfo(workPath);
-		//	string imgDir = Path.Combine(workPath, "Images");
-		//	_workResousesDirectionary = new DirectoryInfo(imgDir);
-		//	string workFileFullPath = Path.Combine(workPath, filename);
-		//	_workFile = new FileInfo(workFileFullPath);
-
-		//	NodeName = workName;
-		//	_guid = guid;
-		//	_changed = false;
-		//	Images = new ImageResoureseManager(_workResousesDirectionary);
-		//}
 
 		public static Work NewWork(string workPath, string filename, string workName) {
 			if (Directory.Exists(workPath)) {

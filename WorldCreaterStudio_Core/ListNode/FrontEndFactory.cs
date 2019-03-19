@@ -19,6 +19,12 @@ namespace WorldCreaterStudio_Core {
 		public Work Work { get; private set; }
 
 		public UIElement ShowPanel => null;
+		public UIElement ConfigurationPanel {
+			get {
+				if (Configuration == null) return null;
+				return Configuration.ShowPanel;
+			}
+		}
 
 		public string NodeName => "前端工厂";
 
@@ -41,7 +47,6 @@ namespace WorldCreaterStudio_Core {
 		public XmlElement XmlNode(XmlDocument xmlDocument) {
 			XmlElement node = xmlDocument.CreateElement("FrontEndFactory");
 			node.SetAttribute("creater", Creater == null ? "" : Creater.CreaterProgramSet);
-
 
 			node.AppendChild(Configuration.XmlNode(xmlDocument));
 

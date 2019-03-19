@@ -32,9 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,14 +68,16 @@
     <Compile Include="Tools\Path.cs" />
     <Compile Include="ListNode\Work.cs" />
     <Compile Include="ListNode\IWorkLogicNodeAble.cs" />
+    <Compile Include="UIPanels\FrontEndFactoryPanel.xaml.cs">
+      <DependentUpon>FrontEndFactoryPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WorkLogicNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseType\BaseType.csproj">
-      <Project>{a3b9a1d5-2e9a-472c-83b4-ac1e1518948e}</Project>
-      <Name>BaseType</Name>
-    </ProjectReference>
+    <Page Include="UIPanels\FrontEndFactoryPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorldCreaterStudio_Core.MapCreater;
 
 namespace WorldCreaterStudio.Resouses {
 	namespace NewWork {
@@ -44,6 +45,20 @@ namespace WorldCreaterStudio.Resouses {
 
 		private static Dictionary<string, NewWork.MapCreaterTypeNode> _mapCreaterTypeMayToCollection { get; set; } = new Dictionary<string, NewWork.MapCreaterTypeNode>();
 
+		/// <summary>
+		/// 注册一个CreaterFactory到创建列表和创建者工厂列表【WorldCreaterStudio_Core.StoreRoom.MapCreaterDictionary】
+		/// </summary>
+		/// <param name="createrFactory"></param>
+		public static void RegisterACreaterFactory(MapCreaterFactory createrFactory) {
+			if (!_mapCreaterTypeMayToCollection.ContainsKey(createrFactory.DisplayType)) {
+				_mapCreaterTypeMayToCollection[createrFactory.DisplayType] = new NewWork.MapCreaterTypeNode() {
+					TypeName = createrFactory.DisplayType
+				};
+			}
+			_mapCreaterTypeMayToCollection[createrFactory.DisplayType].Creaters.Add(createrFactory);
+
+			WorldCreaterStudio_Core.StoreRoom.MapCreaterDictionary.RegisterACreaterFactory(createrFactory);
+		}
 
 		static StoreRoom() {
 
