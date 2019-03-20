@@ -29,6 +29,29 @@
 			<Style TargetType="MenuItem" BasedOn="{StaticResource StyleMenuItem}"/>
 			<Style TargetType="ToolBar" BasedOn="{StaticResource StyleToolBar}"/>
 			<Style TargetType="ListBox" BasedOn="{StaticResource StyleListBox}"/>
+
+
+			<Grid x:Key="frontEndFactoryShowPanel">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="auto"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="1*"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="auto"/>
+					</Grid.RowDefinitions>
+					<TextBlock Grid.Row="0" Text="{Binding CreaterName}"></TextBlock>
+					<TextBlock Grid.Row="1" Text="{Binding CreaterProgramSet}"></TextBlock>
+					<TextBlock Grid.Row="2" Text="{Binding CreaterGuid}"></TextBlock>
+				</Grid>
+				<ScrollViewer Content="{Binding Configuration}"></ScrollViewer>
+			</Grid>
 		</ResourceDictionary>
 	</Window.Resources>
 	<Grid>
@@ -65,7 +88,9 @@
 			<Grid x:Name="FunctionPanelConter">
 				
 			</Grid>
-			<Image Source="pack://application:,,,/Resouses\img.png"></Image>
+
+
+			<!--<Image Source="pack://application:,,,/Resouses\img.png"></Image>-->
 
 			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>
 

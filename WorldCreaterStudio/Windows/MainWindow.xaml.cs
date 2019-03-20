@@ -85,6 +85,14 @@ namespace WorldCreaterStudio {
 			}
 		}
 
+		#region 功能面板相关
+		/// <summary>
+		/// 向Core注册展示板
+		/// </summary>
+		private void RegShowPanel() {
+			FrameworkElement panel = this.Resources["frontEndFactoryShowPanel"] as FrameworkElement;
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.FrontEndFactoryPanel = panel;
+		}
 
 		/// <summary>
 		/// 表示正在展示的面板
@@ -106,8 +114,11 @@ namespace WorldCreaterStudio {
 		}
 
 		private void Tree_Project_Item_DoubleClick(object sender, MouseButtonEventArgs e) {
-
-		}
+			Button btn = sender as Button;
+			IWorkLogicNodeAble workLogicNode = btn.DataContext as IWorkLogicNodeAble;
+			ShowFunctionPanel(workLogicNode, workLogicNode.ShowPanel);
+		} 
+		#endregion
 	}
 
 }
