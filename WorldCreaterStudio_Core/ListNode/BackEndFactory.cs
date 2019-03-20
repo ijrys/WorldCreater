@@ -12,7 +12,7 @@ namespace WorldCreaterStudio_Core {
 	public class BackEndFactory : IWorkLogicNodeAble {
 		public Work Work { get; private set; }
 
-		public UIElement ShowPanel { get; set; }
+		public FrameworkElement ShowPanel { get; set; }
 
 		public string NodeName => "后端工厂";
 

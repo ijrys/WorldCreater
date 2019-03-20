@@ -39,7 +39,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 		public Work Work { get; private set; }
 
-		public UIElement ShowPanel => null;
+		public FrameworkElement ShowPanel => null;
 
 		public string NodeName => "Image Resourese";
 

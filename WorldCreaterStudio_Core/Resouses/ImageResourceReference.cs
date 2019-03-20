@@ -15,7 +15,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 	class ImageResourceReference : IWorkLogicNodeAble {
 		public Work Work { get; private set; }
 
-		public UIElement ShowPanel => null;
+		public FrameworkElement ShowPanel => null;
 
 		public string NodeName => throw new NotImplementedException();
 

@@ -65,19 +65,11 @@
     <Compile Include="ListNode\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoreRoom\MapCreaterDictionary.cs" />
+    <Compile Include="StoreRoom\ShowPanel.cs" />
     <Compile Include="Tools\Path.cs" />
     <Compile Include="ListNode\Work.cs" />
     <Compile Include="ListNode\IWorkLogicNodeAble.cs" />
-    <Compile Include="UIPanels\FrontEndFactoryPanel.xaml.cs">
-      <DependentUpon>FrontEndFactoryPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="WorkLogicNode.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="UIPanels\FrontEndFactoryPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

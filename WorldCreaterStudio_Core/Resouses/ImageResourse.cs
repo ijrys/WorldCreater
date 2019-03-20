@@ -64,7 +64,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 			set { _image = value; DataChanged = true; InfoChanged = true; }
 		}
 
-		public UIElement ShowPanel => null;
+		public FrameworkElement ShowPanel => StoreRoom.ShowPanel.ImagePanel;
 
 		public string NodeName => Key;
 

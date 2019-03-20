@@ -18,8 +18,8 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		public Work Work { get; private set; }
 
-		public UIElement ShowPanel => null;
-		public UIElement ConfigurationPanel {
+		public FrameworkElement ShowPanel => null;
+		public FrameworkElement ConfigurationPanel {
 			get {
 				if (Configuration == null) return null;
 				return Configuration.ShowPanel;

@@ -69,9 +69,9 @@ namespace RandomTend {
 		/// </summary>
 		public int RandomSeed { get; set; }
 
-		private UIElement _showPanel = null;
+		private FrameworkElement _showPanel = null;
 
-		public override UIElement ShowPanel {
+		public override FrameworkElement ShowPanel {
 			get {
 				if (_showPanel == null) {
 					_showPanel = new ConfigPanel();

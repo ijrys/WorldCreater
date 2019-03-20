@@ -62,6 +62,9 @@
 				<ColumnDefinition Width="auto"/>
 				<ColumnDefinition Width="128"/>
 			</Grid.ColumnDefinitions>
+			<Grid x:Name="FunctionPanelConter">
+				
+			</Grid>
 			<Image Source="pack://application:,,,/Resouses\img.png"></Image>
 
 			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>
@@ -79,10 +82,12 @@
 				<TreeView x:Name="Tree_Project" Grid.Row="1">
 					<TreeView.ItemTemplate>
 						<HierarchicalDataTemplate DataType="{x:Type localcore:IWorkLogicNodeAble}" ItemsSource="{Binding Path=Childrens}">
-							<StackPanel Orientation="Horizontal">
-								<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
-								<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
-							</StackPanel>
+							<Button MouseDoubleClick="Tree_Project_Item_DoubleClick">
+								<StackPanel Orientation="Horizontal">
+									<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
+									<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
+								</StackPanel>
+							</Button>
 						</HierarchicalDataTemplate>
 					</TreeView.ItemTemplate>
 				</TreeView>

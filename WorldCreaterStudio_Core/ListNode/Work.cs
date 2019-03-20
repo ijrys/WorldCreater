@@ -10,9 +10,9 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml;
-using WorldCreater.BaseType;
 
 namespace WorldCreaterStudio_Core {
+	using ShowPanelType = FrameworkElement;
 	public class Work : IWorkLogicNodeAble, INotifyPropertyChanged {
 		DirectoryInfo _workDirectionary;
 		DirectoryInfo _workResousesDirectionary;
@@ -20,10 +20,11 @@ namespace WorldCreaterStudio_Core {
 		Guid _guid;
 		bool _changed;
 		ImageSource _icon;
+		private string _nodeName;
 
 		Work IWorkLogicNodeAble.Work => this;
-		public UIElement ShowPanel { get; private set; }
-		public string NodeName { get; private set; }
+		public ShowPanelType ShowPanel { get => StoreRoom.ShowPanel.WorkPanel; }
+		public string NodeName { get=>_nodeName; private set { _nodeName = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
 		public ImageSource Icon { get=>_icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
 
 		public Resouses.ImageResourceManager Images { get; private set; }

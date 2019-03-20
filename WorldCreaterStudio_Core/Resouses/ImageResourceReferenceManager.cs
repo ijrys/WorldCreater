@@ -22,7 +22,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <summary>
 		/// 节点可展示的面板
 		/// </summary>
-		public UIElement ShowPanel => null;
+		public FrameworkElement ShowPanel => null;
 
 		/// <summary>
 		/// 节点展示名称

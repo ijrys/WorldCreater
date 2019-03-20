@@ -7,7 +7,7 @@ namespace WorldCreaterStudio_Core.MapCreater {
 		public abstract int GetHeight();
 		public abstract int GetRandomSeed();
 
-		public abstract UIElement ShowPanel { get; }
+		public abstract FrameworkElement ShowPanel { get; }
 
 		/// <summary>
 		/// 从xml节点中加载设置

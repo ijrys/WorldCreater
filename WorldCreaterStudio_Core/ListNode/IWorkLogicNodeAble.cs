@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core {
+	using ShowPanelType = FrameworkElement;
 	/// <summary>
 	/// 工作中的逻辑节点
 	/// </summary>
@@ -21,7 +22,7 @@ namespace WorldCreaterStudio_Core {
 		/// <summary>
 		/// 节点可展示的面板
 		/// </summary>
-		UIElement ShowPanel { get; }
+		ShowPanelType ShowPanel { get; }
 
 		/// <summary>
 		/// 节点展示名称

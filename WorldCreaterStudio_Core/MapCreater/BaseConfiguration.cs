@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core.MapCreater {
@@ -8,6 +9,8 @@ namespace WorldCreaterStudio_Core.MapCreater {
 		public int Height { get; set; }
 
 		public int RandomSeed { get; set; }
+
+		public override FrameworkElement ShowPanel => null; // todo
 
 		public override int GetHeight() {
 			return Height;

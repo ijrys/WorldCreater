@@ -86,6 +86,28 @@ namespace WorldCreaterStudio {
 		}
 
 
+		/// <summary>
+		/// 表示正在展示的面板
+		/// </summary>
+		private FrameworkElement _showingFunctionPanel;
+
+		/// <summary>
+		/// 展示一个功能面板
+		/// </summary>
+		/// <param name="panel"></param>
+		private void ShowFunctionPanel(object dataprovider, FrameworkElement panel) {
+			if (panel == null || dataprovider == null) return;
+			if (_showingFunctionPanel != panel) {
+				FunctionPanelConter.Children.Clear();
+				FunctionPanelConter.Children.Add(panel);
+				_showingFunctionPanel = panel;
+			}
+			panel.DataContext = dataprovider;
+		}
+
+		private void Tree_Project_Item_DoubleClick(object sender, MouseButtonEventArgs e) {
+
+		}
 	}
 
 }
