@@ -26,6 +26,27 @@
 				<ResourceDictionary Source="Resouses\ControlTemplates\ToolBar.xaml"/>
 				<ResourceDictionary Source="Resouses\ControlTemplates\ListBox.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
+			<Style TargetType="{x:Type Label}" BasedOn="{StaticResource StyleLabel}"/>
+			<Style TargetType="{x:Type Button}" BasedOn="{StaticResource StyleButton}"/>
+			<Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource StyleGroupBox}">
+				<Setter Property="Margin" Value="8 4"/>
+			</Style>
+			<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource StyleTextBox}"/>
+			<Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource StyleToggleButton}"/>
+			<Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource StyleCheckBox}"/>
+			<Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource StyleScrollBar}"/>
+			<Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource StyleScrollViewer}"/>
+			<Style TargetType="RadioButton" BasedOn="{StaticResource StyleRadioButton}"/>
+			<Style TargetType="ComboBox" BasedOn="{StaticResource StyleComboBox}"/>
+			<Style TargetType="TreeView" BasedOn="{StaticResource StyleTreeView}"/>
+			<Style TargetType="TreeViewItem" BasedOn="{StaticResource StyleTreeViewItem}"/>
+			<Style TargetType="Menu" BasedOn="{StaticResource StyleMenu}"/>
+			<Style TargetType="MenuItem" BasedOn="{StaticResource StyleMenuItem}"/>
+			<Style TargetType="ToolBar" BasedOn="{StaticResource StyleToolBar}"/>
+			<Style TargetType="ListBox" BasedOn="{StaticResource StyleListBox}"/>
+			<Style TargetType="TextBlock">
+				<Setter Property="Foreground" Value="{DynamicResource Brush_Control_FG_Normal_Normal}"/>
+			</Style>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

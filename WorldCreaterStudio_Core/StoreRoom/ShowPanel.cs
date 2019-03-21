@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace WorldCreaterStudio_Core.StoreRoom {
-	using ShowPanelType = FrameworkElement;
+	using ShowPanelType = System.Windows.Controls.ControlTemplate;
 	/// <summary>
 	/// 存储各种用于展示的面板，由WorldCreaterStudio注入
 	/// </summary>

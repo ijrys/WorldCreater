@@ -1,13 +1,16 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core.MapCreater {
-	public abstract class Configuration {
+	public abstract class Configuration : INotifyPropertyChanged {
+		public abstract event PropertyChangedEventHandler PropertyChanged;
+
 		public abstract int GetWidth();
 		public abstract int GetHeight();
 		public abstract int GetRandomSeed();
 
-		public abstract FrameworkElement ShowPanel { get; }
+		public abstract System.Windows.Controls.ControlTemplate ShowPanel { get; }
 
 		/// <summary>
 		/// 从xml节点中加载设置
@@ -21,5 +24,7 @@ namespace WorldCreaterStudio_Core.MapCreater {
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
 		public abstract XmlElement XmlNode(XmlDocument xmlDocument);
+
+
 	}
 }

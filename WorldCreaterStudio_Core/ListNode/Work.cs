@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core {
-	using ShowPanelType = FrameworkElement;
+	using ShowPanelType = System.Windows.Controls.ControlTemplate;
 	public class Work : IWorkLogicNodeAble, INotifyPropertyChanged {
 		DirectoryInfo _workDirectionary;
 		DirectoryInfo _workResousesDirectionary;

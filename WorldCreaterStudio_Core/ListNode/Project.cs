@@ -20,7 +20,7 @@ namespace WorldCreaterStudio_Core {
 
 		public Work Work => null;
 
-		public FrameworkElement ShowPanel => null;
+		public System.Windows.Controls.ControlTemplate ShowPanel => null;
 		public string NodeName { get; private set; }
 		public ImageSource Icon { get; private set; }
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }

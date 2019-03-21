@@ -22,13 +22,6 @@ namespace WorldCreaterStudio.Resouses {
 				Creaters.AddRange(creaters);
 			}
 
-			//public MapCreaterTypeNode(IEnumerable<MapCreaterTypeNode> childrens) : this() {
-			//	Childrens.AddRange(childrens);
-			//}
-			//public MapCreaterTypeNode(IEnumerable<MapCreaterTypeNode> childrens, IEnumerable<string> creaters) : this() {
-			//	Creaters.AddRange(creaters);
-			//	Childrens.AddRange(childrens);
-			//}
 		}
 
 	}

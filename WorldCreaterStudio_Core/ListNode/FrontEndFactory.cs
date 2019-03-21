@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
 
@@ -18,8 +19,8 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		public Work Work { get; private set; }
 
-		public FrameworkElement ShowPanel => StoreRoom.ShowPanel.FrontEndFactoryPanel;
-		public FrameworkElement ConfigurationPanel {
+		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.FrontEndFactoryPanel;
+		public ControlTemplate ConfigurationPanel {
 			get {
 				if (Configuration == null) return null;
 				return Configuration.ShowPanel;

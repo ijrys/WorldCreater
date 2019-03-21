@@ -95,45 +95,27 @@ namespace WorldCreaterStudio {
 		/// 向Core注册展示板
 		/// </summary>
 		private void RegShowPanel() {
-			FrameworkElement panel = this.Resources["frontEndFactoryShowPanel"] as FrameworkElement;
+			ControlTemplate panel = this.Resources["frontEndFactoryShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.FrontEndFactoryPanel = panel;
 		}
 
 		/// <summary>
 		/// 表示正在展示的面板
 		/// </summary>
-		private FrameworkElement _showingFunctionPanel;
+		private ControlTemplate _showingFunctionPanel;
 
 		/// <summary>
 		/// 展示一个功能面板
 		/// </summary>
 		/// <param name="panel"></param>
-		private void ShowFunctionPanel(object dataprovider, FrameworkElement panel) {
+		private void ShowFunctionPanel(object dataprovider, ControlTemplate panel) {
 			if (panel == null || dataprovider == null) return;
 			if (_showingFunctionPanel != panel) {
-				FunctionPanelConter.Children.Clear();
-				FunctionPanelConter.Children.Add(panel);
+				FunctionPanelConter.Template = panel;
+				//FunctionPanelConter.Children.Add(panel);
 				_showingFunctionPanel = panel;
 			}
-
-			
-			//panel.DataContext = dataprovider;
-
-			//panel.InvalidateVisual();
-			//panel.UpdateLayout();
-			//panel.UpdateDefaultStyle();
-
-			//foreach (System.Collections.DictionaryEntry item in Resources) {
-			//	if (!(item.Value is Style)) continue;
-			//	Style style = item.Value as Style;
-			//	if (style.TargetType == typeof(TextBlock)) {
-			//		foreach (Setter sitem in style.Setters) {
-			//			if (sitem.Property == TextBlock.ForegroundProperty) {
-			//				(sitem.Value as SolidColorBrush).Color = System.Windows.Media.Color.FromArgb(255, 255, 255, 0);
-			//			}
-			//		}
-			//	}
-			//}
+			FunctionPanelConter.DataContext = dataprovider;
 		}
 
 		private void Tree_Project_Item_DoubleClick(object sender, MouseButtonEventArgs e) {
@@ -144,12 +126,12 @@ namespace WorldCreaterStudio {
 		#endregion
 
 		private void btn_Test_Click(object sender, RoutedEventArgs e) {
-			TextBlock tb = new TextBlock() {
-				Text = "测试按钮"
-			};
-			FunctionPanelConter.Children.Clear();
-			FunctionPanelConter.Children.Add(tb);
-			_showingFunctionPanel = tb;
+
+		}
+
+		private void FrontEndFactoryShowPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
+			Console.WriteLine(sender.GetType());
+
 		}
 	}
 

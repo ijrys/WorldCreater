@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
 
@@ -21,7 +22,7 @@ namespace WorldCreaterStudio_Core {
 		/// <summary>
 		/// 节点可展示的面板
 		/// </summary>
-		FrameworkElement ShowPanel { get; }
+		ControlTemplate ShowPanel { get; }
 
 		/// <summary>
 		/// 节点展示名称
