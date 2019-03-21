@@ -12,7 +12,7 @@
 	<Window.Resources>
 		<ResourceDictionary>
 			<ControlTemplate TargetType="ContentControl" x:Key="frontEndFactoryShowPanel">
-				<Grid DataContextChanged="FrontEndFactoryShowPanel_DataContextChanged">
+				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="auto"/>
 						<RowDefinition Height="1*"/>
@@ -62,7 +62,7 @@
 			</MenuItem>
 		</Menu>
 		<ToolBar Grid.Row="1">
-			<Button Click="btn_Test_Click">Save</Button>
+			<Button>Save</Button>
 			<Button>open</Button>
 			<Button>New Work</Button>
 		</ToolBar>

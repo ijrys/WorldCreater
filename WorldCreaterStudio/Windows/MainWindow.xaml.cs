@@ -125,14 +125,6 @@ namespace WorldCreaterStudio {
 		}
 		#endregion
 
-		private void btn_Test_Click(object sender, RoutedEventArgs e) {
-
-		}
-
-		private void FrontEndFactoryShowPanel_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e) {
-			Console.WriteLine(sender.GetType());
-
-		}
 	}
 
 }

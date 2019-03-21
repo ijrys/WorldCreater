@@ -13,40 +13,21 @@ using System.Xml;
 
 namespace WorldCreaterStudio_Core {
 	using ShowPanelType = System.Windows.Controls.ControlTemplate;
+
+	/// <summary>
+	/// 表示一个工作
+	/// </summary>
 	public class Work : IWorkLogicNodeAble, INotifyPropertyChanged {
-		DirectoryInfo _workDirectionary;
-		DirectoryInfo _workResousesDirectionary;
-		FileInfo _workFile;
-		Guid _guid;
-		bool _changed;
-		ImageSource _icon;
+		#region 字段
+		private DirectoryInfo _workDirectionary;
+		private DirectoryInfo _workResousesDirectionary;
+		private FileInfo _workFile;
+		private Guid _guid;
+		private bool _changed;
+		private ImageSource _icon;
 		private string _nodeName;
 
-		Work IWorkLogicNodeAble.Work => this;
-		public ShowPanelType ShowPanel { get => StoreRoom.ShowPanel.WorkPanel; }
-		public string NodeName { get=>_nodeName; private set { _nodeName = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
-		public ImageSource Icon { get=>_icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
-
-		public Resouses.ImageResourceManager Images { get; private set; }
-		public FrontEndFactory FrontEndNodes { get; private set; }
-		public BackEndFactory BackEndNodes { get; private set; }
-		//public Dictionary<string, Resouses.ImageResourse> first;
-
-		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
-		public Guid Guid { get => _guid; private set => _guid = value; }
-
-
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
-			XmlElement node = xmlDocument.CreateElement("work");
-			node.SetAttribute("guid", Guid.ToString());
-
-			node.SetAttribute("dictionary", _workDirectionary.Name);
-			node.SetAttribute("file", _workFile.Name);
-			node.SetAttribute("name", NodeName);
-
-			return node;
-		}
-
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>
 		/// 随机值
@@ -62,9 +43,73 @@ namespace WorldCreaterStudio_Core {
 		/// 地势图【起伏程度】
 		/// </summary>
 		byte[,] _terrainMap;
+		#endregion
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		#region 属性
+		/// <summary>
+		/// 获取节点所在的工作，这里为当前对象
+		/// </summary>
+		Work IWorkLogicNodeAble.Work => this;
 
+		/// <summary>
+		/// 双击工作节点时在功能面板区展示的面板模板
+		/// </summary>
+		public ShowPanelType ShowPanel { get => StoreRoom.ShowPanel.WorkPanel; }
+
+		/// <summary>
+		/// 节点名称，在这里指工作名
+		/// </summary>
+		public string NodeName { get => _nodeName; private set { _nodeName = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
+
+		/// <summary>
+		/// 节点展示的图标
+		/// </summary>
+		public ImageSource Icon { get => _icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
+
+		/// <summary>
+		/// 图片资源管理
+		/// </summary>
+		public Resouses.ImageResourceManager Images { get; private set; }
+		/// <summary>
+		/// 前端工厂节点
+		/// </summary>
+		public FrontEndFactory FrontEndNodes { get; private set; }
+		/// <summary>
+		/// 后端工厂节点
+		/// </summary>
+		public BackEndFactory BackEndNodes { get; private set; }
+
+		/// <summary>
+		/// 子节点
+		/// </summary>
+		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
+		/// <summary>
+		/// GUID
+		/// </summary>
+		public Guid Guid { get => _guid; private set => _guid = value; }
+
+		#endregion
+
+		/// <summary>
+		/// 获取表示节点的XML节点，用于方便Project的管理
+		/// </summary>
+		/// <param name="xmlDocument"></param>
+		/// <returns></returns>
+		public XmlElement XmlNode(XmlDocument xmlDocument) {
+			XmlElement node = xmlDocument.CreateElement("work");
+			node.SetAttribute("guid", Guid.ToString());
+
+			node.SetAttribute("dictionary", _workDirectionary.Name);
+			node.SetAttribute("file", _workFile.Name);
+			node.SetAttribute("name", NodeName);
+
+			return node;
+		}
+
+		/// <summary>
+		/// 保存工程
+		/// </summary>
+		/// <param name="saveEvenUnchanged"></param>
 		public void Save(bool saveEvenUnchanged = false) {
 			if (!saveEvenUnchanged && !_changed) return;
 			XmlDocument document = new XmlDocument();
@@ -94,6 +139,7 @@ namespace WorldCreaterStudio_Core {
 			_changed = false;
 		}
 
+		#region 获得方法
 		private Work(string workPath, string filename, string workName) {
 			_workDirectionary = new DirectoryInfo(workPath);
 			string imgDir = Path.Combine(workPath, "Images");
@@ -163,6 +209,9 @@ namespace WorldCreaterStudio_Core {
 			work.Childrens.Add(work.FrontEndNodes);
 			return work;
 		}
+		#endregion
+
+		#region 工具方法
 
 		private static BitmapImage GetBitmapFromFile(string path) {
 			if (!File.Exists(path)) return null;
@@ -177,8 +226,7 @@ namespace WorldCreaterStudio_Core {
 				result.StreamSource = stream;
 				result.EndInit();
 				result.Freeze();
-			}
-			catch (Exception ex) {
+			} catch (Exception ex) {
 				Console.WriteLine("read image fail");
 				Console.WriteLine(ex.Message);
 				result = null;
@@ -187,8 +235,6 @@ namespace WorldCreaterStudio_Core {
 			return result;
 		}
 
-		public void SetFrontEndFactory (FrontEndFactory factory) {
-
-		}
+		#endregion
 	}
 }
