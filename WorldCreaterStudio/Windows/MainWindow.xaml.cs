@@ -48,6 +48,7 @@ namespace WorldCreaterStudio {
 		public MainWindow() {
 			InitializeComponent();
 
+			//命令绑定
 			CommandBinding newCommand = new CommandBinding(Commands.NewProject);
 			newCommand.Executed += Command_NewProject_Executed;
 			CommandBindings.Add(newCommand);
@@ -55,6 +56,10 @@ namespace WorldCreaterStudio {
 			newCommand = new CommandBinding(Commands.NewWork);
 			newCommand.Executed += Command_NewWork_Executed;
 			CommandBindings.Add(newCommand);
+
+
+			//面板注册
+			RegShowPanel();
 		}
 
 		private void Command_NewWork_Executed(object sender, ExecutedRoutedEventArgs e) {
@@ -110,15 +115,42 @@ namespace WorldCreaterStudio {
 				FunctionPanelConter.Children.Add(panel);
 				_showingFunctionPanel = panel;
 			}
-			panel.DataContext = dataprovider;
+
+			
+			//panel.DataContext = dataprovider;
+
+			//panel.InvalidateVisual();
+			//panel.UpdateLayout();
+			//panel.UpdateDefaultStyle();
+
+			//foreach (System.Collections.DictionaryEntry item in Resources) {
+			//	if (!(item.Value is Style)) continue;
+			//	Style style = item.Value as Style;
+			//	if (style.TargetType == typeof(TextBlock)) {
+			//		foreach (Setter sitem in style.Setters) {
+			//			if (sitem.Property == TextBlock.ForegroundProperty) {
+			//				(sitem.Value as SolidColorBrush).Color = System.Windows.Media.Color.FromArgb(255, 255, 255, 0);
+			//			}
+			//		}
+			//	}
+			//}
 		}
 
 		private void Tree_Project_Item_DoubleClick(object sender, MouseButtonEventArgs e) {
 			Button btn = sender as Button;
 			IWorkLogicNodeAble workLogicNode = btn.DataContext as IWorkLogicNodeAble;
 			ShowFunctionPanel(workLogicNode, workLogicNode.ShowPanel);
-		} 
+		}
 		#endregion
+
+		private void btn_Test_Click(object sender, RoutedEventArgs e) {
+			TextBlock tb = new TextBlock() {
+				Text = "测试按钮"
+			};
+			FunctionPanelConter.Children.Clear();
+			FunctionPanelConter.Children.Add(tb);
+			_showingFunctionPanel = tb;
+		}
 	}
 
 }

@@ -121,6 +121,9 @@
   <data name="Dark_Icon_BackEndWork" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\dark_icon_backendwork.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Dark_Icon_FrontEndWork" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\dark_icon_frontendwork.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Dark_Icon_Gra" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\dark_icon_gra.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

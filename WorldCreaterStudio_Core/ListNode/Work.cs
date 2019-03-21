@@ -105,6 +105,8 @@ namespace WorldCreaterStudio_Core {
 			Guid = Guid.NewGuid();
 			_changed = false;
 			Images = new Resouses.ImageResourceManager(_workResousesDirectionary);
+			FrontEndNodes = new FrontEndFactory(this);
+
 			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
 		}
 
@@ -120,7 +122,15 @@ namespace WorldCreaterStudio_Core {
 			work.Save(true);
 
 			work.Childrens.Add(work.Images);
+			work.Childrens.Add(work.FrontEndNodes);
 			return work;
+		}
+
+		public static Work NewWork(string workPath, string filename, string workName, MapCreater.MapCreaterFactory createrFactory) {
+			Work re = NewWork(workPath, filename, workName);
+			re.FrontEndNodes.SetCreater(createrFactory);
+
+			return re;
 		}
 
 		public static Work OpenWork(string workPath, string filename, string workName) {
@@ -139,7 +149,7 @@ namespace WorldCreaterStudio_Core {
 						}
 						break;
 					case "frontendfactory": //前端工厂
-
+						work.FrontEndNodes.InitByXMLNode(item);
 						break;
 					case "backendfactory": //后端工厂
 
@@ -149,10 +159,10 @@ namespace WorldCreaterStudio_Core {
 
 				}
 			}
-			work.Childrens.Append(work.Images);
+			work.Childrens.Add(work.Images);
+			work.Childrens.Add(work.FrontEndNodes);
 			return work;
 		}
-
 
 		private static BitmapImage GetBitmapFromFile(string path) {
 			if (!File.Exists(path)) return null;
@@ -177,5 +187,8 @@ namespace WorldCreaterStudio_Core {
 			return result;
 		}
 
+		public void SetFrontEndFactory (FrontEndFactory factory) {
+
+		}
 	}
 }

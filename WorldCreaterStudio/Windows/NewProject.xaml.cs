@@ -95,7 +95,6 @@ namespace WorldCreaterStudio.Windows {
 		}
 
 		private void BtnOk_Click(object sender, RoutedEventArgs e) {
-
 			try {
 				if (CreateNewProject) { //新工程模式
 					string proFileName = WorldCreaterStudio_Core.Tools.Path.GetAFileName(txtProName.Text);
@@ -105,6 +104,8 @@ namespace WorldCreaterStudio.Windows {
 				//添加work
 				string workPath = WorldCreaterStudio_Core.Tools.Path.GetAFileName(txtWorkName.Text);
 				Work = Project.NewWork(workPath, workPath + ".mrimcwork", txtWorkName.Text);
+				WorldCreaterStudio_Core.MapCreater.MapCreaterFactory cf = list_CreaterSelecter.SelectedItem as WorldCreaterStudio_Core.MapCreater.MapCreaterFactory;
+				Work.FrontEndNodes.SetCreater(cf);
 				WindowResult = System.Windows.Forms.DialogResult.OK;
 				Close();
 			} catch (Exception ex) {

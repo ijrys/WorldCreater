@@ -73,6 +73,16 @@ namespace WorldCreaterStudio_Resouses.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        public static System.Drawing.Bitmap Dark_Icon_FrontEndWork {
+            get {
+                object obj = ResourceManager.GetObject("Dark_Icon_FrontEndWork", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         public static System.Drawing.Bitmap Dark_Icon_Gra {
             get {
                 object obj = ResourceManager.GetObject("Dark_Icon_Gra", resourceCulture);

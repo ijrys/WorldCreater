@@ -56,6 +56,7 @@ namespace WorldCreaterStudio_Resouses {
 		#region catch
 		private static BitmapImage _dark_Icon_Res = null;
 		private static BitmapImage _dark_Icon_BackEndWork = null;
+		private static BitmapImage _dark_Icon_FrontEndWork = null;
 		private static BitmapImage _dark_Icon_Gra = null;
 		private static BitmapImage _dark_Icon_Pro = null;
 		private static BitmapImage _dark_Icon_ResLib = null;
@@ -123,6 +124,19 @@ namespace WorldCreaterStudio_Resouses {
 				}
 
 				return _dark_Icon_ResLib;
+			}
+		}
+
+		/// <summary>
+		///   Dark_Icon_FrontEndWork
+		/// </summary>
+		public static BitmapImage Dark_Icon_FrontEndWork {
+			get {
+				if (_dark_Icon_FrontEndWork == null) {
+					_dark_Icon_FrontEndWork = BitmapConvert(Properties.Resources.Dark_Icon_FrontEndWork);
+				}
+
+				return _dark_Icon_FrontEndWork;
 			}
 		}
 	}

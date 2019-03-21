@@ -109,5 +109,8 @@
   <ItemGroup>
     <None Include="Resources\Dark_Icon_ResLib.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dark_Icon_FrontEndWork.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
