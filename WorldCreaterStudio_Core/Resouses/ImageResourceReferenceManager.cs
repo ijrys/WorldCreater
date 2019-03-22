@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core.Resouses {
@@ -57,7 +58,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		}
 
 
-		public ImageResourceReferenceManager (Work work) {
+		public ImageResourceReferenceManager(Work work) {
 			this.Work = work;
 		}
 
@@ -72,13 +73,17 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
 				if (item.Name == "ir") { //资源引用
-					// todo
+										 // todo
 				} else {
 
 				}
 			}
 
 			return re;
+		}
+
+		public void Add(string key, BitmapSource image, string description = "") {
+			Work.Images.Add(key, image, description);
 		}
 	}
 }

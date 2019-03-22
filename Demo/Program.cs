@@ -11,12 +11,16 @@ using  WorldCreaterStudio_Resouses;
 namespace Demo {
 	class Program {
 		static void Main(string[] args) {
-			DoFun1();
+			//DoFun1();
 			//DoFun2();
 			//Type type = typeof(RandomTend.RandomTendCreater);
 			//Console.WriteLine(type.FullName);
 			//Console.WriteLine(type.Module);
 			//Console.WriteLine(type.GUID);
+			int[,] a = new int[8, 16];
+			Console.WriteLine(a.GetLength(0));
+			Console.WriteLine(a.GetLength(1));
+
 
 			Console.WriteLine("end work, press enter to exit");
 			Console.ReadLine();

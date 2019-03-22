@@ -52,39 +52,53 @@ namespace WorldCreaterStudio_Core {
 		Work IWorkLogicNodeAble.Work => this;
 
 		/// <summary>
-		/// 双击工作节点时在功能面板区展示的面板模板
+		/// 获取节点双击工作节点时在功能面板区展示的面板模板
 		/// </summary>
 		public ShowPanelType ShowPanel { get => StoreRoom.ShowPanel.WorkPanel; }
 
 		/// <summary>
-		/// 节点名称，在这里指工作名
+		/// 获取节点名称，在这里指工作名
+		/// 响应INotifyPropertyChanged
 		/// </summary>
-		public string NodeName { get => _nodeName; private set { _nodeName = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
+		public string NodeName {
+			get => _nodeName;
+			private set {
+				_nodeName = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
+			}
+		}
 
 		/// <summary>
-		/// 节点展示的图标
+		/// 获取节点展示的图标
+		/// 响应INotifyPropertyChanged
 		/// </summary>
-		public ImageSource Icon { get => _icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
+		public ImageSource Icon {
+			get => _icon;
+			set {
+				_icon = value;
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
+			}
+		}
 
 		/// <summary>
-		/// 图片资源管理
+		/// 获取图片资源管理
 		/// </summary>
 		public Resouses.ImageResourceManager Images { get; private set; }
 		/// <summary>
-		/// 前端工厂节点
+		/// 获取前端工厂节点
 		/// </summary>
 		public FrontEndFactory FrontEndNodes { get; private set; }
 		/// <summary>
-		/// 后端工厂节点
+		/// 获取后端工厂节点
 		/// </summary>
 		public BackEndFactory BackEndNodes { get; private set; }
 
 		/// <summary>
-		/// 子节点
+		/// 获取所有子节点，用于工作列表展示，其他逻辑节点请通过相应属性或方法更改
 		/// </summary>
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
 		/// <summary>
-		/// GUID
+		/// 获取工作的GUID
 		/// </summary>
 		public Guid Guid { get => _guid; private set => _guid = value; }
 

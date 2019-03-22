@@ -14,32 +14,60 @@ namespace WorldCreaterStudio_Core {
 	/// 前端工厂
 	/// </summary>
 	public class FrontEndFactory : IWorkLogicNodeAble {
+		#region 属性
 		/// <summary>
-		/// 当前节点所属的Work
+		/// 获取当前节点所属的Work
 		/// </summary>
 		public Work Work { get; private set; }
 
+		/// <summary>
+		/// 获取节点双击工作节点时在功能面板区展示的面板模板
+		/// </summary>
 		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.FrontEndFactoryPanel;
-		public ControlTemplate ConfigurationPanel {
+
+		/// <summary>
+		/// [待删]
+		/// </summary>
+		private ControlTemplate ConfigurationPanel {
 			get {
 				if (Configuration == null) return null;
 				return Configuration.ShowPanel;
 			}
 		}
 
+		/// <summary>
+		/// 获取节点在工作列表中展示的名称
+		/// </summary>
 		public string NodeName => "前端工厂";
 
+		/// <summary>
+		/// 获取或设置节点在工作列表中展示的图标
+		/// </summary>
 		public ImageSource Icon { get; set; } = WorldCreaterStudio_Resouses.Images.Dark_Icon_FrontEndWork;
 
+		/// <summary>
+		/// 获取用于Creater的设置
+		/// </summary>
 		public MapCreater.Configuration Configuration { get; private set; }
 
+		/// <summary>
+		/// 获取Creater
+		/// </summary>
 		public MapCreater.MapCreater Creater { get; private set; }
 
+		/// <summary>
+		/// 获取节点的图片资源引用管理器
+		/// </summary>
 		public Resouses.ImageResourceReferenceManager ImageResourceReferenceManager { get; private set; }
 
+		/// <summary>
+		/// 获取节点的所有子节点
+		/// </summary>
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
 
+		#endregion
 
+		#region XML相关方法
 		/// <summary>
 		/// 获取描述节点的XML节点
 		/// </summary>
@@ -59,7 +87,6 @@ namespace WorldCreaterStudio_Core {
 
 			return node;
 		}
-
 
 		/// <summary>
 		/// 使用xml节点初始化前端工厂
@@ -82,6 +109,8 @@ namespace WorldCreaterStudio_Core {
 			return true;
 		}
 
+		#endregion
+
 		/// <summary>
 		/// 设置前端工厂
 		/// </summary>
@@ -96,6 +125,7 @@ namespace WorldCreaterStudio_Core {
 			}
 
 		}
+
 		/// <summary>
 		/// 设置前端工厂
 		/// </summary>

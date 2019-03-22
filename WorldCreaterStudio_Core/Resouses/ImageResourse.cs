@@ -18,7 +18,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		private string _key;
 		private string _filePath;
 		private string _description;
-		private BitmapImage _image;
+		private BitmapSource _image;
 
 		/// <summary>
 		/// 基本信息是否修改
@@ -59,7 +59,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <summary>
 		/// 图片
 		/// </summary>
-		public BitmapImage Image {
+		public BitmapSource Image {
 			get => _image;
 			set { _image = value; DataChanged = true; InfoChanged = true; }
 		}
@@ -116,6 +116,10 @@ namespace WorldCreaterStudio_Core.Resouses {
 			re.InfoChanged = false;
 
 			return re;
+		}
+
+		public ImageResourceReference GetAReference () {
+			return new ImageResourceReference(Work, this.Key);
 		}
 
 		#region 工具函数

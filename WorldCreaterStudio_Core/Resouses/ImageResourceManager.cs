@@ -24,7 +24,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		ImageResourse this[string key] {
+		public ImageResourse this[string key] {
 			get {
 				if (_res.ContainsKey(key)) {
 					return _res[key];
@@ -56,9 +56,10 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <param name="key"></param>
 		/// <param name="image"></param>
 		/// <param name="description"></param>
-		public void Add(string key, BitmapImage image, string description) {
+		public ImageResourse Add(string key, BitmapSource image, string description) {
 			if (_res.ContainsKey(key)) {
 				_res[key].Image = image;
+				return _res[key];
 			} else {
 				ImageResourse imgres  = new ImageResourse(key) {
 					Description = description,
@@ -66,6 +67,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 				};
 				_res[key] = imgres;
 				_imgs.Add(imgres);
+				return imgres;
 			}
 		}
 

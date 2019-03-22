@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using WorldCreaterStudio_Core.MapCreater;
 namespace RandomTend {
@@ -131,24 +132,24 @@ namespace RandomTend {
 		}
 
 
-		public override int GetHeight() {
-			return Height;
-		}
-
-		public override int GetRandomSeed() {
-			return RandomSeed;
-		}
-
-		public override int GetWidth() {
-			return Width;
-		}
-
 		public override void LoadFromXMLNode(XmlElement xmlnode) {
 			throw new NotImplementedException();
 		}
 
 		public override XmlElement XmlNode(XmlDocument xmlDocument) {
 			throw new NotImplementedException();
+		}
+
+		public override int GetWidth() {
+			return Width;
+		}
+
+		public override int GetHeight() {
+			return Height;
+		}
+
+		public override int GetRandomSeed() {
+			return RandomSeed;
 		}
 	}
 
@@ -159,14 +160,72 @@ namespace RandomTend {
 
 		public override Guid CreaterGuid => typeof(RandomTendCreater).GUID;
 
-		public override int[,] CreatAMap(Configuration configuration) {
+		public override int[,] CreatAMap(Configuration configuration, WorldCreaterStudio_Core.Work work) {
+			//设置检查
 			if (!(configuration is RTConfiguration)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException(typeof(RTConfiguration), configuration.GetType());
-
 			RTConfiguration rtconfig = (configuration as RTConfiguration);
 
-			int[,] re = new int[rtconfig.GetWidth(), rtconfig.GetHeight()];
+			MapCreatingProcessing(0, "正在准备数据", false, null);
 
-			return re;
+			int blockw = 1 << rtconfig.BlockSize, w = rtconfig.Width, h = rtconfig.Height;
+
+			int[,] _map = new int[h, w]; //高度图
+			int[,] _rv = new int[h, w]; //随机值图
+			Random r = new Random(rtconfig.RandomSeed);
+
+			for (int i = 0; i < h; i++) {
+				Random r1 = new Random(r.Next());
+				for (int j = 0; j < w; j++) _rv[i, j] = r.Next(-1048576, 1048576);
+			}
+
+			WriteableBitmap bitmap = ValueToImage.ValueToGrayImage.GetBitmap(-1048576, 1048576, 0, 255, _rv);
+			MapCreatingProcessing(500, "正在准备数据", true, bitmap);
+			if (work != null) {
+				work.FrontEndNodes.ImageResourceReferenceManager.Add("FE.RandomValue", bitmap, "前端工厂的随机值图");
+			}
+
+			for (int i = 0; i < h; i += blockw) {
+				for (int j = 0; j < w; j += blockw) {
+					_map[i, j] = _rv[i, j];
+				}
+			}
+
+			int nowpro = 1; //当前进度
+			int ranscl = 1;
+			for (int nowSetp = blockw; nowSetp >= 1; nowSetp = nowSetp >> 1, nowpro ++, ranscl++) {
+				int pross = (nowSetp + 1) * (nowSetp + 1);
+				pross = 1000 / pross;
+				MapCreatingProcessing((short)pross, "正在准备数据", true, ValueToImage.ValueToGrayImage.GetBitmap(-1048576, 1048576, 0, 255, _rv));
+				#region DoCore
+				for (int i = 0; i < h; i += nowSetp) {
+					for (int j = nowSetp / 2; j < w; j += nowSetp) {
+						int v = _map[i, j - nowSetp / 2] + _map[i, j + nowSetp / 2];
+						_map[i, j] = v / 2 + (_rv[i, j] >> ranscl);
+					}
+				}
+
+				for (int i = nowSetp / 2; i < h; i += nowSetp) {
+					for (int j = 0; j < w; j += nowSetp) {
+						int v = _map[i - nowSetp / 2, j] + _map[i + nowSetp / 2, j];
+						_map[i, j] = v / 2 + (_rv[i, j] >> ranscl);
+					}
+				}
+
+
+				for (int i = nowSetp / 2; i < h; i += nowSetp) {
+					for (int j = nowSetp / 2; j < w; j += nowSetp) {
+						int v1 = _map[i - nowSetp / 2, j] + _map[i + nowSetp / 2, j];
+						int v2 = _map[i, j - nowSetp / 2] + _map[i, j + nowSetp / 2];
+						_map[i, j] = v1 / 4 + v2 / 4 + (_rv[i, j] >> ranscl);
+					}
+				}
+				#endregion
+			}
+
+
+			//this.Resault = new Resault(_map);
+			//Resault.SetShowInfoMap("RandomValue", _rv);
+			return _map;
 		}
 	}
 
