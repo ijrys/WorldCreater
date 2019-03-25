@@ -95,8 +95,9 @@ namespace WorldCreaterStudio {
 		/// 向Core注册展示板
 		/// </summary>
 		private void RegShowPanel() {
-			ControlTemplate panel = this.Resources["frontEndFactoryShowPanel"] as ControlTemplate;
+			ControlTemplate panel = Resources["frontEndFactoryShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.FrontEndFactoryPanel = panel;
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.ImagePanel = Resources["ImageShowPanel"] as ControlTemplate;
 		}
 
 		/// <summary>
@@ -115,6 +116,7 @@ namespace WorldCreaterStudio {
 				//FunctionPanelConter.Children.Add(panel);
 				_showingFunctionPanel = panel;
 			}
+			ImgShow.Visibility = Visibility.Collapsed;
 			FunctionPanelConter.DataContext = dataprovider;
 		}
 
@@ -123,8 +125,29 @@ namespace WorldCreaterStudio {
 			IWorkLogicNodeAble workLogicNode = btn.DataContext as IWorkLogicNodeAble;
 			ShowFunctionPanel(workLogicNode, workLogicNode.ShowPanel);
 		}
+
+		private void ShowAImage (ImageSource image) {
+			ImgShow.Source = image;
+			ImgShow.Visibility = Visibility.Visible;
+		}
 		#endregion
 
+		private void btn_NewGra_Click(object sender, RoutedEventArgs e) {
+			FrontEndFactory fefactory = FunctionPanelConter.DataContext as FrontEndFactory;
+			if (fefactory == null) return;
+			fefactory.Creater.OnProcessingChanged += Creater_OnProcessingChanged;
+			fefactory.Creater.CreatAMap(fefactory.Configuration, fefactory.Work);
+
+		}
+
+		private void Creater_OnProcessingChanged(short permillage, string processDescription, bool freshImage, ImageSource image) {
+			this.txtState.Text = processDescription;
+			this.txtPermillage.Text = permillage.ToString();
+
+			if(freshImage) {
+				ShowAImage(image);
+			}
+		}
 	}
 
 }

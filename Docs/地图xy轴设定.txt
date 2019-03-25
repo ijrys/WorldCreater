@@ -1,0 +1,12 @@
+int[] map = new int[mapheight, mapwidth];
+
+| 0,0 | 0,1 | 0,2 |
+| 1,0 | 1,1 | 1,2 |
+
+
+保存时高位在前，低位在后
+0x12345678
+[12][34][56][78]
+
+存储文件格式：
+[MapWidth][MapHeight][Value0,0][Value0,1]......

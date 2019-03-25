@@ -15,6 +15,7 @@
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="auto"/>
+						<RowDefinition Height="auto"/>
 						<RowDefinition Height="1*"/>
 					</Grid.RowDefinitions>
 					<Grid DataContext="{Binding Creater}">
@@ -31,13 +32,21 @@
 						<TextBlock Grid.Row="0" Text="{Binding CreaterName}"></TextBlock>
 						<TextBlock Grid.Row="1" Text="{Binding CreaterProgramSet}"></TextBlock>
 						<TextBlock Grid.Row="2" Text="{Binding CreaterGuid}"></TextBlock>
-						<TextBlock Grid.Row="3" Text="Setting Panel"></TextBlock>
+						<!--<TextBlock Grid.Row="3" Text="Setting Panel"></TextBlock>-->
 					</Grid>
-					<ScrollViewer Grid.Row="1" >
+					<Button Grid.Row="1" Click="btn_NewGra_Click">获取地形</Button>
+					<ScrollViewer Grid.Row="2" >
 						<ContentControl Template="{Binding ShowPanel}" DataContext="{Binding Configuration}">
 						</ContentControl>
 					</ScrollViewer>
 				</Grid>
+			</ControlTemplate>
+
+			<ControlTemplate TargetType="ContentControl" x:Key="ImageShowPanel">
+				<Image Source="{Binding Image}"/>
+			</ControlTemplate>
+			<ControlTemplate TargetType="ContentControl" x:Key="ProcessImageShowPanel">
+				<Image x:Name="imgcontent"/>
 			</ControlTemplate>
 		</ResourceDictionary>
 	</Window.Resources>
@@ -78,6 +87,7 @@
 			<ContentControl x:Name="FunctionPanelConter">
 
 			</ContentControl>
+			<Image x:Name="ImgShow"/>
 
 			<!--<Image Source="pack://application:,,,/Resouses\img.png"></Image>-->
 
@@ -107,8 +117,10 @@
 				</TreeView>
 			</Grid>
 		</Grid>
-		<StatusBar Grid.Row="3" FontSize="16">
-			<TextBlock>就绪</TextBlock>
+		<StatusBar Grid.Row="3" FontSize="16" Foreground="#000">
+			<TextBlock x:Name="txtPermillage" MinWidth="64px" MaxWidth="128px" Foreground="#000"/>
+			<TextBlock x:Name="txtState" Foreground="#000">就绪</TextBlock>
+			
 		</StatusBar>
 	</Grid>
 

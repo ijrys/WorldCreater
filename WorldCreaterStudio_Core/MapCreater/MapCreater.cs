@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorldCreaterStudio_Core.Resouses;
 
 namespace WorldCreaterStudio_Core.MapCreater {
 	/// <summary>
@@ -39,12 +40,14 @@ namespace WorldCreaterStudio_Core.MapCreater {
 		/// </summary>
 		/// <param name="configuration">创建地形需要的配置</param>
 		/// <returns></returns>
-		public abstract int[,] CreatAMap(Configuration configuration, Work work);
+		public abstract ValueResource CreatAMap(Configuration configuration, Work work);
 
 		/// <summary>
 		/// 当进度发生更新时事件
 		/// </summary>
 		public event MapCreatingProcessingEvent OnProcessingChanged;
+
+		public Dictionary <string, ValueResource> CreateredMapValue { get; protected set; }
 
 		/// <summary>
 		/// 调用MapCreatingProcessingEvent

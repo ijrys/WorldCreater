@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
+using WorldCreaterStudio_Core.Resouses;
 
 namespace WorldCreaterStudio_Core {
 	/// <summary>
@@ -64,6 +65,13 @@ namespace WorldCreaterStudio_Core {
 		/// 获取节点的所有子节点
 		/// </summary>
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
+
+
+		public ValueResource RandomMap { get => CreateredMapValue?["RVM"]; }
+
+		public ValueResource HeightMap { get => CreateredMapValue?["HVM"]; }
+
+		public Dictionary<string, ValueResource> CreateredMapValue { get; private set; }
 
 		#endregion
 
@@ -135,6 +143,16 @@ namespace WorldCreaterStudio_Core {
 
 			Creater = createrFactory.GetACreater();
 			Configuration = createrFactory.GetAConfiguration();
+		}
+
+		/// <summary>
+		/// 创建一个地图
+		/// </summary>
+		/// <returns></returns>
+		public ValueResource CreateAMap() {
+			Creater.CreatAMap(Configuration, Work);
+			CreateredMapValue = Creater.CreateredMapValue;
+			return HeightMap;
 		}
 
 		#region 构造函数和静态获取方法

@@ -65,6 +65,7 @@
     <Compile Include="Resouses\IResourseAble.cs" />
     <Compile Include="ListNode\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resouses\ValueResource.cs" />
     <Compile Include="StoreRoom\MapCreaterDictionary.cs" />
     <Compile Include="StoreRoom\ShowPanel.cs" />
     <Compile Include="Tools\Path.cs" />

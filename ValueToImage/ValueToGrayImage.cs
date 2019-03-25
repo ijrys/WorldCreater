@@ -47,7 +47,7 @@ namespace ValueToImage {
 
 			// copy data to the bitmap
 			Int32Rect rect = new Int32Rect(0, 0, width, height);
-			wb.WritePixels(rect, contbyte, 1, 0);
+			wb.WritePixels(rect, contbyte, wb.PixelWidth, 0);
 
 			return wb;
 		}
@@ -74,6 +74,45 @@ namespace ValueToImage {
 				aimbyte = (byte)((value - minvalue) * graydiff / valuediff);
 			}
 			return aimbyte;
+		}
+
+		public static WriteableBitmap GetBitmapWithError (int minvalue, int maxvalue, int[,] map) {
+			if (map == null) return null;
+			int w = map.GetLength(1);
+			int h = map.GetLength(0);
+			int vr = maxvalue - minvalue;
+
+			byte[] cont = new byte[w * h];
+
+			for (int i = 0; i < h; i++) {
+				for (int j = 0; j < w; j++) {
+					byte c;
+					//获取颜色
+					if (map[i, j] < minvalue) {
+						c = 0;
+					} else if (map[i, j] > maxvalue) {
+						c = 255;
+					} else {
+						int t = map[i, j] - minvalue;
+						c = (byte)((t * 253 / vr) + 1);
+					}
+					//赋值
+					cont[i * w + j] = c;
+				}
+			}
+
+
+			System.Windows.Media.Color[] colors = new System.Windows.Media.Color[256];
+			for (int i = 0; i < 256; i++) colors[i] = System.Windows.Media.Color.FromArgb(255, (byte)i, (byte)i, (byte)i);
+			colors[0] = System.Windows.Media.Color.FromArgb(255, 255, 0, 0);
+			colors[255] = System.Windows.Media.Color.FromArgb(255, 0, 255, 255);
+			BitmapPalette palette = new BitmapPalette(colors);
+			WriteableBitmap re = new WriteableBitmap(w, h, 96, 96, System.Windows.Media.PixelFormats.Indexed8, palette);
+
+			Int32Rect rect = new Int32Rect(0, 0, w, h);
+			re.WritePixels(rect, cont, re.PixelWidth, 0);
+
+			return re;
 		}
 	}
 }

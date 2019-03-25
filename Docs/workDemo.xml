@@ -11,6 +11,9 @@
 		<images>
 			<ir key="res_1">
 		</images>
+		<datas>
+			<data key="HVM" file="HVM" />
+		</datas>
 	</FrontEndFactory>
 
 	<BackEndFactory>

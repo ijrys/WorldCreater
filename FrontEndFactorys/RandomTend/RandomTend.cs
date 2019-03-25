@@ -10,10 +10,12 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Xml;
 using WorldCreaterStudio_Core.MapCreater;
+using WorldCreaterStudio_Core.Resouses;
+
 namespace RandomTend {
 	public class RTConfiguration : Configuration {
-		private int _width = 8;
-		private int _height = 8;
+		private int _width = 9;
+		private int _height = 9;
 		private int _blockSize = 3;
 		private int _widthBlockNum = 1;
 		private int _heightBlockNum = 1;
@@ -42,8 +44,8 @@ namespace RandomTend {
 
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("BlockSize"));
 
-				Width = (1 << value) * _widthBlockNum;
-				Height = (1 << value) * _heightBlockNum;
+				Width = (1 << value) * _widthBlockNum + 1;
+				Height = (1 << value) * _heightBlockNum + 1;
 			}
 		}
 
@@ -59,7 +61,7 @@ namespace RandomTend {
 				else if (value > valuemax) value = valuemax;
 
 				_widthBlockNum = value;
-				Width = (1 << BlockSize) * value;
+				Width = (1 << BlockSize) * value + 1;
 
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("WidthBlockNum"));
 			}
@@ -77,7 +79,7 @@ namespace RandomTend {
 				else if (value > valuemax) value = valuemax;
 
 				_heightBlockNum = value;
-				Height = (1 << BlockSize) * value;
+				Height = (1 << BlockSize) * value + 1;
 
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HeightBlockNum"));
 			}
@@ -160,7 +162,7 @@ namespace RandomTend {
 
 		public override Guid CreaterGuid => typeof(RandomTendCreater).GUID;
 
-		public override int[,] CreatAMap(Configuration configuration, WorldCreaterStudio_Core.Work work) {
+		public override ValueResource CreatAMap(Configuration configuration, WorldCreaterStudio_Core.Work work) {
 			//设置检查
 			if (!(configuration is RTConfiguration)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException(typeof(RTConfiguration), configuration.GetType());
 			RTConfiguration rtconfig = (configuration as RTConfiguration);
@@ -178,7 +180,7 @@ namespace RandomTend {
 				for (int j = 0; j < w; j++) _rv[i, j] = r.Next(-1048576, 1048576);
 			}
 
-			WriteableBitmap bitmap = ValueToImage.ValueToGrayImage.GetBitmap(-1048576, 1048576, 0, 255, _rv);
+			WriteableBitmap bitmap = ValueToImage.ValueToGrayImage.GetBitmapWithError(-1048576, 1048576, _rv);
 			MapCreatingProcessing(500, "正在准备数据", true, bitmap);
 			if (work != null) {
 				work.FrontEndNodes.ImageResourceReferenceManager.Add("FE.RandomValue", bitmap, "前端工厂的随机值图");
@@ -192,10 +194,8 @@ namespace RandomTend {
 
 			int nowpro = 1; //当前进度
 			int ranscl = 1;
-			for (int nowSetp = blockw; nowSetp >= 1; nowSetp = nowSetp >> 1, nowpro ++, ranscl++) {
-				int pross = (nowSetp + 1) * (nowSetp + 1);
-				pross = 1000 / pross;
-				MapCreatingProcessing((short)pross, "正在准备数据", true, ValueToImage.ValueToGrayImage.GetBitmap(-1048576, 1048576, 0, 255, _rv));
+			for (int nowSetp = blockw; nowSetp >= 1; nowSetp = nowSetp >> 1, nowpro++, ranscl++) {
+
 				#region DoCore
 				for (int i = 0; i < h; i += nowSetp) {
 					for (int j = nowSetp / 2; j < w; j += nowSetp) {
@@ -220,12 +220,25 @@ namespace RandomTend {
 					}
 				}
 				#endregion
+
+				int pross = (nowSetp) * (nowSetp);
+				pross = 1000 / pross;
+				MapCreatingProcessing((short)pross, "正在创建地图", true, ValueToImage.ValueToGrayImage.GetBitmapWithError(-2097152, 2097152, _map));
 			}
 
+			//bitmap = ValueToImage.ValueToGrayImage.GetBitmap(-2097152, 2097152, 0, 255, _map);
+			bitmap = ValueToImage.ValueToGrayImage.GetBitmapWithError(-2097152, 2097152, _map);
+			if (work != null) {
+				work.FrontEndNodes.ImageResourceReferenceManager.Add("FE.HeightValue", bitmap, "前端工厂高度值图");
+			}
 
-			//this.Resault = new Resault(_map);
-			//Resault.SetShowInfoMap("RandomValue", _rv);
-			return _map;
+			//中间数据放入资源节点
+			CreateredMapValue = new Dictionary<string, ValueResource>();
+			ValueResource hvm = new ValueResource(_map, "HVM");
+			CreateredMapValue["HVM"] = hvm;
+			//CreateredMapValue["RVM"] = _map;
+
+			return hvm;
 		}
 	}
 
