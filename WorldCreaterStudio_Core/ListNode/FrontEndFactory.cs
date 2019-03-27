@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +74,25 @@ namespace WorldCreaterStudio_Core {
 
 		public Dictionary<string, ValueResource> CreateredMapValue { get; private set; }
 
+		private bool _changed;
+
+		public bool Changed {
+			get => _changed;
+			set {
+				bool oldvalue = _changed;
+				_changed = value;
+				if (value) {
+					NodeValueChanged?.Invoke(this);
+				}
+				if (value != oldvalue) {
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Changed"));
+				}
+			}
+		}
+
+		public event NodeValueChangedEventType NodeValueChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
+
 		#endregion
 
 		#region XML相关方法
@@ -119,6 +139,7 @@ namespace WorldCreaterStudio_Core {
 
 		#endregion
 
+
 		/// <summary>
 		/// 设置前端工厂
 		/// </summary>
@@ -142,7 +163,18 @@ namespace WorldCreaterStudio_Core {
 			if (createrFactory == null) return;
 
 			Creater = createrFactory.GetACreater();
+			if (Configuration != null) { // 接触数据绑定
+				Configuration.ValueChanged -= Configuration_ValueChanged;
+			}
 			Configuration = createrFactory.GetAConfiguration();
+			Configuration.ValueChanged += Configuration_ValueChanged;
+
+			Changed = true;
+		}
+
+		private void Configuration_ValueChanged() {
+			this.Changed = true;
+			//Work?.ChildrenValueChanged(this);
 		}
 
 		/// <summary>
@@ -152,6 +184,7 @@ namespace WorldCreaterStudio_Core {
 		public ValueResource CreateAMap() {
 			Creater.CreatAMap(Configuration, Work);
 			CreateredMapValue = Creater.CreateredMapValue;
+			
 			return HeightMap;
 		}
 

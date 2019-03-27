@@ -13,6 +13,7 @@ using WorldCreaterStudio_Core.MapCreater;
 using WorldCreaterStudio_Core.Resouses;
 
 namespace RandomTend {
+
 	public class RTConfiguration : Configuration {
 		private int _width = 9;
 		private int _height = 9;
@@ -46,6 +47,8 @@ namespace RandomTend {
 
 				Width = (1 << value) * _widthBlockNum + 1;
 				Height = (1 << value) * _heightBlockNum + 1;
+
+				ValueChangedEventCalc();
 			}
 		}
 
@@ -64,6 +67,7 @@ namespace RandomTend {
 				Width = (1 << BlockSize) * value + 1;
 
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("WidthBlockNum"));
+				ValueChangedEventCalc();
 			}
 		}
 
@@ -82,6 +86,7 @@ namespace RandomTend {
 				Height = (1 << BlockSize) * value + 1;
 
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("HeightBlockNum"));
+				ValueChangedEventCalc();
 			}
 		}
 
@@ -139,7 +144,7 @@ namespace RandomTend {
 		}
 
 		public override XmlElement XmlNode(XmlDocument xmlDocument) {
-			throw new NotImplementedException();
+			return xmlDocument.CreateElement("setting");
 		}
 
 		public override int GetWidth() {

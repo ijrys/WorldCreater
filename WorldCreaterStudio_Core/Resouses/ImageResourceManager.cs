@@ -16,13 +16,14 @@ namespace WorldCreaterStudio_Core.Resouses {
 	/// <summary>
 	/// 用于管理整个工作中使用到的图片资源
 	/// </summary>
-	public class ImageResourceManager : IWorkLogicNodeAble, INotifyPropertyChanged {
+	public class ImageResourceManager : IWorkLogicNodeAble {
 		private Dictionary<string, ImageResourse> _res;
 		private ObservableCollection<IWorkLogicNodeAble> _imgs;
 		private DirectoryInfo _workResousesDir;
 		private ImageSource _icon;
 
 		public event PropertyChangedEventHandler PropertyChanged;
+		public event NodeValueChangedEventType NodeValueChanged;
 
 		public ImageResourse this[string key] {
 			get {
@@ -49,6 +50,22 @@ namespace WorldCreaterStudio_Core.Resouses {
 			get { return _imgs; }
 		}
 
+		private bool _changed;
+
+		public bool Changed {
+			get => _changed;
+			set {
+				bool oldvalue = _changed;
+				_changed = value;
+				if (value) {
+					NodeValueChanged?.Invoke(this);
+				}
+				if (value != oldvalue) {
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Changed"));
+				}
+			}
+		}
+
 
 		/// <summary>
 		/// 添加一个资源
@@ -57,6 +74,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <param name="image"></param>
 		/// <param name="description"></param>
 		public ImageResourse Add(string key, BitmapSource image, string description) {
+			Changed = true;
 			if (_res.ContainsKey(key)) {
 				_res[key].Image = image;
 				return _res[key];
@@ -76,6 +94,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		/// <param name="resourse"></param>
 		public void Add(ImageResourse resourse) {
+			Changed = true;
 			string key = resourse.Key;
 			if (_res.ContainsKey(key)) {
 				_res[key].Image = resourse.Image;
@@ -90,6 +109,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		/// <param name="key"></param>
 		public void Remove (string key) {
+			Changed = true;
 			if (_res.ContainsKey(key)) {
 				ImageResourse item = _res[key];
 				_res.Remove(key);
@@ -114,6 +134,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 					item.Value.Save(basePath);
 				}
 			}
+			Changed = false;
 		}
 
 		/// <summary>
@@ -137,10 +158,10 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <param name="xmlnode"></param>
 		/// <param name="resDir"></param>
 		/// <returns></returns>
-		public static ImageResourceManager LoadFromXmlNode(XmlElement xmlnode, DirectoryInfo resDir) {
+		public static ImageResourceManager LoadFromXmlNode(XmlElement xmlnode, DirectoryInfo resDir, Work work) {
 			if (xmlnode.Name != "images") return null;
 
-			ImageResourceManager re = new ImageResourceManager(resDir);
+			ImageResourceManager re = new ImageResourceManager(resDir, work);
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
 				ImageResourse ir = ImageResourse.LoadFromXmlNode(item, resDir.FullName);
@@ -150,10 +171,12 @@ namespace WorldCreaterStudio_Core.Resouses {
 			return re;
 		}
 
-		public ImageResourceManager (DirectoryInfo resDir) {
+		public ImageResourceManager (DirectoryInfo resDir, Work work) {
 			_res = new Dictionary<string, ImageResourse>();
 			_imgs = new ObservableCollection<IWorkLogicNodeAble>();
 			_workResousesDir = resDir;
+
+			Work = work;
 		}
 	}
 }

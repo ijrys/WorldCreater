@@ -16,6 +16,7 @@ using System.Drawing;
 using System.IO;
 using System.Collections.ObjectModel;
 using WorldCreaterStudio_Core;
+using System.Threading;
 
 namespace WorldCreaterStudio {
 
@@ -57,9 +58,23 @@ namespace WorldCreaterStudio {
 			newCommand.Executed += Command_NewWork_Executed;
 			CommandBindings.Add(newCommand);
 
+			newCommand = new CommandBinding(Commands.Save);
+			newCommand.Executed += Command_Save_Executed; ;
+			CommandBindings.Add(newCommand);
 
 			//面板注册
 			RegShowPanel();
+		}
+
+		private void Command_Save_Executed(object sender, ExecutedRoutedEventArgs e) {
+			if (Project == null) return;
+			Project.Save();
+			foreach (var item in Project.Childrens) {
+				if (item is Work) {
+					(item as Work).Save();
+				}
+			}
+
 		}
 
 		private void Command_NewWork_Executed(object sender, ExecutedRoutedEventArgs e) {
@@ -126,7 +141,7 @@ namespace WorldCreaterStudio {
 			ShowFunctionPanel(workLogicNode, workLogicNode.ShowPanel);
 		}
 
-		private void ShowAImage (ImageSource image) {
+		private void ShowAImage(ImageSource image) {
 			ImgShow.Source = image;
 			ImgShow.Visibility = Visibility.Visible;
 		}
@@ -138,15 +153,17 @@ namespace WorldCreaterStudio {
 			fefactory.Creater.OnProcessingChanged += Creater_OnProcessingChanged;
 			fefactory.Creater.CreatAMap(fefactory.Configuration, fefactory.Work);
 
+			
 		}
 
+		private delegate void OnProcessingChangedDelegate(short permillage, string processDescription, bool freshImage, ImageSource image);
 		private void Creater_OnProcessingChanged(short permillage, string processDescription, bool freshImage, ImageSource image) {
 			this.txtState.Text = processDescription;
 			this.txtPermillage.Text = permillage.ToString();
-
-			if(freshImage) {
+			if (freshImage) {
 				ShowAImage(image);
 			}
+			this.UpdateLayout();
 		}
 	}
 

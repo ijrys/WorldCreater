@@ -45,8 +45,9 @@
 			<ControlTemplate TargetType="ContentControl" x:Key="ImageShowPanel">
 				<Image Source="{Binding Image}"/>
 			</ControlTemplate>
-			<ControlTemplate TargetType="ContentControl" x:Key="ProcessImageShowPanel">
-				<Image x:Name="imgcontent"/>
+
+			<ControlTemplate TargetType="ContentControl" x:Key="ValueResourceShowPanel">
+				
 			</ControlTemplate>
 		</ResourceDictionary>
 	</Window.Resources>
@@ -63,6 +64,8 @@
 				<MenuItem Header="打开工程" Command="Open"></MenuItem>
 				<Separator/>
 				<MenuItem Header="新建工作" Command="local:Commands.NewWork"></MenuItem>
+				<Separator/>
+				<MenuItem Header="保存" Command="local:Commands.Save"></MenuItem>
 
 			</MenuItem>
 			<MenuItem Header="设置">
@@ -88,7 +91,17 @@
 
 			</ContentControl>
 			<Image x:Name="ImgShow"/>
-
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="32px"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+				<TabControl>
+					<TabItem Header="GrayImage">
+						<Image></Image>
+					</TabItem>
+				</TabControl>
+			</Grid>
 			<!--<Image Source="pack://application:,,,/Resouses\img.png"></Image>-->
 
 			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>

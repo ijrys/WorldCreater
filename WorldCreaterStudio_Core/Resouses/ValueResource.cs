@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,11 @@ namespace WorldCreaterStudio_Core.Resouses {
 				Changed = true;
 			}
 		}
+
+		public ImageResourceReference GrayImage;
+
+		public event NodeValueChangedEventType NodeValueChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public FileInfo DataFile { get; private set; }
 

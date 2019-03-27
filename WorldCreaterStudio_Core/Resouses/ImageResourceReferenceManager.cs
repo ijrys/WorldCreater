@@ -14,7 +14,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 	/// <summary>
 	/// 用于管理在项目节点中用引用的工作资源
 	/// </summary>
-	public class ImageResourceReferenceManager : IWorkLogicNodeAble, INotifyPropertyChanged {
+	public class ImageResourceReferenceManager : IWorkLogicNodeAble {
 		/// <summary>
 		/// 节点所在的工作
 		/// </summary>
@@ -40,8 +40,10 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; } = new ObservableCollection<IWorkLogicNodeAble>();
 
+		public bool Changed => throw new NotImplementedException(); //TODO
 
 		public event PropertyChangedEventHandler PropertyChanged;
+		public event NodeValueChangedEventType NodeValueChanged;
 
 		/// <summary>
 		/// 获取节点的XML节点

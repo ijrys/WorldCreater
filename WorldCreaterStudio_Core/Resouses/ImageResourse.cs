@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Xml;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace WorldCreaterStudio_Core.Resouses {
 	/// <summary>
@@ -19,6 +20,9 @@ namespace WorldCreaterStudio_Core.Resouses {
 		private string _filePath;
 		private string _description;
 		private BitmapSource _image;
+
+		public event NodeValueChangedEventType NodeValueChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>
 		/// 基本信息是否修改
@@ -73,6 +77,22 @@ namespace WorldCreaterStudio_Core.Resouses {
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
 		public Work Work { get; private set; }
+
+		private bool _changed;
+
+		public bool Changed {
+			get => _changed;
+			set {
+				bool oldvalue = _changed;
+				_changed = value;
+				if (value) {
+					NodeValueChanged?.Invoke(this);
+				}
+				if (value != oldvalue) {
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Changed"));
+				}
+			}
+		}
 
 		public void Save(string basePath = "") {
 			if (DataChanged && Image != null) {

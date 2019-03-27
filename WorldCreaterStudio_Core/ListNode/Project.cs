@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Xml;
 using System.IO;
+using System.ComponentModel;
 
 namespace WorldCreaterStudio_Core {
 	/// <summary>
@@ -17,6 +18,9 @@ namespace WorldCreaterStudio_Core {
 	public class Project : IWorkLogicNodeAble {
 		DirectoryInfo _projectDirectionary;
 		FileInfo _projectFile;
+
+		public event NodeValueChangedEventType NodeValueChanged;
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public Work Work => null;
 

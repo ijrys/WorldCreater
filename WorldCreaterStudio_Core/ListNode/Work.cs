@@ -17,7 +17,7 @@ namespace WorldCreaterStudio_Core {
 	/// <summary>
 	/// 表示一个工作
 	/// </summary>
-	public class Work : IWorkLogicNodeAble, INotifyPropertyChanged {
+	public class Work : IWorkLogicNodeAble {
 		#region 字段
 		private DirectoryInfo _workDirectionary;
 		private DirectoryInfo _workResousesDirectionary;
@@ -27,22 +27,11 @@ namespace WorldCreaterStudio_Core {
 		private ImageSource _icon;
 		private string _nodeName;
 
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		/// <summary>
-		/// 随机值
-		/// </summary>
-		int[,] _randomMap;
+		public event NodeValueChangedEventType NodeValueChanged;
 
-		/// <summary>
-		/// 高度图
-		/// </summary>
-		int[,] _heightMap;
-
-		/// <summary>
-		/// 地势图【起伏程度】
-		/// </summary>
-		byte[,] _terrainMap;
 		#endregion
 
 		#region 属性
@@ -64,6 +53,7 @@ namespace WorldCreaterStudio_Core {
 			get => _nodeName;
 			private set {
 				_nodeName = value;
+				Changed = true;
 				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
 			}
 		}
@@ -102,7 +92,31 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		public Guid Guid { get => _guid; private set => _guid = value; }
 
+		/// <summary>
+		/// 表示在上次保存后是否有值发生了改变
+		/// </summary>
+		public bool Changed {
+			get => _changed;
+			private set {
+				bool oldvalue = _changed;
+				_changed = value;
+				if (value) {
+					NodeValueChanged?.Invoke(this);
+				}
+				if (value != oldvalue) {
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Changed"));
+				}
+			}
+		}
+
 		#endregion
+		///// <summary>
+		///// 子节点发生值改变时调用
+		///// </summary>
+		///// <param name="sender">发生改变的节点</param>
+		//public void ChildrenValueChanged (IWorkLogicNodeAble sender) {
+		//	if (Childrens.Contains(sender)) _changed = true;
+		//}
 
 		/// <summary>
 		/// 获取表示节点的XML节点，用于方便Project的管理
@@ -125,7 +139,7 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		/// <param name="saveEvenUnchanged"></param>
 		public void Save(bool saveEvenUnchanged = false) {
-			if (!saveEvenUnchanged && !_changed) return;
+			if (!saveEvenUnchanged && !Changed) return;
 			XmlDocument document = new XmlDocument();
 			XmlElement root = document.CreateElement("work");
 			document.AppendChild(root);
@@ -150,7 +164,7 @@ namespace WorldCreaterStudio_Core {
 
 			document.Save(_workFile.FullName);
 
-			_changed = false;
+			Changed = false;
 		}
 
 		#region 获得方法
@@ -163,8 +177,8 @@ namespace WorldCreaterStudio_Core {
 
 			NodeName = workName;
 			Guid = Guid.NewGuid();
-			_changed = false;
-			Images = new Resouses.ImageResourceManager(_workResousesDirectionary);
+			Changed = false;
+			Images = new Resouses.ImageResourceManager(_workResousesDirectionary, this);
 			FrontEndNodes = new FrontEndFactory(this);
 
 			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
@@ -205,7 +219,7 @@ namespace WorldCreaterStudio_Core {
 				switch (item.Name.ToLower()) {
 					case "images": //进入图片资源节点
 						if (item.HasChildNodes) {
-							work.Images = Resouses.ImageResourceManager.LoadFromXmlNode(item, work._workResousesDirectionary);
+							work.Images = Resouses.ImageResourceManager.LoadFromXmlNode(item, work._workResousesDirectionary, work);
 						}
 						break;
 					case "frontendfactory": //前端工厂

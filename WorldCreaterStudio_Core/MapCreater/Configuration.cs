@@ -7,6 +7,9 @@ namespace WorldCreaterStudio_Core.MapCreater {
 	/// Creater产生地形所需要的配置文件的基类
 	/// </summary>
 	public abstract class Configuration : INotifyPropertyChanged {
+		public delegate void ValueChangedDelegate ();
+
+		public event ValueChangedDelegate ValueChanged;
 		public abstract event PropertyChangedEventHandler PropertyChanged;
 
 		//public abstract int GetWidth();
@@ -48,6 +51,8 @@ namespace WorldCreaterStudio_Core.MapCreater {
 		/// <returns></returns>
 		public abstract XmlElement XmlNode(XmlDocument xmlDocument);
 
-
+		protected void ValueChangedEventCalc() {
+			ValueChanged?.Invoke();
+		}
 	}
 }
