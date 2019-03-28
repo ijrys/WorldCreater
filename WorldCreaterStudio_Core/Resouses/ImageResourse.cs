@@ -29,14 +29,20 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		public bool InfoChanged {
 			get => _infochanged;
-			private set => _infochanged = value;
+			private set {
+				_infochanged = value;
+				Changed = true;
+			}
 		}
 		/// <summary>
 		/// 数据是否修改
 		/// </summary>
 		public bool DataChanged {
 			get => _datachanged;
-			private set => _datachanged = value;
+			private set {
+				_datachanged = value;
+				Changed = true;
+			}
 		}
 
 		/// <summary>
@@ -65,7 +71,11 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		public BitmapSource Image {
 			get => _image;
-			set { _image = value; DataChanged = true; InfoChanged = true; }
+			set {
+				_image = value;
+				DataChanged = true;
+				InfoChanged = true;
+			}
 		}
 
 		public System.Windows.Controls.ControlTemplate ShowPanel => StoreRoom.ShowPanel.ImagePanel;
@@ -98,6 +108,8 @@ namespace WorldCreaterStudio_Core.Resouses {
 			if (DataChanged && Image != null) {
 				string path = Path.Combine(basePath, FilePath);
 				SaveBitmap(Image, path);
+				DataChanged = false;
+				if (!InfoChanged) Changed = false;
 			}
 		}
 
@@ -111,8 +123,8 @@ namespace WorldCreaterStudio_Core.Resouses {
 			re.SetAttribute("key", Key);
 			re.SetAttribute("file", _filePath);
 			re.SetAttribute("description", Description);
-
-			if (save) Changed = false;
+			InfoChanged = false;
+			if (save && !DataChanged) Changed = false;
 			return re;
 		}
 
@@ -139,7 +151,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 			return re;
 		}
 
-		public ImageResourceReference GetAReference () {
+		public ImageResourceReference GetAReference() {
 			return new ImageResourceReference(Work, this.Key);
 		}
 
@@ -180,7 +192,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 			DataChanged = false;
 			InfoChanged = false;
-		} 
+		}
 		#endregion
 	}
 }

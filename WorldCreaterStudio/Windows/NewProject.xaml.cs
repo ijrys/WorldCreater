@@ -106,6 +106,7 @@ namespace WorldCreaterStudio.Windows {
 				Work = Project.NewWork(workPath, workPath + ".mrimcwork", txtWorkName.Text);
 				WorldCreaterStudio_Core.MapCreater.MapCreaterFactory cf = list_CreaterSelecter.SelectedItem as WorldCreaterStudio_Core.MapCreater.MapCreaterFactory;
 				Work.FrontEndNodes.SetCreater(cf);
+				Work.Save();
 				WindowResult = System.Windows.Forms.DialogResult.OK;
 				Close();
 			} catch (Exception ex) {

@@ -270,7 +270,10 @@ namespace WorldCreaterStudio_Core {
 			//re.Creater = creater;
 			//re.Configuration = configuration;
 			FrontEndFactory re = new FrontEndFactory(parentWork);
-			if (re.InitByXMLNode(xmlnode)) return re;
+			if (re.InitByXMLNode(xmlnode)) {
+				re.Changed = false;
+				return re;
+			}
 			return null;
 		}
 		#endregion

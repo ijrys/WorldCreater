@@ -146,10 +146,13 @@ namespace WorldCreaterStudio_Core.Resouses {
 			XmlElement node = xmlDocument.CreateElement("images");
 
 			foreach (KeyValuePair<string, ImageResourse> irkvp in _res) {
-				node.AppendChild(irkvp.Value.XmlNode(xmlDocument));
+				node.AppendChild(irkvp.Value.XmlNode(xmlDocument, save));
 			}
 
-			if (save) Changed = false;
+			if (save) {
+				Save();
+				Changed = false;
+			}
 			return node;
 		}
 
