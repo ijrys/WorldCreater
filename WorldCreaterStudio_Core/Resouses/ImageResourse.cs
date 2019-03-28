@@ -82,7 +82,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 		public string NodeName => Key;
 
-		public ImageSource Icon { get; set; }
+		public ImageSource Icon => WorldCreaterStudio_Resouses.Images.Dark_Icon_Res;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 

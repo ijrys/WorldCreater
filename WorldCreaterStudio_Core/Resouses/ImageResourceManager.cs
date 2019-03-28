@@ -44,7 +44,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 		public string NodeName => "Image Resourese";
 
-		public ImageSource Icon { get=>_icon; set { _icon = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon")); } }
+		public ImageSource Icon => WorldCreaterStudio_Resouses.Images.Dark_Icon_ResLib;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens {
 			get { return _imgs; }

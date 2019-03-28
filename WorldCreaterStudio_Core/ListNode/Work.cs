@@ -62,13 +62,7 @@ namespace WorldCreaterStudio_Core {
 		/// 获取节点展示的图标
 		/// 响应INotifyPropertyChanged
 		/// </summary>
-		public ImageSource Icon {
-			get => _icon;
-			set {
-				_icon = value;
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
-			}
-		}
+		public ImageSource Icon => WorldCreaterStudio_Resouses.Images.Dark_Icon_Gra;
 
 		private Resouses.ImageResourceManager _images;
 		/// <summary>

@@ -11,15 +11,15 @@ using  WorldCreaterStudio_Resouses;
 namespace Demo {
 	class Program {
 		static void Main(string[] args) {
-			//DoFun1();
+			DoFun1();
 			//DoFun2();
 			//Type type = typeof(RandomTend.RandomTendCreater);
 			//Console.WriteLine(type.FullName);
 			//Console.WriteLine(type.Module);
 			//Console.WriteLine(type.GUID);
-			int[,] a = new int[8, 16];
-			Console.WriteLine(a.GetLength(0));
-			Console.WriteLine(a.GetLength(1));
+			//int[,] a = new int[8, 16];
+			//Console.WriteLine(a.GetLength(0));
+			//Console.WriteLine(a.GetLength(1));
 
 
 			Console.WriteLine("end work, press enter to exit");
@@ -42,6 +42,7 @@ namespace Demo {
 			}
 			Console.WriteLine("缓存集清除完毕，press enter to continue");
 			Console.ReadLine();
+			WorldCreaterStudio_Core.StoreRoom.MapCreaterDictionary.RegisterACreaterFactory(new RandomTend.RandomTendCreaterFactory());
 
 			Project project = Project.NewProject(proDir, "demo Pro.mriwcpro", "DemoPro");
 
@@ -49,10 +50,15 @@ namespace Demo {
 
 			//创建工作集
 			Work work = project.NewWork("demowork", "demowork.mriwcw", "测试工作集");
+			work.FrontEndNodes.SetCreater("MiRaI.RandomTend.RandomTend|0.1");
 			Console.WriteLine("work creat finish");
 
 			//修改工作集并保存
 			work.Images.Add("image1", Images.Dark_Icon_Pro, "测试图片1-工作集图标");
+			RandomTend.RTConfiguration config = work.FrontEndNodes.Configuration as RandomTend.RTConfiguration;
+			config.RandomSeed = 1024;
+			config.WidthBlockNum = 5;
+			config.HeightBlockNum = 4;
 
 			project.Save(true);
 			Console.WriteLine("work save finish");
@@ -85,6 +91,9 @@ namespace Demo {
 				Console.WriteLine($"|   |-- [NULL]");
 			} else {
 				Console.WriteLine($"|   |-- {work.FrontEndNodes.NodeName}");
+				if (work.FrontEndNodes.Configuration != null) {
+					Console.WriteLine(work.FrontEndNodes.Configuration.ToString());
+				}
 			}
 
 			Console.WriteLine("|");
