@@ -22,13 +22,28 @@ namespace WorldCreaterStudio_Core {
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
-		public bool Changed => throw new NotImplementedException();
+		private bool _changed;
+
+		public bool Changed {
+			get => _changed;
+			set {
+				bool oldvalue = _changed;
+				_changed = value;
+				if (value) {
+					NodeValueChanged?.Invoke(this);
+				}
+				if (value != oldvalue) {
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Changed"));
+				}
+			}
+		}
 
 		public event NodeValueChangedEventType NodeValueChanged;
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
-			throw new NotImplementedException();
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
+			//throw new NotImplementedException();
+			return null;
 		}
 
 		public BackEndFactory (Work work) {

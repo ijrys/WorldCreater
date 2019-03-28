@@ -33,14 +33,31 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <summary>
 		/// 节点展示的图标
 		/// </summary>
-		public ImageSource Icon => throw new NotImplementedException();
+		public ImageSource Icon => null;
 
 		/// <summary>
 		/// 节点的子节点
 		/// </summary>
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; } = new ObservableCollection<IWorkLogicNodeAble>();
 
-		public bool Changed => throw new NotImplementedException(); //TODO
+		private bool _changed;
+
+		public bool Changed {
+			get => _changed;
+			set {
+				bool oldvalue = _changed;
+				_changed = value;
+				if (value) {
+					NodeValueChanged?.Invoke(this);
+				}
+				if (value != oldvalue) {
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Changed"));
+				}
+			}
+		}
+
+
+		private Dictionary<string, ImageResourceReference> ImageReferences { get; set; }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public event NodeValueChangedEventType NodeValueChanged;
@@ -50,18 +67,21 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			XmlElement node = xmlDocument.CreateElement("images");
 			foreach (var item in Childrens) {
 				node.AppendChild(item.XmlNode(xmlDocument));
 			}
 
+			Changed = false;
 			return node;
 		}
 
 
 		public ImageResourceReferenceManager(Work work) {
 			this.Work = work;
+			this.ImageReferences = new Dictionary<string, ImageResourceReference>();
+			Changed = false;
 		}
 
 		/// <summary>
@@ -84,8 +104,19 @@ namespace WorldCreaterStudio_Core.Resouses {
 			return re;
 		}
 
+		/// <summary>
+		/// 添加一个资源
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="image"></param>
+		/// <param name="description"></param>
 		public void Add(string key, BitmapSource image, string description = "") {
 			Work.Images.Add(key, image, description);
+			if (!ImageReferences.ContainsKey(key)) {
+				ImageReferences[key] = new ImageResourceReference(this.Work, key);
+				this.NodeValueChanged?.Invoke(this);
+				this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Childrens"));
+			}
 		}
 	}
 }

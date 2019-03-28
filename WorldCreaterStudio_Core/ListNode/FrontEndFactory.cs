@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
 using WorldCreaterStudio_Core.Resouses;
 
@@ -58,21 +59,57 @@ namespace WorldCreaterStudio_Core {
 		public MapCreater.MapCreater Creater { get; private set; }
 
 		/// <summary>
-		/// 获取节点的图片资源引用管理器
-		/// </summary>
-		public Resouses.ImageResourceReferenceManager ImageResourceReferenceManager { get; private set; }
-
-		/// <summary>
 		/// 获取节点的所有子节点
 		/// </summary>
-		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
+		public ObservableCollection<IWorkLogicNodeAble> Childrens { get => ImageReferenceManager?.Childrens; }
 
+		//private Dictionary<string, ImageResourceReference> ImageResources { get; set; }
+
+		private ImageResourceReferenceManager _imageReferenceManager;
+		public ImageResourceReferenceManager ImageReferenceManager {
+			get => _imageReferenceManager;
+			private set {
+				if (_imageReferenceManager != value) {
+					//解除绑定
+					if (_imageReferenceManager != null) {
+						_imageReferenceManager.NodeValueChanged -= Children_NodeValueChanged;
+					}
+					//添加绑定
+					if (value != null) {
+						value.NodeValueChanged += Children_NodeValueChanged;
+					}
+					//更新节点
+					_imageReferenceManager = value;
+
+					//更新通知
+					NodeValueChanged?.Invoke(this);
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Childrens"));
+				}
+			}
+		}
+
+		private void Children_NodeValueChanged(IWorkLogicNodeAble node) {
+			this.Changed = true;
+		}
 
 		public ValueResource RandomMap { get => CreateredMapValue?["RVM"]; }
 
 		public ValueResource HeightMap { get => CreateredMapValue?["HVM"]; }
 
-		public Dictionary<string, ValueResource> CreateredMapValue { get; private set; }
+
+		private Dictionary<string, ValueResource> _createredMapValue;
+		public Dictionary<string, ValueResource> CreateredMapValue {
+			get => _createredMapValue;
+			private set {
+				if (_createredMapValue != value) {
+					_createredMapValue = value;
+					//Childrens = new ObservableCollection<IWorkLogicNodeAble>(value.Values.ToList());
+					Changed = true;
+					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CreateredMapValue"));
+					//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Childrens"));
+				}
+			}
+		}
 
 		private bool _changed;
 
@@ -101,18 +138,19 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			XmlElement node = xmlDocument.CreateElement("FrontEndFactory");
 			node.SetAttribute("creater", Creater == null ? "" : Creater.CreaterProgramSet);
 
 			if (Configuration != null) {
-				node.AppendChild(Configuration.XmlNode(xmlDocument));
+				node.AppendChild(Configuration.XmlNode(xmlDocument, save));
 			}
 
-			if (ImageResourceReferenceManager != null) {
-				node.AppendChild(ImageResourceReferenceManager.XmlNode(xmlDocument));
+			if (ImageReferenceManager != null) {
+				node.AppendChild(ImageReferenceManager.XmlNode(xmlDocument, save));
 			}
 
+			if (save) Changed = false;
 			return node;
 		}
 
@@ -120,7 +158,7 @@ namespace WorldCreaterStudio_Core {
 		/// 使用xml节点初始化前端工厂
 		/// </summary>
 		/// <param name="xmlnode"></param>
-		public bool InitByXMLNode(XmlElement xmlnode) {
+		public bool InitByXMLNode(XmlElement xmlnode) { //TODO
 			if (xmlnode.Name != "FrontEndFactory") return false;
 			string programSet = xmlnode.Attributes["creater"]?.Value;
 
@@ -128,9 +166,9 @@ namespace WorldCreaterStudio_Core {
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
 				if (item.Name == "images") { //资源引用
-					Resouses.ImageResourceReferenceManager imageManager = Resouses.ImageResourceReferenceManager.LoadFromXmlNode(item, this.Work); // todo
+					ImageResourceReferenceManager imageManager = Resouses.ImageResourceReferenceManager.LoadFromXmlNode(item, this.Work); // todo
 				} else if (item.Name == "setting") {
-					this.Configuration.LoadFromXMLNode(item);
+					Configuration.LoadFromXMLNode(item);
 				}
 			}
 
@@ -139,6 +177,18 @@ namespace WorldCreaterStudio_Core {
 
 		#endregion
 
+		#region ImageReference相关
+
+		/// <summary>
+		/// 添加一个图片资源
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="image"></param>
+		/// <param name="description"></param>
+		public void Image_Add(string key, BitmapSource image, string description = "") {
+			ImageReferenceManager.Add(key, image, description);
+		}
+		#endregion
 
 		/// <summary>
 		/// 设置前端工厂
@@ -173,8 +223,7 @@ namespace WorldCreaterStudio_Core {
 		}
 
 		private void Configuration_ValueChanged() {
-			this.Changed = true;
-			//Work?.ChildrenValueChanged(this);
+			Changed = true;
 		}
 
 		/// <summary>
@@ -184,7 +233,7 @@ namespace WorldCreaterStudio_Core {
 		public ValueResource CreateAMap() {
 			Creater.CreatAMap(Configuration, Work);
 			CreateredMapValue = Creater.CreateredMapValue;
-			
+
 			return HeightMap;
 		}
 
@@ -192,8 +241,9 @@ namespace WorldCreaterStudio_Core {
 
 		public FrontEndFactory(Work parentWork) {
 			this.Work = parentWork;
-			ImageResourceReferenceManager = new Resouses.ImageResourceReferenceManager(parentWork);
-			this.Childrens = ImageResourceReferenceManager.Childrens;
+			ImageReferenceManager = new ImageResourceReferenceManager(parentWork);
+			//ImageResourceReferenceManager = new Resouses.ImageResourceReferenceManager(parentWork);
+			//this.Childrens = ImageResourceReferenceManager.Childrens;
 		}
 
 		/// <summary>

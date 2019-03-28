@@ -143,7 +143,7 @@ namespace RandomTend {
 			throw new NotImplementedException();
 		}
 
-		public override XmlElement XmlNode(XmlDocument xmlDocument) {
+		public override XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			return xmlDocument.CreateElement("setting");
 		}
 
@@ -188,7 +188,7 @@ namespace RandomTend {
 			WriteableBitmap bitmap = ValueToImage.ValueToGrayImage.GetBitmapWithError(-1048576, 1048576, _rv);
 			MapCreatingProcessing(500, "正在准备数据", true, bitmap);
 			if (work != null) {
-				work.FrontEndNodes.ImageResourceReferenceManager.Add("FE.RandomValue", bitmap, "前端工厂的随机值图");
+				work.FrontEndNodes.Image_Add("FE.RandomValue", bitmap, "前端工厂的随机值图");
 			}
 
 			for (int i = 0; i < h; i += blockw) {
@@ -234,7 +234,7 @@ namespace RandomTend {
 			//bitmap = ValueToImage.ValueToGrayImage.GetBitmap(-2097152, 2097152, 0, 255, _map);
 			bitmap = ValueToImage.ValueToGrayImage.GetBitmapWithError(-2097152, 2097152, _map);
 			if (work != null) {
-				work.FrontEndNodes.ImageResourceReferenceManager.Add("FE.HeightValue", bitmap, "前端工厂高度值图");
+				work.FrontEndNodes.Image_Add("FE.HeightValue", bitmap, "前端工厂高度值图");
 			}
 
 			//中间数据放入资源节点

@@ -40,7 +40,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		public event NodeValueChangedEventType NodeValueChanged;
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			throw new NotImplementedException();
 		}
 

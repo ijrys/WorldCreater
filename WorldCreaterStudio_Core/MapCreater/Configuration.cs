@@ -49,7 +49,7 @@ namespace WorldCreaterStudio_Core.MapCreater {
 		/// </summary>
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
-		public abstract XmlElement XmlNode(XmlDocument xmlDocument);
+		public abstract XmlElement XmlNode(XmlDocument xmlDocument, bool save = false);
 
 		protected void ValueChangedEventCalc() {
 			ValueChanged?.Invoke();

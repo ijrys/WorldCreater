@@ -50,7 +50,7 @@ namespace WorldCreaterStudio_Core {
 		public bool Changed { get; private set; }
 
 
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			throw new NotImplementedException();
 		}
 

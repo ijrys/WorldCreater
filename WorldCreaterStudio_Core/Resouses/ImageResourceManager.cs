@@ -142,13 +142,14 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			XmlElement node = xmlDocument.CreateElement("images");
 
 			foreach (KeyValuePair<string, ImageResourse> irkvp in _res) {
 				node.AppendChild(irkvp.Value.XmlNode(xmlDocument));
 			}
 
+			if (save) Changed = false;
 			return node;
 		}
 

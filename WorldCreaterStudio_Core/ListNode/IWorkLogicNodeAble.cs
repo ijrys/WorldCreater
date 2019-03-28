@@ -56,8 +56,9 @@ namespace WorldCreaterStudio_Core {
 		/// 获取节点的XML节点
 		/// </summary>
 		/// <param name="xmlDocument"></param>
+		/// <param name="save">指示是否是在进行保存，true为正在保存</param>
 		/// <returns></returns>
-		XmlElement XmlNode(XmlDocument xmlDocument);
+		XmlElement XmlNode(XmlDocument xmlDocument, bool save = false);
 
 	}
 }

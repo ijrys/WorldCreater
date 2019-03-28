@@ -70,18 +70,84 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
+		private Resouses.ImageResourceManager _images;
 		/// <summary>
 		/// 获取图片资源管理
 		/// </summary>
-		public Resouses.ImageResourceManager Images { get; private set; }
+		public Resouses.ImageResourceManager Images {
+			get => _images;
+			private set {
+				if (_images == value) return;
+
+				if (_images != null) {
+					_images.NodeValueChanged -= Children_NodeValueChanged;
+				}
+
+				if (value != null) {
+					value.NodeValueChanged += Children_NodeValueChanged;
+				}
+
+				_images = value;
+				if (Childrens.Count == 0) {
+					Childrens.Add(value);
+				} else {
+					Childrens[0] = value;
+				}
+			}
+		}
+
+		private void Children_NodeValueChanged(IWorkLogicNodeAble node) {
+			Changed = true;
+		}
+
+		private FrontEndFactory _frontEndNodes;
 		/// <summary>
 		/// 获取前端工厂节点
 		/// </summary>
-		public FrontEndFactory FrontEndNodes { get; private set; }
+		public FrontEndFactory FrontEndNodes {
+			get => _frontEndNodes;
+			private set {
+				if (_frontEndNodes != null) {
+					_frontEndNodes.NodeValueChanged -= Children_NodeValueChanged;
+				}
+				if (value != null) {
+					value.NodeValueChanged += Children_NodeValueChanged;
+				}
+				_frontEndNodes = value;
+
+				if (Childrens.Count < 1) Childrens.Add(null);
+				if (Childrens.Count < 2) {
+					Childrens.Add(value);
+				} else {
+					Childrens[1] = value;
+				}
+			}
+		}
+
+		private BackEndFactory _backEndNodes;
 		/// <summary>
 		/// 获取后端工厂节点
 		/// </summary>
-		public BackEndFactory BackEndNodes { get; private set; }
+		public BackEndFactory BackEndNodes {
+			get => _backEndNodes;
+			private set {
+				if (_backEndNodes != null) {
+					_backEndNodes.NodeValueChanged -= Children_NodeValueChanged;
+				}
+				if (value != null) {
+					value.NodeValueChanged += Children_NodeValueChanged;
+				}
+				_backEndNodes = value;
+
+				if (Childrens.Count < 1) Childrens.Add(null);
+				if (Childrens.Count < 2) Childrens.Add(null);
+				if (Childrens.Count < 3) {
+					Childrens.Add(value);
+				} else {
+					Childrens[1] = value;
+				}
+			}
+		}
 
 		/// <summary>
 		/// 获取所有子节点，用于工作列表展示，其他逻辑节点请通过相应属性或方法更改
@@ -123,7 +189,7 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			XmlElement node = xmlDocument.CreateElement("work");
 			node.SetAttribute("guid", Guid.ToString());
 
@@ -131,6 +197,7 @@ namespace WorldCreaterStudio_Core {
 			node.SetAttribute("file", _workFile.Name);
 			node.SetAttribute("name", NodeName);
 
+			if (save) Changed = false;
 			return node;
 		}
 
@@ -152,15 +219,16 @@ namespace WorldCreaterStudio_Core {
 
 			// front end work
 			if (FrontEndNodes != null) {
-				XmlNode fefactory = FrontEndNodes.XmlNode(document);
+				XmlNode fefactory = FrontEndNodes.XmlNode(document, true);
 				root.AppendChild(fefactory);
 			}
 
+			//TODO
 			// back end work
-			if (BackEndNodes != null) {
-				XmlNode befactory = BackEndNodes.XmlNode(document);
-				root.AppendChild(befactory);
-			}
+			//if (BackEndNodes != null) {
+			//	XmlNode befactory = BackEndNodes.XmlNode(document);
+			//	root.AppendChild(befactory);
+			//}
 
 			document.Save(_workFile.FullName);
 
@@ -177,11 +245,19 @@ namespace WorldCreaterStudio_Core {
 
 			NodeName = workName;
 			Guid = Guid.NewGuid();
-			Changed = false;
+			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
+
 			Images = new Resouses.ImageResourceManager(_workResousesDirectionary, this);
 			FrontEndNodes = new FrontEndFactory(this);
+			BackEndNodes = new BackEndFactory(this);
 
-			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
+
+			//Childrens.Add(Images);
+			//Childrens.Add(FrontEndNodes);
+			//Childrens.Add(BackEndNodes);
+
+			Changed = false;
+
 		}
 
 		public static Work NewWork(string workPath, string filename, string workName) {
@@ -195,8 +271,8 @@ namespace WorldCreaterStudio_Core {
 
 			work.Save(true);
 
-			work.Childrens.Add(work.Images);
-			work.Childrens.Add(work.FrontEndNodes);
+			//work.Childrens.Add(work.Images);
+			//work.Childrens.Add(work.FrontEndNodes);
 			return work;
 		}
 
@@ -233,8 +309,8 @@ namespace WorldCreaterStudio_Core {
 
 				}
 			}
-			work.Childrens.Add(work.Images);
-			work.Childrens.Add(work.FrontEndNodes);
+			//work.Childrens.Add(work.Images);
+			//work.Childrens.Add(work.FrontEndNodes);
 			return work;
 		}
 		#endregion

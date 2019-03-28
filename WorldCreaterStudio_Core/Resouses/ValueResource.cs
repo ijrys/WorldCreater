@@ -22,7 +22,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			throw new NotImplementedException();
 		}
 

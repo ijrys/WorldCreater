@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WorldCreaterStudio"
 		xmlns:localcore="clr-namespace:WorldCreaterStudio_Core;assembly=WorldCreaterStudio_Core"
 		xmlns:res="clr-namespace:WorldCreaterStudio.Resouses"
+		xmlns:vcon ="clr-namespace:WorldCreaterStudio.ValueConverter"
         mc:Ignorable="d"
 		Background="{DynamicResource Brush_Panel_BG_Normal_Normal}"
         Title="MainWindow" Height="450" Width="800">
@@ -47,7 +48,7 @@
 			</ControlTemplate>
 
 			<ControlTemplate TargetType="ContentControl" x:Key="ValueResourceShowPanel">
-				
+
 			</ControlTemplate>
 		</ResourceDictionary>
 	</Window.Resources>
@@ -116,11 +117,37 @@
 					<Image VerticalAlignment="Center" Width="20" Height="20" Margin="0,0,0,0" Source="{x:Static res:Icons.Dark_Icon_Pro}"/>
 					<TextBlock VerticalAlignment="Center" Text="解决方案"></TextBlock>
 				</StackPanel>
+
+				<!--<Button MouseDoubleClick="Tree_Project_Item_DoubleClick">
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="*">
+							<TextBlock.Visibility>
+								<Binding Path="Changed">
+									<Binding.Converter>
+										<vcon:VisibilityConverter/>
+									</Binding.Converter>
+								</Binding>
+							</TextBlock.Visibility>
+						</TextBlock>
+						<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
+						<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
+					</StackPanel>
+				</Button>-->
+
 				<TreeView x:Name="Tree_Project" Grid.Row="1">
 					<TreeView.ItemTemplate>
 						<HierarchicalDataTemplate DataType="{x:Type localcore:IWorkLogicNodeAble}" ItemsSource="{Binding Path=Childrens}">
 							<Button MouseDoubleClick="Tree_Project_Item_DoubleClick">
 								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="*">
+										<TextBlock.Visibility>
+											<Binding Path="Changed">
+												<Binding.Converter>
+													<vcon:VisibilityConverter/>
+												</Binding.Converter>
+											</Binding>
+										</TextBlock.Visibility>
+									</TextBlock>
 									<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
 									<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
 								</StackPanel>
@@ -133,7 +160,7 @@
 		<StatusBar Grid.Row="3" FontSize="16" Foreground="#000">
 			<TextBlock x:Name="txtPermillage" MinWidth="64px" MaxWidth="128px" Foreground="#000"/>
 			<TextBlock x:Name="txtState" Foreground="#000">就绪</TextBlock>
-			
+
 		</StatusBar>
 	</Grid>
 

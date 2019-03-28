@@ -106,12 +106,13 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
-		public XmlElement XmlNode(XmlDocument xmlDocument) {
+		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			XmlElement re = xmlDocument.CreateElement("image");
 			re.SetAttribute("key", Key);
 			re.SetAttribute("file", _filePath);
 			re.SetAttribute("description", Description);
 
+			if (save) Changed = false;
 			return re;
 		}
 

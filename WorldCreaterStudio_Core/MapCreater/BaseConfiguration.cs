@@ -36,7 +36,7 @@ namespace WorldCreaterStudio_Core.MapCreater {
 			// todo
 		}
 
-		public override XmlElement XmlNode(XmlDocument xmlDocument) {
+		public override XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			//throw new NotImplementedException();
 			// todo
 

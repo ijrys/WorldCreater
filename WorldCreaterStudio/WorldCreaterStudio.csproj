@@ -87,6 +87,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands.cs" />
     <Compile Include="Resouses\StoreRoom.cs" />
+    <Compile Include="ValueConverter\VisibilityConverter.cs" />
     <Compile Include="Windows\NewProject.xaml.cs">
       <DependentUpon>NewProject.xaml</DependentUpon>
     </Compile>
