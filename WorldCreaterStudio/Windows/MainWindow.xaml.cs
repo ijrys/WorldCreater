@@ -17,6 +17,7 @@ using System.IO;
 using System.Collections.ObjectModel;
 using WorldCreaterStudio_Core;
 using System.Threading;
+using WorldCreaterStudio.Windows;
 
 namespace WorldCreaterStudio {
 
@@ -113,12 +114,18 @@ namespace WorldCreaterStudio {
 			ControlTemplate panel = Resources["frontEndFactoryShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.FrontEndFactoryPanel = panel;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.ImagePanel = Resources["ImageShowPanel"] as ControlTemplate;
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.WorkPanel = Resources["WorkShowPanel"] as ControlTemplate;
 		}
 
 		/// <summary>
 		/// 表示正在展示的面板
 		/// </summary>
 		private ControlTemplate _showingFunctionPanel;
+
+		/// <summary>
+		/// 表示正在展示的数据提供者
+		/// </summary>
+		private object _dataProvider;
 
 		/// <summary>
 		/// 展示一个功能面板
@@ -131,6 +138,7 @@ namespace WorldCreaterStudio {
 				//FunctionPanelConter.Children.Add(panel);
 				_showingFunctionPanel = panel;
 			}
+			_dataProvider = dataprovider;
 			ImgShow.Visibility = Visibility.Collapsed;
 			FunctionPanelConter.DataContext = dataprovider;
 		}
@@ -151,9 +159,8 @@ namespace WorldCreaterStudio {
 			FrontEndFactory fefactory = FunctionPanelConter.DataContext as FrontEndFactory;
 			if (fefactory == null) return;
 			fefactory.Creater.OnProcessingChanged += Creater_OnProcessingChanged;
-			fefactory.Creater.CreatAMap(fefactory.Configuration, fefactory.Work);
-
-			
+			fefactory.CreateAMap();
+			fefactory.Creater.OnProcessingChanged -= Creater_OnProcessingChanged;
 		}
 
 		private delegate void OnProcessingChangedDelegate(short permillage, string processDescription, bool freshImage, ImageSource image);
@@ -164,6 +171,21 @@ namespace WorldCreaterStudio {
 				ShowAImage(image);
 			}
 			this.UpdateLayout();
+		}
+
+		private void btn_View3D_Click(object sender, RoutedEventArgs e) {
+			Work work = _dataProvider as Work;
+
+			if (work == null) return;
+			View3D(work);
+		}
+
+		private void View3D (Work work) {
+			if (work == null) return;
+			int[,] value = work.FrontEndNodes?.HeightMap?.Value;
+			if (value == null) return;
+			View3DWindow v3dw = new View3DWindow(value);
+			v3dw.ShowDialog();
 		}
 	}
 

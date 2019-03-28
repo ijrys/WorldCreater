@@ -50,6 +50,12 @@
 			<ControlTemplate TargetType="ContentControl" x:Key="ValueResourceShowPanel">
 
 			</ControlTemplate>
+
+			<ControlTemplate TargetType="ContentControl" x:Key="WorkShowPanel">
+				<Grid>
+					<Button Click="btn_View3D_Click">View 3D</Button>
+				</Grid>
+			</ControlTemplate>
 		</ResourceDictionary>
 	</Window.Resources>
 	<Grid>
@@ -92,17 +98,7 @@
 
 			</ContentControl>
 			<Image x:Name="ImgShow"/>
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="32px"/>
-					<RowDefinition Height="1*"/>
-				</Grid.RowDefinitions>
-				<TabControl>
-					<TabItem Header="GrayImage">
-						<Image></Image>
-					</TabItem>
-				</TabControl>
-			</Grid>
+
 			<!--<Image Source="pack://application:,,,/Resouses\img.png"></Image>-->
 
 			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>
