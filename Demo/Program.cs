@@ -20,7 +20,9 @@ namespace Demo {
 			//int[,] a = new int[8, 16];
 			//Console.WriteLine(a.GetLength(0));
 			//Console.WriteLine(a.GetLength(1));
-
+			//string path = @"F:\[120808] 010\[1106...C+BK).rar";
+			//Console.WriteLine(Path.GetDirectoryName(path));
+			//Console.WriteLine(Path.GetFileName(path));
 
 			Console.WriteLine("end work, press enter to exit");
 			Console.ReadLine();

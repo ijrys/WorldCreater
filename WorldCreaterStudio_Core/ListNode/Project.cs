@@ -135,6 +135,7 @@ namespace WorldCreaterStudio_Core {
 			string worDir = Path.Combine(_projectDirectionary.FullName, workPath);
 			Work work = Work.NewWork(worDir, filename, workName);
 			Childrens.Add(work);
+			Changed = true;
 
 			return work;
 		}

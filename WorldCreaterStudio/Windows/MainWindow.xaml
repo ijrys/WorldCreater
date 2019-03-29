@@ -68,7 +68,7 @@
 		<Menu Grid.Row="0" FontSize="16">
 			<MenuItem Header="文件">
 				<MenuItem Header="新建工程" Command="local:Commands.NewProject"></MenuItem>
-				<MenuItem Header="打开工程" Command="Open"></MenuItem>
+				<MenuItem Header="打开工程" Command="local:Commands.Open"></MenuItem>
 				<Separator/>
 				<MenuItem Header="新建工作" Command="local:Commands.NewWork"></MenuItem>
 				<Separator/>

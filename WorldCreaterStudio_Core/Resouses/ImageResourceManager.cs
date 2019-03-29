@@ -172,6 +172,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 				re.Add(ir);
 			}
 
+			re.Changed = false;
 			return re;
 		}
 

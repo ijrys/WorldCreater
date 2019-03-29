@@ -31,7 +31,15 @@ namespace WorldCreaterStudio_Core.Resouses {
 			get => _infochanged;
 			private set {
 				_infochanged = value;
-				Changed = true;
+				if (value) {
+					Changed = true;
+				} else {
+					if (DataChanged) {
+						Changed = true;
+					}else {
+						Changed = false;
+					}
+				}
 			}
 		}
 		/// <summary>
@@ -41,7 +49,12 @@ namespace WorldCreaterStudio_Core.Resouses {
 			get => _datachanged;
 			private set {
 				_datachanged = value;
-				Changed = true;
+				if (value) {
+					Changed = true;
+				} else {
+					if (InfoChanged) Changed = true;
+					else Changed = false;
+				}
 			}
 		}
 
@@ -147,6 +160,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 			re.DataChanged = false;
 			re.InfoChanged = false;
+			re.Changed = false;
 
 			return re;
 		}

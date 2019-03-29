@@ -18,6 +18,7 @@ using System.Collections.ObjectModel;
 using WorldCreaterStudio_Core;
 using System.Threading;
 using WorldCreaterStudio.Windows;
+using Microsoft.Win32;
 
 namespace WorldCreaterStudio {
 
@@ -63,8 +64,24 @@ namespace WorldCreaterStudio {
 			newCommand.Executed += Command_Save_Executed; ;
 			CommandBindings.Add(newCommand);
 
+			newCommand = new CommandBinding(Commands.Open);
+			newCommand.Executed += Command_Open_Executed; ;
+			CommandBindings.Add(newCommand);
+
 			//面板注册
 			RegShowPanel();
+		}
+
+		private void Command_Open_Executed(object sender, ExecutedRoutedEventArgs e) {
+			OpenFileDialog openFile = new OpenFileDialog();
+			openFile.Filter = "World Creater工程文件|*.mriwcpro";
+			if (openFile.ShowDialog() == true) {
+				string filepath = openFile.FileName;
+				string dirpath = System.IO.Path.GetDirectoryName(filepath);
+				string filename = System.IO.Path.GetFileName(filepath);
+				Project project = Project.OpenProject(dirpath, filename);
+				this.Project = project;
+			}
 		}
 
 		private void Command_Save_Executed(object sender, ExecutedRoutedEventArgs e) {

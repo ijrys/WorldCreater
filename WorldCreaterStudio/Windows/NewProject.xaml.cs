@@ -98,7 +98,7 @@ namespace WorldCreaterStudio.Windows {
 			try {
 				if (CreateNewProject) { //新工程模式
 					string proFileName = WorldCreaterStudio_Core.Tools.Path.GetAFileName(txtProName.Text);
-					Project = Project.NewProject(System.IO.Path.Combine(txtProPath.Text, proFileName), proFileName + ".mrimcpro", txtProName.Text);
+					Project = Project.NewProject(System.IO.Path.Combine(txtProPath.Text, proFileName), proFileName + ".mriwcpro", txtProName.Text);
 				}
 
 				//添加work

@@ -305,6 +305,7 @@ namespace WorldCreaterStudio_Core {
 			}
 			//work.Childrens.Add(work.Images);
 			//work.Childrens.Add(work.FrontEndNodes);
+			work.Changed = false;
 			return work;
 		}
 		#endregion
