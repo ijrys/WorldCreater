@@ -122,7 +122,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 				string path = Path.Combine(basePath, FilePath);
 				SaveBitmap(Image, path);
 				DataChanged = false;
-				if (!InfoChanged) Changed = false;
+				//if (!InfoChanged) Changed = false;
 			}
 		}
 
@@ -137,7 +137,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 			re.SetAttribute("file", _filePath);
 			re.SetAttribute("description", Description);
 			InfoChanged = false;
-			if (save && !DataChanged) Changed = false;
+			//if (save && !DataChanged) Changed = false;
 			return re;
 		}
 
