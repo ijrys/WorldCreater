@@ -156,7 +156,7 @@ namespace WorldCreaterStudio {
 				_showingFunctionPanel = panel;
 			}
 			_dataProvider = dataprovider;
-			ImgShow.Visibility = Visibility.Collapsed;
+			//ImgShow.Visibility = Visibility.Collapsed;
 			FunctionPanelConter.DataContext = dataprovider;
 		}
 
@@ -167,8 +167,9 @@ namespace WorldCreaterStudio {
 		}
 
 		private void ShowAImage(ImageSource image) {
-			ImgShow.Source = image;
-			ImgShow.Visibility = Visibility.Visible;
+			//ImgShow.Source = image;
+			//ImgShow.Visibility = Visibility.Visible;
+			ShowFunctionPanel(image, Resources["ImageView"] as ControlTemplate);
 		}
 		#endregion
 
