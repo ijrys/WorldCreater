@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28306.52
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseType", "BaseType\BaseType.csproj", "{A3B9A1D5-2E9A-472C-83B4-AC1E1518948E}"
 EndProject
@@ -28,6 +28,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueToImage", "ValueToImage\ValueToImage.csproj", "{665C6CCB-D025-4739-8DAC-95BC87709DD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B29D3D3E-5AD0-40E9-B638-DE4904A79747}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEndFactorys", "BackEndFactorys", "{F3AFDAF6-C8ED-46C7-8C99-AA889CD804F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AtmosphericMotion", "AtmosphericMotion", "{71D4FEB9-FCCE-4A1A-9AD0-289B7F7483DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiRaI.BE.AM.SingleValue", "BackEndFactorys\AtmosphericMotion\MiRaI.BE.AM.SingleValue\MiRaI.BE.AM.SingleValue.csproj", "{57F48C6C-1790-4F37-B784-E470EBA82E07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,12 +127,22 @@ Global
 		{B29D3D3E-5AD0-40E9-B638-DE4904A79747}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B29D3D3E-5AD0-40E9-B638-DE4904A79747}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B29D3D3E-5AD0-40E9-B638-DE4904A79747}.Release|x64.ActiveCfg = Release|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Debug|x64.Build.0 = Debug|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Release|x64.ActiveCfg = Release|Any CPU
+		{57F48C6C-1790-4F37-B784-E470EBA82E07}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{80514C05-AAC1-490F-A637-92F99C91D95E} = {ABEEDE3E-0F44-43A6-A946-3DD8C2B288F1}
+		{71D4FEB9-FCCE-4A1A-9AD0-289B7F7483DB} = {F3AFDAF6-C8ED-46C7-8C99-AA889CD804F0}
+		{57F48C6C-1790-4F37-B784-E470EBA82E07} = {71D4FEB9-FCCE-4A1A-9AD0-289B7F7483DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {986E020B-A6E8-49C5-9F4E-4F3994BBB567}

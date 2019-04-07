@@ -64,10 +64,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionCalculater.cs" />
+    <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionNode.cs" />
     <Compile Include="Exceptions\DirectoryExistedException.cs" />
     <Compile Include="Exceptions\GuidNotSameException.cs" />
     <Compile Include="Exceptions\IncongruentConfigurationException.cs" />
     <Compile Include="Exceptions\NoCreaterFactoryException.cs" />
+    <Compile Include="ListNode\DataCalculater.cs" />
     <Compile Include="MapCreater\BaseConfiguration.cs" />
     <Compile Include="MapCreater\Configuration.cs" />
     <Compile Include="MapCreater\MapCreater.cs" />
