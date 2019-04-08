@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionCalculater.cs" />
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionNode.cs" />
+    <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionResault.cs" />
+    <Compile Include="BackendNode\ICalculatedResaultAble.cs" />
     <Compile Include="Exceptions\DirectoryExistedException.cs" />
     <Compile Include="Exceptions\GuidNotSameException.cs" />
     <Compile Include="Exceptions\IncongruentConfigurationException.cs" />

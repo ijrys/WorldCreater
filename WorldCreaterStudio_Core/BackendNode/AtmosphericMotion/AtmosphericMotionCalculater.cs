@@ -15,9 +15,25 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 	/// <summary>
 	/// 空气运动模拟计算器
 	/// </summary>
-	public interface IAtmosphericMotionCalculaterAble<ConfigT>
-		:IDataCalculaterAble
-		where ConfigT: IAtmosphericMotionConfigAble {
-		PointData[,] GetAtmosphericMotionDatas (ConfigT config, int[,] heightMap);
+	public interface IAtmosphericMotionCalculaterAble : IDataCalculaterAble {
+		PointData[,] GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap);
 	}
+
+	/// <summary>
+	/// 空气运动模拟计算器生成工厂
+	/// </summary>
+	public interface IAtmosphericMotionCalculaterFactoryAble :
+		IDataCalculaterFactoryAble<IAtmosphericMotionCalculaterAble, IAtmosphericMotionConfigAble> {
+
+	}
+
+
+	/// <summary>
+	/// 空气运动模拟计算器
+	/// </summary>
+	//public interface IAtmosphericMotionCalculaterAble<ConfigT>
+	//	: IAtmosphericMotionCalculaterAble
+	//	where ConfigT: IAtmosphericMotionConfigAble {
+	//	PointData[,] GetAtmosphericMotionDatas (ConfigT config, int[,] heightMap);
+	//}
 }

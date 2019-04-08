@@ -51,7 +51,7 @@ namespace WorldCreaterStudio_Core.ListNode {
 		/// <summary>
 		/// 配置中有值发生改变时事件
 		/// </summary>
-		event ConfigurationValueChangedDelegate ValueChanged;
+		event NodeValueChangedEventType ValueChanged;
 		/// <summary>
 		/// 从XML节点中加载数据
 		/// </summary>
