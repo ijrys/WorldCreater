@@ -51,7 +51,7 @@ namespace ValueToImage {
 		//	}
 		//}
 
-		public static WriteableBitmap GetBitmap (PointData[,] datas, BitmapImage baseImage) {
+		public static WriteableBitmap GetBitmap (PointData[,] datas) {
 			int width = datas.GetLength (1);
 			int height = datas.GetLength (0);
 

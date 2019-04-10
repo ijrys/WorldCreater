@@ -29,7 +29,7 @@ namespace WorldCreaterStudio_Core.BackendNode {
 	/// </summary>
 	/// <typeparam name="CellT"></typeparam>
 	public abstract class CalculatedResault<CellT> : ICalculatedResaultAble<CellT> {
-		public Work Work => throw new NotImplementedException ();
+		public Work Work { get; protected set; }
 
 		public ControlTemplate ShowPanel => throw new NotImplementedException ();
 
@@ -84,10 +84,14 @@ namespace WorldCreaterStudio_Core.BackendNode {
 		protected abstract void Load ();
 
 
-		public CalculatedResault(CellT[,] value, string dataName) {
+		public CalculatedResault (CellT[,] value, string dataName, Work work, string imgResKey) {
 			Value = value;
 			string filename = Tools.Path.GetAFileName (dataName);
 			NodeName = dataName;
+			Work = work;
+			if (imgResKey != null) { // 如果有图片资源
+				ShowImage = new ImageResourceReference (work, imgResKey);
+			}
 		}
 	}
 }

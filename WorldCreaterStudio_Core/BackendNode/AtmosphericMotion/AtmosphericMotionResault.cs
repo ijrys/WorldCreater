@@ -96,8 +96,8 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 		}
 
-		public AtmosphericMotionResault (PointData[,] value, string dataName) :
-			base (value, dataName) {
+		public AtmosphericMotionResault (PointData[,] value, string dataName, Work work, string imgResKey) :
+			base (value, dataName, work, imgResKey) {
 
 		}
 	}
