@@ -56,7 +56,7 @@ namespace MiRaI.BE.AM.SingleValue {
 	/// 设置单值的模拟器
 	/// </summary>
 	public class SingleValue :
-		IAtmosphericMotionCalculaterAble<SingleValueConfig> {
+		IAtmosphericMotionCalculaterAble {
 		public string CreaterName => "单一值风力设定";
 
 		public string CreaterProgramSet => "MiRaI.BE.AM.SV|0.1";
@@ -65,9 +65,9 @@ namespace MiRaI.BE.AM.SingleValue {
 
 		public event DataCalculatingProcessingEventType OnProcessingChanged;
 
-		public PointData[,] GetAtmosphericMotionDatas (SingleValueConfig config, int[,] heightMap) {
+		public AtmosphericMotionResault GetAtmosphericMotionDatas (SingleValueConfig config, int[,] heightMap) {
 			int w = heightMap.GetLength (0) - 1, h = heightMap.GetLength (1) - 1;
-			PointData[,] re = new PointData[w, h];
+			PointData[,] recont = new PointData[w, h];
 			PointData data = new PointData () {
 				direction = config.Direction,
 				power = config.Power,
@@ -75,11 +75,17 @@ namespace MiRaI.BE.AM.SingleValue {
 			
 			for (int i = 0; i < w; i ++) {
 				for (int j = 0; j < h; j ++) {
-					re[i, j] = data;
+					recont[i, j] = data;
 				}
 			}
-			
+
+			AtmosphericMotionResault re = new AtmosphericMotionResault (recont, "BE.AM.Map");
 			return re;
+		}
+
+		public AtmosphericMotionResault GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap) {
+			if (!(config is SingleValueConfig)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException (typeof (SingleValueConfig), config.GetType ());
+			return GetAtmosphericMotionDatas (config as SingleValueConfig, heightMap);
 		}
 	}
 }

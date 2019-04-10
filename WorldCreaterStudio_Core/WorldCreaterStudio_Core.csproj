@@ -68,6 +68,7 @@
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionNode.cs" />
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionResault.cs" />
     <Compile Include="BackendNode\ICalculatedResaultAble.cs" />
+    <Compile Include="Exceptions\DataResousesReadException.cs" />
     <Compile Include="Exceptions\DirectoryExistedException.cs" />
     <Compile Include="Exceptions\GuidNotSameException.cs" />
     <Compile Include="Exceptions\IncongruentConfigurationException.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Resouses\ImageResourceReferenceManager.cs" />
     <Compile Include="StoreRoom\MapCreaterDictionary.cs" />
     <Compile Include="StoreRoom\ShowPanel.cs" />
+    <Compile Include="Tools\ByteStreamWriter.cs" />
     <Compile Include="Tools\Path.cs" />
     <Compile Include="ListNode\Work.cs" />
     <Compile Include="ListNode\IWorkLogicNodeAble.cs" />

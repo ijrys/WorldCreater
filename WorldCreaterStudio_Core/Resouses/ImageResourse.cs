@@ -173,7 +173,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		private static void SaveBitmap(BitmapSource image, string filepath) {
 			BitmapEncoder encoder = new PngBitmapEncoder();
 			encoder.Frames.Add(BitmapFrame.Create(image));
-			using (var fileStream = new System.IO.FileStream(filepath, System.IO.FileMode.OpenOrCreate)) {
+			using (var fileStream = new System.IO.FileStream(filepath, System.IO.FileMode.Create)) {
 				encoder.Save(fileStream);
 			}
 		}

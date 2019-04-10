@@ -16,9 +16,9 @@ namespace WorldCreaterStudio_Core.BackendNode {
 	/// 计算结果
 	/// </summary>
 	/// <typeparam name="CellT"></typeparam>
-	interface ICalculatedResaultAble<CellT> : IWorkLogicNodeAble {
-		CellT Value { get; }
-		ImageResourceReference GrayImage { get; }
+	public interface ICalculatedResaultAble<CellT> : IWorkLogicNodeAble {
+		CellT[,] Value { get; }
+		ImageResourceReference ShowImage { get; }
 		FileInfo DataFile { get; }
 
 		void Save (bool freshWithoutChanged = false);
@@ -28,16 +28,19 @@ namespace WorldCreaterStudio_Core.BackendNode {
 	/// 存储、管理运算结果，ICalculatedResaultAble的抽象实现
 	/// </summary>
 	/// <typeparam name="CellT"></typeparam>
-	abstract class CalculatedResault<CellT> : ICalculatedResaultAble<CellT> {
+	public abstract class CalculatedResault<CellT> : ICalculatedResaultAble<CellT> {
 		public Work Work => throw new NotImplementedException ();
 
 		public ControlTemplate ShowPanel => throw new NotImplementedException ();
 
 		public ImageSource Icon => throw new NotImplementedException ();
 
-		private CellT _value;
-		public CellT Value {
-			get { return _value; }
+		private CellT[,] _value;
+		public CellT[,] Value {
+			get {
+				if (_value == null) Load ();
+				return _value;
+			}
 			set {
 				if (_value.Equals (value)) return;
 				_value = value;
@@ -45,7 +48,7 @@ namespace WorldCreaterStudio_Core.BackendNode {
 			}
 		}
 
-		public ImageResourceReference GrayImage {
+		public ImageResourceReference ShowImage {
 			get; protected set;
 		}
 
@@ -79,5 +82,12 @@ namespace WorldCreaterStudio_Core.BackendNode {
 
 		public abstract void Save (bool freshWithoutChanged = false);
 		protected abstract void Load ();
+
+
+		public CalculatedResault(CellT[,] value, string dataName) {
+			Value = value;
+			string filename = Tools.Path.GetAFileName (dataName);
+			NodeName = dataName;
+		}
 	}
 }

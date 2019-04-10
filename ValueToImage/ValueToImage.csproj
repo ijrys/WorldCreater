@@ -61,9 +61,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtmosphericMotionToImage.cs" />
     <Compile Include="ValueToColorImage.cs" />
     <Compile Include="ValueToGrayImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WorldCreaterStudio_Core\WorldCreaterStudio_Core.csproj">
+      <Project>{f953b410-f0f7-4c96-84e6-18cb8909aeab}</Project>
+      <Name>WorldCreaterStudio_Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
