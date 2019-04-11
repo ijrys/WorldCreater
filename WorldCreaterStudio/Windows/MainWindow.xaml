@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:WorldCreaterStudio"
 		xmlns:localcore="clr-namespace:WorldCreaterStudio_Core;assembly=WorldCreaterStudio_Core"
 		xmlns:res="clr-namespace:WorldCreaterStudio.Resouses"
-		xmlns:coreberes="clr-namespace:WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary"
 		xmlns:vcon ="clr-namespace:WorldCreaterStudio.ValueConverter"
         mc:Ignorable="d"
 		Background="{DynamicResource Brush_Panel_BG_Normal_Normal}"
@@ -203,7 +202,7 @@
 							<ColumnDefinition Width="1*"/>
 							<ColumnDefinition Width="1*"/>
 						</Grid.ColumnDefinitions>
-						<ComboBox Grid.Column="0" SelectedItem="{Binding Factory}" ItemsSource="{x:Static coreberes:}">
+						<ComboBox Grid.Column="0" SelectedItem="{Binding Factory}" ItemsSource="{x:Static res:BackEndCalcFactories.AM}">
 							<ComboBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding DisplayName}"/>
@@ -325,7 +324,7 @@
 		<StatusBar Grid.Row="3" FontSize="16" Foreground="#000">
 			<TextBlock x:Name="txtPermillage" MinWidth="64px" MaxWidth="128px" Foreground="#000"/>
 			<TextBlock x:Name="txtState" Foreground="#000">就绪</TextBlock>
-			<!--<ComboBox Grid.Column="0" ItemsSource="{coreberes:}"/>-->
+			<!--<ComboBox Grid.Column="0" ItemsSource="{x:Static res:BackEndCalcFactories.AM}"/>-->
 		</StatusBar>
 	</Grid>
 

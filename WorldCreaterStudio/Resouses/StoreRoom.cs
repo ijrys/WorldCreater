@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorldCreaterStudio_Core.MapCreater;
+using WorldCreaterStudio_Core.BackendNode;
 
 namespace WorldCreaterStudio.Resouses {
 	namespace NewWork {
@@ -56,5 +57,9 @@ namespace WorldCreaterStudio.Resouses {
 		static StoreRoom() {
 
 		}
+	}
+
+	public static class BackEndCalcFactories {
+		public static IEnumerable<WorldCreaterStudio_Core.BackendNode.AtmosphericMotion.IAtmosphericMotionCalculaterFactoryAble> AM => WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.AtmosphericMotion.CalcFactories;
 	}
 }

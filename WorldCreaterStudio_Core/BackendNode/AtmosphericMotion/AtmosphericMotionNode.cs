@@ -137,7 +137,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 		public IAtmosphericMotionConfigAble Configuration {
 			get => _configuration;
 			set {
-				if (_configuration == null) return;
+				//if (_configuration == null) return;
 				if (_configuration != null) {
 					_configuration.ValueChanged -= Children_NodeValueChanged;
 				}
@@ -145,6 +145,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 					value.ValueChanged += Children_NodeValueChanged;
 				}
 				_configuration = value;
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Configuration"));
 			}
 		}
 
@@ -152,10 +153,11 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 		public IAtmosphericMotionCalculaterFactoryAble Factory {
 			get => _factory;
 			set {
-				if (_factory == value) return;
+				//if (_factory == value) return;
 				Configuration = value.GetAConfiguration ();
 				Calculater = value.GetACalculater ();
 				_factory = value;
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Factory"));
 			}
 		}
 
