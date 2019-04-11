@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WorldCreaterStudio"
 		xmlns:localcore="clr-namespace:WorldCreaterStudio_Core;assembly=WorldCreaterStudio_Core"
 		xmlns:res="clr-namespace:WorldCreaterStudio.Resouses"
+		xmlns:coreberes="clr-namespace:WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary"
 		xmlns:vcon ="clr-namespace:WorldCreaterStudio.ValueConverter"
         mc:Ignorable="d"
 		Background="{DynamicResource Brush_Panel_BG_Normal_Normal}"
@@ -136,6 +137,110 @@
 				</Grid>
 			</ControlTemplate>
 
+			<ControlTemplate x:Key="backEndFactoryShowPanel">
+				<Grid Width="540px" Height="210px">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="90"/>
+						<ColumnDefinition Width="60"/>
+						<ColumnDefinition Width="90"/>
+						<ColumnDefinition Width="60"/>
+						<ColumnDefinition Width="90"/>
+						<ColumnDefinition Width="60"/>
+						<ColumnDefinition Width="90"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="10px"/>
+						<RowDefinition Height="90px"/>
+						<RowDefinition Height="10px"/>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="auto"/>
+					</Grid.RowDefinitions>
+
+					<TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap">Atmospheric Motion</TextBlock>
+					<ContentControl  Grid.Column="0" Grid.Row="2" Template="{StaticResource Content_BEF_Finished}"/>
+					<ComboBox  Grid.Column="0" Grid.Row="4">
+						<ComboBoxItem>常值设定</ComboBoxItem>
+						<ComboBoxItem>快速迭代</ComboBoxItem>
+					</ComboBox>
+					<Button  Grid.Column="0" Grid.Row="5">开始演算</Button>
+
+					<TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap">Rainfall Motion</TextBlock>
+					<ContentControl  Grid.Column="2" Grid.Row="2" Template="{StaticResource Content_BEF_Outdate}"/>
+					<ComboBox  Grid.Column="2" Grid.Row="4">
+						<ComboBoxItem>常值设定</ComboBoxItem>
+						<ComboBoxItem>快速迭代</ComboBoxItem>
+					</ComboBox>
+					<Button  Grid.Column="2" Grid.Row="5">开始演算</Button>
+
+					<TextBlock Grid.Column="4" Grid.Row="0" TextWrapping="Wrap">Solar Illuminance</TextBlock>
+					<ContentControl  Grid.Column="4" Grid.Row="2" Template="{StaticResource Content_BEF_Ready}"/>
+					<ComboBox  Grid.Column="4" Grid.Row="4">
+						<ComboBoxItem>常值设定</ComboBoxItem>
+						<ComboBoxItem>快速迭代</ComboBoxItem>
+					</ComboBox>
+					<Button  Grid.Column="4" Grid.Row="5">开始演算</Button>
+
+					<TextBlock Grid.Column="6" Grid.Row="0" TextWrapping="Wrap">Biomes</TextBlock>
+					<ContentControl  Grid.Column="6" Grid.Row="2" Template="{StaticResource Content_BEF_CannotStart}"/>
+					<ComboBox  Grid.Column="6" Grid.Row="4">
+						<ComboBoxItem>常值设定</ComboBoxItem>
+						<ComboBoxItem>快速迭代</ComboBoxItem>
+					</ComboBox>
+					<Button  Grid.Column="6" Grid.Row="5">开始演算</Button>
+				</Grid>
+			</ControlTemplate>
+
+			<ControlTemplate x:Key="Content_BEF_AM_Node">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="auto" MaxHeight="128px"/>
+						<RowDefinition Height="1*"/>
+					</Grid.RowDefinitions>
+					<Grid Grid.Row="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*"/>
+						</Grid.ColumnDefinitions>
+						<ComboBox Grid.Column="0" SelectedItem="{Binding Factory}" ItemsSource="{x:Static coreberes:}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding DisplayName}"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+
+						<Button Grid.Column="1" IsEnabled="{Binding CanCalculater}">计算</Button>
+					</Grid>
+					<ContentControl Grid.Row="1" Template="{Binding ShowPanel}" DataContext="{Binding Configuration}"/>
+
+					<Grid Grid.Row="2">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="4px"/>
+							<ColumnDefinition Width="auto" MinWidth="64px"/>
+						</Grid.ColumnDefinitions>
+						<Canvas>
+							<Grid>
+								<Image Source="{Binding ElementName=List_BGImgSelect, Path=SelectedItem}" Canvas.Left="0" Canvas.Top="0"/>
+								<TextBlock Text="{Binding Key}" Opacity="0.5"/>
+							</Grid>
+							<Image Source="{Binding ResaultImage}"/>
+						</Canvas>
+						<Image Grid.Column="0" ></Image>
+						<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+						<ListBox x:Name="List_BGImgSelect">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Key}"/>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</Grid>
+				</Grid>
+			</ControlTemplate>
+			
 		</ResourceDictionary>
 	</Window.Resources>
 	<Grid>
@@ -177,64 +282,8 @@
 			<ContentControl x:Name="FunctionPanelConter">
 
 			</ContentControl>
-			<Grid Width="540px" Height="210px">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="90"/>
-					<ColumnDefinition Width="60"/>
-					<ColumnDefinition Width="90"/>
-					<ColumnDefinition Width="60"/>
-					<ColumnDefinition Width="90"/>
-					<ColumnDefinition Width="60"/>
-					<ColumnDefinition Width="90"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="10px"/>
-					<RowDefinition Height="90px"/>
-					<RowDefinition Height="10px"/>
-					<RowDefinition Height="auto"/>
-					<RowDefinition Height="auto"/>
-				</Grid.RowDefinitions>
+			
 
-				<TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap">Atmospheric Motion</TextBlock>
-				<ContentControl  Grid.Column="0" Grid.Row="2" Template="{StaticResource Content_BEF_Finished}"/>
-				<ComboBox  Grid.Column="0" Grid.Row="4">
-					<ComboBoxItem>常值设定</ComboBoxItem>
-					<ComboBoxItem>快速迭代</ComboBoxItem>
-				</ComboBox>
-				<Button  Grid.Column="0" Grid.Row="5">开始演算</Button>
-
-				<!--<Line Grid.Column="1" Grid.Row="2" X1="0" X2="60" VerticalAlignment="Center" StrokeThickness="16" Stroke="#FFF"/>-->
-
-				<TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap">Rainfall Motion</TextBlock>
-				<ContentControl  Grid.Column="2" Grid.Row="2" Template="{StaticResource Content_BEF_Outdate}"/>
-				<ComboBox  Grid.Column="2" Grid.Row="4">
-					<ComboBoxItem>常值设定</ComboBoxItem>
-					<ComboBoxItem>快速迭代</ComboBoxItem>
-				</ComboBox>
-				<Button  Grid.Column="2" Grid.Row="5">开始演算</Button>
-
-				<TextBlock Grid.Column="4" Grid.Row="0" TextWrapping="Wrap">Solar Illuminance</TextBlock>
-				<ContentControl  Grid.Column="4" Grid.Row="2" Template="{StaticResource Content_BEF_Ready}"/>
-				<ComboBox  Grid.Column="4" Grid.Row="4">
-					<ComboBoxItem>常值设定</ComboBoxItem>
-					<ComboBoxItem>快速迭代</ComboBoxItem>
-				</ComboBox>
-				<Button  Grid.Column="4" Grid.Row="5">开始演算</Button>
-
-				<TextBlock Grid.Column="6" Grid.Row="0" TextWrapping="Wrap">Biomes</TextBlock>
-				<ContentControl  Grid.Column="6" Grid.Row="2" Template="{StaticResource Content_BEF_CannotStart}"/>
-				<ComboBox  Grid.Column="6" Grid.Row="4">
-					<ComboBoxItem>常值设定</ComboBoxItem>
-					<ComboBoxItem>快速迭代</ComboBoxItem>
-				</ComboBox>
-				<Button  Grid.Column="6" Grid.Row="5">开始演算</Button>
-
-
-			</Grid>
-			<!--<Image x:Name="ImgShow"/>-->
-
-			<!--<Image Source="pack://application:,,,/Resouses\img.png"></Image>-->
 
 			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>
 
@@ -249,21 +298,6 @@
 					<TextBlock VerticalAlignment="Center" Text="解决方案"></TextBlock>
 				</StackPanel>
 
-				<!--<Button MouseDoubleClick="Tree_Project_Item_DoubleClick">
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="*">
-							<TextBlock.Visibility>
-								<Binding Path="Changed">
-									<Binding.Converter>
-										<vcon:VisibilityConverter/>
-									</Binding.Converter>
-								</Binding>
-							</TextBlock.Visibility>
-						</TextBlock>
-						<Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
-						<TextBlock VerticalAlignment="Center" Text="{Binding NodeName}"></TextBlock>
-					</StackPanel>
-				</Button>-->
 
 				<TreeView x:Name="Tree_Project" Grid.Row="1">
 					<TreeView.ItemTemplate>
@@ -291,7 +325,7 @@
 		<StatusBar Grid.Row="3" FontSize="16" Foreground="#000">
 			<TextBlock x:Name="txtPermillage" MinWidth="64px" MaxWidth="128px" Foreground="#000"/>
 			<TextBlock x:Name="txtState" Foreground="#000">就绪</TextBlock>
-
+			<!--<ComboBox Grid.Column="0" ItemsSource="{coreberes:}"/>-->
 		</StatusBar>
 	</Grid>
 

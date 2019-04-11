@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MiRaI.BE.AM.Single {
+namespace MiRaI.BE.AM.SingleValue {
 	/// <summary>
 	/// ControlPanel.xaml 的交互逻辑
 	/// </summary>

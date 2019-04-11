@@ -55,28 +55,6 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 		W = 8,
 	}
 
-	/// <summary>
-	/// 表示节点的状态
-	/// </summary>
-	public enum NodeState {
-		/// <summary>
-		/// 不可用，条件不充足
-		/// </summary>
-		unable,
-		/// <summary>
-		/// 待开始
-		/// </summary>
-		ready,
-		/// <summary>
-		/// 已完成
-		/// </summary>
-		ok,
-		/// <summary>
-		/// 需更新，在前一节点发生更新后，本节点需要重新计算
-		/// </summary>
-		outdate
-	}
-
 	public struct PointData {
 		/// <summary>
 		/// 当前节点的风向
@@ -95,7 +73,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 
 		public Work Work { get; private set; }
 
-		public ControlTemplate ShowPanel => null;
+		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_AMPanel;
 
 		public string NodeName => "AtmosphericMotion";
 
@@ -124,7 +102,6 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 		}
 
-
 		private NodeState _nodeState = NodeState.unable;
 		public NodeState NodeState {
 			get => _nodeState;
@@ -133,8 +110,11 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 				_nodeState = value;
 				Changed = true;
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("NodeState"));
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("CanCalculater"));
 			}
 		}
+		public bool CanCalculater => NodeState != NodeState.unable;
+
 
 		private IAtmosphericMotionCalculaterAble _calculater = null;
 		/// <summary>
@@ -168,6 +148,27 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 		}
 
+		private IAtmosphericMotionCalculaterFactoryAble _factory;
+		public IAtmosphericMotionCalculaterFactoryAble Factory {
+			get => _factory;
+			set {
+				if (_factory == value) return;
+				Configuration = value.GetAConfiguration ();
+				Calculater = value.GetACalculater ();
+				_factory = value;
+			}
+		}
+
+		private AtmosphericMotionResault _resault;
+		public AtmosphericMotionResault Resault {
+			get => _resault;
+			private set {
+				_resault = value;
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Resault"));
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultImage"));
+			}
+		}
+		public ImageSource ResaultImage => Resault?.ShowImage?.Image;
 
 		private void Children_NodeValueChanged (IWorkLogicNodeAble node) {
 			Changed = true;
@@ -187,9 +188,12 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 		}
 
 		public void StartCalculating () {
+			if (Work.FrontEndNodes.HeightMap.Value == null || NodeState == NodeState.unable) {
+				return;
+			}
 			if (Calculater == null) return;
-			Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.HeightMap.Value);
-
+			Resault = Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.HeightMap.Value);
+			
 		}
 
 		public AtmosphericMotionNode (Work work) {

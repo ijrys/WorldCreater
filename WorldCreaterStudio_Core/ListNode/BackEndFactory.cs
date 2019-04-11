@@ -18,13 +18,13 @@ namespace WorldCreaterStudio_Core {
 
 		public Work Work { get; private set; }
 
-		public ControlTemplate ShowPanel { get; set; }
+		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BackEndFactoryPanel;
 
 		public string NodeName => "后端工厂";
 
 		public ImageSource Icon { get; set; }
 
-		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
+		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
 
 		private bool _changed;
 
@@ -69,8 +69,10 @@ namespace WorldCreaterStudio_Core {
 
 		public BackEndFactory (Work work) {
 			this.Work = work;
-
 			AMNode = new BackendNode.AtmosphericMotion.AtmosphericMotionNode (work);
+			Childrens = new ObservableCollection<IWorkLogicNodeAble> ();
+			Childrens.Add (AMNode);
+			AMNode.NodeState = BackendNode.NodeState.unable;
 		}
 	}
 }

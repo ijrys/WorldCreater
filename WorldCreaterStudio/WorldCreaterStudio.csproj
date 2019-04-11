@@ -215,6 +215,10 @@
     <Resource Include="Resouses\img.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackEndFactorys\AtmosphericMotion\MiRaI.BE.AM.SingleValue\MiRaI.BE.AM.SingleValue.csproj">
+      <Project>{57f48c6c-1790-4f37-b784-e470eba82e07}</Project>
+      <Name>MiRaI.BE.AM.SingleValue</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FrontEndFactorys\RandomTend\RandomTend.csproj">
       <Project>{80514c05-aac1-490f-a637-92f99c91d95e}</Project>
       <Name>RandomTend</Name>

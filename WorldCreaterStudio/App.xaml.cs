@@ -15,6 +15,7 @@ namespace WorldCreaterStudio {
 			base.OnStartup(e);
 			//添加FE
 			Resouses.StoreRoom.RegisterACreaterFactory(new RandomTend.RandomTendCreaterFactory());
+			WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.AtmosphericMotion.RegisterACreaterFactory (new MiRaI.BE.AM.SingleValue.SingleValueFactory ());
 		}
 	}
 }

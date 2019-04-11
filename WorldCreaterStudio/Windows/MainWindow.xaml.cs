@@ -39,6 +39,7 @@ namespace WorldCreaterStudio {
 				_project = value;
 				ProjectChanged?.Invoke(this, value);
 				ProjectChangedFunction(value);
+				
 			}
 		}
 		/// <summary>
@@ -128,10 +129,12 @@ namespace WorldCreaterStudio {
 		/// 向Core注册展示板
 		/// </summary>
 		private void RegShowPanel() {
-			ControlTemplate panel = Resources["frontEndFactoryShowPanel"] as ControlTemplate;
-			WorldCreaterStudio_Core.StoreRoom.ShowPanel.FrontEndFactoryPanel = panel;
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.FrontEndFactoryPanel = Resources["frontEndFactoryShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.ImagePanel = Resources["ImageShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.WorkPanel = Resources["WorkShowPanel"] as ControlTemplate;
+
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BackEndFactoryPanel = Resources["backEndFactoryShowPanel"] as ControlTemplate;
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_AMPanel = Resources["Content_BEF_AM_Node"] as ControlTemplate;
 		}
 
 		/// <summary>

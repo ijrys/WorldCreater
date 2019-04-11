@@ -17,6 +17,7 @@ namespace MiRaI.BE.AM.SingleValue {
 		public event NodeValueChangedEventType ValueChanged;
 		public event PropertyChangedEventHandler PropertyChanged;
 
+
 		private Direction _direction;
 		/// <summary>
 		/// 获取或设置风向
@@ -181,7 +182,15 @@ namespace MiRaI.BE.AM.SingleValue {
 			get => _power / 20;
 		}
 
-		public System.Windows.Controls.ControlTemplate ShowPanel => throw new NotImplementedException ();
+		private System.Windows.Controls.ControlTemplate _showPanel;
+		public System.Windows.Controls.ControlTemplate ShowPanel {
+			get {
+				if (_showPanel == null) {
+					_showPanel = new ConfigPanel ().Resources["configTemplate"] as System.Windows.Controls.ControlTemplate;
+				}
+				return _showPanel;
+			}
+		}
 
 
 		public void LoadFromXMLNode (XmlElement xmlnode) {
@@ -229,6 +238,30 @@ namespace MiRaI.BE.AM.SingleValue {
 		public AtmosphericMotionResault GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap) {
 			if (!(config is SingleValueConfig)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException (typeof (SingleValueConfig), config.GetType ());
 			return GetAtmosphericMotionDatas (config as SingleValueConfig, heightMap);
+		}
+	}
+
+
+	public class SingleValueFactory : IAtmosphericMotionCalculaterFactoryAble {
+		public string DisplayName => "单一值风力设定";
+
+		public string DisplayType => "BE.AM";
+
+		public string CalculaterProgramSet => "MiRaI.BE.AM.SV|0.1";
+
+		public Guid CalculaterGuid => typeof (SingleValue).GUID;
+
+
+		private SingleValue _temp = null;
+		public IAtmosphericMotionCalculaterAble GetACalculater () {
+			if (_temp == null) {
+				_temp = new SingleValue ();
+			}
+			return _temp;
+		}
+
+		public IAtmosphericMotionConfigAble GetAConfiguration () {
+			return new SingleValueConfig ();
 		}
 	}
 }

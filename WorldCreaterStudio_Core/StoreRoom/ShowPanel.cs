@@ -15,10 +15,17 @@ namespace WorldCreaterStudio_Core.StoreRoom {
 		public static event ShowPanelChangedEvent ImagePanelChanged;
 		public static event ShowPanelChangedEvent WorkPanelChanged;
 		public static event ShowPanelChangedEvent FrontEndFactoryPanelChanged;
+		public static event ShowPanelChangedEvent BackEndFactoryPanelChanged;
+		public static event ShowPanelChangedEvent BEF_AMPanelChanged;
+		public static event ShowPanelChangedEvent BEF_RMPanelChanged;
+
 
 		private static ShowPanelType _imagePanel = null;
 		private static ShowPanelType _workPanel = null;
 		private static ShowPanelType _frontEndFactoryPanel = null;
+		private static ShowPanelType _backEndFactoryPanel = null;
+		private static ShowPanelType _bef_AMPanel = null;
+		private static ShowPanelType _bef_RMPanel = null;
 
 		/// <summary>
 		/// 用于展示图片资源
@@ -34,5 +41,22 @@ namespace WorldCreaterStudio_Core.StoreRoom {
 		/// 用于展示前端工厂的信息
 		/// </summary>
 		public static ShowPanelType FrontEndFactoryPanel { get => _frontEndFactoryPanel; set { _frontEndFactoryPanel = value; FrontEndFactoryPanelChanged?.Invoke(null, value); } }
+
+		/// <summary>
+		/// 用于展示后端工厂的信息
+		/// </summary>
+		public static ShowPanelType BackEndFactoryPanel { get => _backEndFactoryPanel; set { _backEndFactoryPanel = value; BackEndFactoryPanelChanged?.Invoke(null, value); } }
+
+		/// <summary>
+		/// 用于展示后端工厂.AM的信息
+		/// </summary>
+		public static ShowPanelType BEF_AMPanel { get => _bef_AMPanel; set { _bef_AMPanel = value; BEF_AMPanelChanged?.Invoke(null, value); } }
+
+		/// <summary>
+		/// 用于展示后端工厂.RM的信息
+		/// </summary>
+		public static ShowPanelType BEF_RMPanel { get => _bef_RMPanel; set { _bef_RMPanel = value; BEF_RMPanelChanged?.Invoke(null, value); } }
+
+
 	}
 }
