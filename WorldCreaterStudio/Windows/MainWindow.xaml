@@ -62,82 +62,10 @@
 			</ControlTemplate>
 
 
-			<ControlTemplate TargetType="ContentControl" x:Key="Content_BEF_CannotStart">
-				<Grid>
-					<Ellipse Fill="#E33" Width="90" Height="90"/>
-					<Canvas Width="40" Height="40">
-						<Canvas.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="3" ShadowDepth="3"/>
-						</Canvas.Effect>
-						<Line X1="0" Y1="0" X2="40" Y2="40" StrokeThickness="12" Stroke="#AAA" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-						<Line X1="40" Y1="0" X2="0" Y2="40" StrokeThickness="12" Stroke="#AAA" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-					</Canvas>
-					<TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" Foreground="#FFF" FontWeight="Black">
-						<TextBlock.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="4"></DropShadowEffect>
-						</TextBlock.Effect>
-						条件不足
-					</TextBlock>
-				</Grid>
-			</ControlTemplate>
-			<ControlTemplate TargetType="ContentControl" x:Key="Content_BEF_Finished">
-				<Grid Grid.Column="2" Grid.Row="2" Width="90" Height="90">
-					<Ellipse Fill="#0B4" Width="90" Height="90"/>
-					<Canvas Width="40" Height="40">
-						<Canvas.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="3" ShadowDepth="3"/>
-						</Canvas.Effect>
-						<Line X1="0" Y1="20" X2="15" Y2="40" StrokeThickness="12" Stroke="#CCC" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-						<Line X1="40" Y1="0" X2="15" Y2="40" StrokeThickness="12" Stroke="#CCC" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-					</Canvas>
-					<TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" Foreground="#FFF" FontWeight="Black">
-						<TextBlock.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="4"></DropShadowEffect>
-						</TextBlock.Effect>
-						已完成
-					</TextBlock>
-				</Grid>
-			</ControlTemplate>
-			<ControlTemplate TargetType="ContentControl" x:Key="Content_BEF_Outdate">
-				<Grid Grid.Column="4" Grid.Row="2" Width="90" Height="90">
-					<Ellipse Fill="#BB0" Width="90" Height="90"/>
-					<Canvas Width="40" Height="40">
-						<Canvas.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="3" ShadowDepth="3"/>
-						</Canvas.Effect>
-						<Line X1="20" Y1="0" X2="20" Y2="25" StrokeThickness="12" Stroke="#CCC" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-						<Line X1="20" Y1="40" X2="20" Y2="40" StrokeThickness="12" Stroke="#CCC" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-					</Canvas>
-					<TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" Foreground="#FFF" FontWeight="Black">
-						<TextBlock.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="4"></DropShadowEffect>
-						</TextBlock.Effect>
-						已过期
-					</TextBlock>
-				</Grid>
-			</ControlTemplate>
-			<ControlTemplate TargetType="ContentControl" x:Key="Content_BEF_Ready">
-				<Grid Grid.Column="6" Grid.Row="2" Width="90" Height="90">
-					<Ellipse Fill="#39B" Width="90" Height="90"/>
-					<Canvas Width="40" Height="40">
-						<Canvas.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="3" ShadowDepth="3"/>
-						</Canvas.Effect>
-						<Line X1="0" Y1="20" X2="40" Y2="20" StrokeThickness="12" Stroke="#CCC" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-						<Line X1="20" Y1="0" X2="40" Y2="20" StrokeThickness="12" Stroke="#CCC" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-						<Line X1="20" Y1="40" X2="40" Y2="20" StrokeThickness="12" Stroke="#CCC" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
-					</Canvas>
-					<TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="20" Foreground="#FFF" FontWeight="Black">
-						<TextBlock.Effect>
-							<DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="4"></DropShadowEffect>
-						</TextBlock.Effect>
-						待开始
-					</TextBlock>
-				</Grid>
-			</ControlTemplate>
+			
 
 			<ControlTemplate x:Key="backEndFactoryShowPanel">
-				<Grid Width="540px" Height="210px">
+				<Grid Width="540px" Height="210px" Grid.IsSharedSizeScope="True">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="90"/>
 						<ColumnDefinition Width="60"/>
@@ -147,46 +75,46 @@
 						<ColumnDefinition Width="60"/>
 						<ColumnDefinition Width="90"/>
 					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="auto"/>
-						<RowDefinition Height="10px"/>
-						<RowDefinition Height="90px"/>
-						<RowDefinition Height="10px"/>
-						<RowDefinition Height="auto"/>
-						<RowDefinition Height="auto"/>
-					</Grid.RowDefinitions>
 
-					<TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap">Atmospheric Motion</TextBlock>
-					<ContentControl  Grid.Column="0" Grid.Row="2" Template="{StaticResource Content_BEF_Finished}"/>
-					<ComboBox  Grid.Column="0" Grid.Row="4">
-						<ComboBoxItem>常值设定</ComboBoxItem>
-						<ComboBoxItem>快速迭代</ComboBoxItem>
-					</ComboBox>
-					<Button  Grid.Column="0" Grid.Row="5">开始演算</Button>
+					<Grid DataContext="{Binding AMNode}" Grid.Column="0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="auto" SharedSizeGroup="SHG"/>
+							<RowDefinition Height="10px"/>
+							<RowDefinition Height="90px"/>
+						</Grid.RowDefinitions>
+						<TextBlock Grid.Row="0" TextWrapping="Wrap">Atmospheric Motion</TextBlock>
+						<ContentControl  Grid.Row="2" Template="{Binding StateDisplayTemplate}"/>
+					</Grid>
 
-					<TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap">Rainfall Motion</TextBlock>
-					<ContentControl  Grid.Column="2" Grid.Row="2" Template="{StaticResource Content_BEF_Outdate}"/>
-					<ComboBox  Grid.Column="2" Grid.Row="4">
-						<ComboBoxItem>常值设定</ComboBoxItem>
-						<ComboBoxItem>快速迭代</ComboBoxItem>
-					</ComboBox>
-					<Button  Grid.Column="2" Grid.Row="5">开始演算</Button>
+					<Grid DataContext="{Binding AMNode}" Grid.Column="2">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="auto" SharedSizeGroup="SHG"/>
+							<RowDefinition Height="10px"/>
+							<RowDefinition Height="90px"/>
+						</Grid.RowDefinitions>
+						<TextBlock  Grid.Row="0" TextWrapping="Wrap">Rainfall Motion</TextBlock>
+						<ContentControl Grid.Row="2" Template="{Binding StateDisplayTemplate}"/>
+					</Grid>
 
-					<TextBlock Grid.Column="4" Grid.Row="0" TextWrapping="Wrap">Solar Illuminance</TextBlock>
-					<ContentControl  Grid.Column="4" Grid.Row="2" Template="{StaticResource Content_BEF_Ready}"/>
-					<ComboBox  Grid.Column="4" Grid.Row="4">
-						<ComboBoxItem>常值设定</ComboBoxItem>
-						<ComboBoxItem>快速迭代</ComboBoxItem>
-					</ComboBox>
-					<Button  Grid.Column="4" Grid.Row="5">开始演算</Button>
+					<Grid DataContext="{Binding AMNode}" Grid.Column="4">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="auto" SharedSizeGroup="SHG"/>
+							<RowDefinition Height="10px"/>
+							<RowDefinition Height="90px"/>
+						</Grid.RowDefinitions>
+						<TextBlock  Grid.Row="0" TextWrapping="Wrap">Solar Illuminance</TextBlock>
+						<ContentControl Grid.Row="2" Template="{Binding StateDisplayTemplate}"/>
+					</Grid>
 
-					<TextBlock Grid.Column="6" Grid.Row="0" TextWrapping="Wrap">Biomes</TextBlock>
-					<ContentControl  Grid.Column="6" Grid.Row="2" Template="{StaticResource Content_BEF_CannotStart}"/>
-					<ComboBox  Grid.Column="6" Grid.Row="4">
-						<ComboBoxItem>常值设定</ComboBoxItem>
-						<ComboBoxItem>快速迭代</ComboBoxItem>
-					</ComboBox>
-					<Button  Grid.Column="6" Grid.Row="5">开始演算</Button>
+					<Grid DataContext="{Binding AMNode}" Grid.Column="6">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="auto" SharedSizeGroup="SHG"/>
+							<RowDefinition Height="10px"/>
+							<RowDefinition Height="90px"/>
+						</Grid.RowDefinitions>
+						<TextBlock Grid.Row="0" TextWrapping="Wrap">Biomes</TextBlock>
+						<ContentControl Grid.Row="2" Template="{Binding StateDisplayTemplate}"/>
+					</Grid>
 				</Grid>
 			</ControlTemplate>
 
@@ -210,7 +138,7 @@
 							</ComboBox.ItemTemplate>
 						</ComboBox>
 
-						<Button Grid.Column="1" IsEnabled="{Binding CanCalculater}">计算</Button>
+						<Button Grid.Column="1" IsEnabled="{Binding CanCalculater}" Click="btn_BE_AM_Click">计算</Button>
 					</Grid>
 					<ContentControl Grid.Row="1" Template="{Binding ShowPanel}" DataContext="{Binding Configuration}"/>
 
@@ -221,15 +149,15 @@
 							<ColumnDefinition Width="auto" MinWidth="64px"/>
 						</Grid.ColumnDefinitions>
 						<Canvas>
-							<Grid>
-								<Image Source="{Binding ElementName=List_BGImgSelect, Path=SelectedItem}" Canvas.Left="0" Canvas.Top="0"/>
+							<Grid DataContext="{Binding ElementName=List_BGImgSelect, Path=SelectedItem}">
+								<Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Image}" Canvas.Left="0" Canvas.Top="0"/>
 								<TextBlock Text="{Binding Key}" Opacity="0.5"/>
 							</Grid>
 							<Image Source="{Binding ResaultImage}"/>
 						</Canvas>
 						<Image Grid.Column="0" ></Image>
 						<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-						<ListBox x:Name="List_BGImgSelect">
+						<ListBox Grid.Column="2" x:Name="List_BGImgSelect" ItemsSource="{Binding DisplayBGImages}" SelectionChanged="list_BE_AM_BGM_Selecter_Changed">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Key}"/>
@@ -239,7 +167,7 @@
 					</Grid>
 				</Grid>
 			</ControlTemplate>
-			
+
 		</ResourceDictionary>
 	</Window.Resources>
 	<Grid>
@@ -281,7 +209,7 @@
 			<ContentControl x:Name="FunctionPanelConter">
 
 			</ContentControl>
-			
+
 
 
 			<GridSplitter Grid.Column="1" Width="4px" HorizontalAlignment="Stretch"></GridSplitter>

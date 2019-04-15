@@ -69,6 +69,8 @@
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionResault.cs" />
     <Compile Include="BackendNode\ICalculatedResaultAble.cs" />
     <Compile Include="BackendNode\NodeState.cs" />
+    <Compile Include="BackendNode\RainfallMotion\RainfallMotionCalculater.cs" />
+    <Compile Include="BackendNode\RainfallMotion\RainfallMotionNode.cs" />
     <Compile Include="Exceptions\DataResousesReadException.cs" />
     <Compile Include="Exceptions\DirectoryExistedException.cs" />
     <Compile Include="Exceptions\GuidNotSameException.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Resouses\ValueResource.cs" />
     <Compile Include="Resouses\ImageResourceReferenceManager.cs" />
     <Compile Include="StoreRoom\BackEndCalculaterDictionary.cs" />
+    <Compile Include="StoreRoom\BackEndNodeStateTemplate.cs" />
     <Compile Include="StoreRoom\MapCreaterDictionary.cs" />
     <Compile Include="StoreRoom\ShowPanel.cs" />
     <Compile Include="Tools\ByteStreamWriter.cs" />

@@ -9,68 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
 
-namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
-	/// <summary>
-	/// 方位按照上北下南左西右东确定
-	/// NW(1)  N(2)  NE(3)
-	///  W(8)  C(0)   E(4)
-	/// SW(7)  S(6)  SE(5)
-	/// </summary>
-	public enum Direction {
-		/// <summary>
-		/// 中心
-		/// </summary>
-		C = 0,
-		/// <summary>
-		/// 西北
-		/// </summary>
-		NW = 1,
-		/// <summary>
-		/// 北
-		/// </summary>
-		N = 2,
-		/// <summary>
-		/// 东北
-		/// </summary>
-		NE = 3,
-		/// <summary>
-		/// 东
-		/// </summary>
-		E = 4,
-		/// <summary>
-		/// 东南
-		/// </summary>
-		SE = 5,
-		/// <summary>
-		/// 南
-		/// </summary>
-		S = 6,
-		/// <summary>
-		/// 西南
-		/// </summary>
-		SW = 7,
-		/// <summary>
-		/// 西
-		/// </summary>
-		W = 8,
-	}
-
-	public struct PointData {
-		/// <summary>
-		/// 当前节点的风向
-		/// </summary>
-		public Direction direction;
-		/// <summary>
-		/// 当前节点的风力
-		/// </summary>
-		public byte power;
-	}
-
-	/// <summary>
-	/// 空气流动节点
-	/// </summary>
-	public class AtmosphericMotionNode : IWorkLogicNodeAble {
-
+namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
+	class RainfallMotionNode : IWorkLogicNodeAble {
 		public Work Work { get; private set; }
 
 		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_AMPanel;
@@ -117,11 +57,11 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 		public bool CanCalculater => NodeState != NodeState.unable;
 
 
-		private IAtmosphericMotionCalculaterAble _calculater = null;
+		private IRainfallMotionCalculaterAble _calculater = null;
 		/// <summary>
 		/// 获取或设置模拟器
 		/// </summary>
-		public IAtmosphericMotionCalculaterAble Calculater {
+		public IRainfallMotionCalculaterAble Calculater {
 			get => _calculater;
 			set {
 				if (_calculater == value) return;
@@ -131,11 +71,11 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 		}
 
-		private IAtmosphericMotionConfigAble _configuration;
+		private IRainfallMotionConfigAble _configuration;
 		/// <summary>
 		/// 获取AM模拟器所需要的配置对象
 		/// </summary>
-		public IAtmosphericMotionConfigAble Configuration {
+		public IRainfallMotionConfigAble Configuration {
 			get => _configuration;
 			set {
 				//if (_configuration == null) return;
@@ -150,8 +90,8 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 		}
 
-		private IAtmosphericMotionCalculaterFactoryAble _factory;
-		public IAtmosphericMotionCalculaterFactoryAble Factory {
+		private IRainfallMotionCalculaterFactoryAble _factory;
+		public IRainfallMotionCalculaterFactoryAble Factory {
 			get => _factory;
 			set {
 				//if (_factory == value) return;
@@ -162,8 +102,8 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 		}
 
-		private AtmosphericMotionResault _resault;
-		public AtmosphericMotionResault Resault {
+		private RainfallMotionResault _resault;
+		public RainfallMotionResault Resault {
 			get => _resault;
 			private set {
 				_resault = value;
@@ -212,7 +152,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 		/// 设置模拟器
 		/// </summary>
 		/// <param name="factory">模拟器产生工厂</param>
-		public void SetCalculater (IAtmosphericMotionCalculaterFactoryAble factory) {
+		public void SetCalculater (IRainfallMotionCalculaterFactoryAble factory) {
 			Calculater = factory.GetACalculater ();
 			Configuration = factory.GetAConfiguration ();
 		}
@@ -223,10 +163,10 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 			if (Calculater == null) return;
 			Resault = Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
-			
+
 		}
 
-		public AtmosphericMotionNode (Work work) {
+		public RainfallMotionNode (Work work) {
 			this.Work = work;
 		}
 	}

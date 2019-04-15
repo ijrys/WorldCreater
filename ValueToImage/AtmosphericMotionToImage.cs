@@ -75,7 +75,7 @@ namespace ValueToImage {
 				for (int w = 0; w < width; w++) {
 					PointData data = datas[h, w];
 					qz[h / 16, w / 16, (int)data.direction] += data.power;
-					qz[h / 16, w / 16, 10]++;
+					qz[h / 16, w / 16, 9]++;
 				}
 			}
 
@@ -91,8 +91,8 @@ namespace ValueToImage {
 					wde = (qz[h, w, 3] - qz[h, w, 1]) * 0.70710678118654752440084436210485 + qz[h, w, 4];
 					wdn = (qz[h, w, 1] + qz[h, w, 3]) * 0.70710678118654752440084436210485 + qz[h, w, 2];
 
-					wdn /= qz[h, w, 10];
-					wdn /= qz[h, w, 10];
+					wde /= qz[h, w, 9];
+					wdn /= qz[h, w, 9];
 
 					// 笛卡尔转极坐标
 					double r, coss, s;
@@ -107,15 +107,17 @@ namespace ValueToImage {
 
 					// 绘图
 					int rdpower = 0, rddire = 0;
-					if (r > 80) { rdpower = 8; }
-					else { rdpower = (int)r / 10; }
+					if (r > 160) { rdpower = 8; }
+					else { rdpower = (int)r / 20; }
+					
 					if (rdpower < 1) { rddire = 0; }
 					else {
 						int tmp = ((int)((s + 22.5) % 360)) / 45;
 						rddire = (byte)((11 - tmp) % 8 + 1);
 					}
 
-					re.CopyPixels (new System.Windows.Int32Rect (w * 16, h * 16, 16, 16), SignData[rddire, rdpower], 2, 0);
+
+					re.WritePixels (new System.Windows.Int32Rect (w * 16, h * 16, 16, 16), SignData[rddire, rdpower], 2, 0);
 				}
 
 			}

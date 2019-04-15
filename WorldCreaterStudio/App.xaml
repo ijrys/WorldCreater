@@ -25,6 +25,7 @@
 				<ResourceDictionary Source="Resouses\ControlTemplates\MenuItem.xaml"/>
 				<ResourceDictionary Source="Resouses\ControlTemplates\ToolBar.xaml"/>
 				<ResourceDictionary Source="Resouses\ControlTemplates\ListBox.xaml"/>
+				<ResourceDictionary Source="Resouses\MainWindowResouses.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 			<Style TargetType="{x:Type Label}" BasedOn="{StaticResource StyleLabel}"/>
 			<Style TargetType="{x:Type Button}" BasedOn="{StaticResource StyleButton}"/>

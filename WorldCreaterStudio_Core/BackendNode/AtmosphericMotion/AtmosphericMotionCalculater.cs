@@ -16,7 +16,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 	/// 空气运动模拟计算器
 	/// </summary>
 	public interface IAtmosphericMotionCalculaterAble : IDataCalculaterAble {
-		AtmosphericMotionResault GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap);
+		AtmosphericMotionResault GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap, Work work);
 	}
 
 	/// <summary>

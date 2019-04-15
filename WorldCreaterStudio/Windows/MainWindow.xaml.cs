@@ -20,6 +20,8 @@ using System.Threading;
 using WorldCreaterStudio.Windows;
 using Microsoft.Win32;
 
+using WorldCreaterStudio_Core.BackendNode;
+
 namespace WorldCreaterStudio {
 
 	/// <summary>
@@ -129,12 +131,19 @@ namespace WorldCreaterStudio {
 		/// 向Core注册展示板
 		/// </summary>
 		private void RegShowPanel() {
+			Application app = Application.Current;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.FrontEndFactoryPanel = Resources["frontEndFactoryShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.ImagePanel = Resources["ImageShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.WorkPanel = Resources["WorkShowPanel"] as ControlTemplate;
 
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BackEndFactoryPanel = Resources["backEndFactoryShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_AMPanel = Resources["Content_BEF_AM_Node"] as ControlTemplate;
+
+
+			WorldCreaterStudio_Core.StoreRoom.BackEndNodeStateTemplate.OkPanel =app.Resources["Content_BEF_NodeState_OK"] as ControlTemplate;
+			WorldCreaterStudio_Core.StoreRoom.BackEndNodeStateTemplate.ReadyPanel =app.Resources["Content_BEF_NodeState_Ready"] as ControlTemplate;
+			WorldCreaterStudio_Core.StoreRoom.BackEndNodeStateTemplate.OutdatePanel =app.Resources["Content_BEF_NodeState_Outdate"] as ControlTemplate;
+			WorldCreaterStudio_Core.StoreRoom.BackEndNodeStateTemplate.UnablePanel =app.Resources["Content_BEF_NodeState_Unable"] as ControlTemplate;
 		}
 
 		/// <summary>
@@ -184,6 +193,20 @@ namespace WorldCreaterStudio {
 			fefactory.Creater.OnProcessingChanged -= Creater_OnProcessingChanged;
 		}
 
+		private void btn_BE_AM_Click (object sender, RoutedEventArgs e) {
+			WorldCreaterStudio_Core.BackendNode.AtmosphericMotion.AtmosphericMotionNode amnode = FunctionPanelConter.DataContext as WorldCreaterStudio_Core.BackendNode.AtmosphericMotion.AtmosphericMotionNode;
+			if (amnode == null) return;
+			amnode.Calculater.OnProcessingChanged += Creater_OnProcessingChanged;
+			amnode.StartCalculating ();
+			amnode.Calculater.OnProcessingChanged -= Creater_OnProcessingChanged;
+		}
+
+		private void list_BE_AM_BGM_Selecter_Changed (object sender, SelectionChangedEventArgs e) {
+			ListBox lb = sender as ListBox;
+			if (lb == null) return;
+			//lb.SelectedItem;
+		}
+
 		private delegate void OnProcessingChangedDelegate(short permillage, string processDescription, bool freshImage, ImageSource image);
 		private void Creater_OnProcessingChanged(short permillage, string processDescription, bool freshImage, ImageSource image) {
 			this.txtState.Text = processDescription;
@@ -208,6 +231,8 @@ namespace WorldCreaterStudio {
 			View3DWindow v3dw = new View3DWindow(value);
 			v3dw.ShowDialog();
 		}
+
+
 	}
 
 }

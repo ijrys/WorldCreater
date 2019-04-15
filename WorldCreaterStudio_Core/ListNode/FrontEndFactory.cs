@@ -234,6 +234,11 @@ namespace WorldCreaterStudio_Core {
 			Creater.CreatAMap(Configuration, Work);
 			CreateredMapValue = Creater.CreateredMapValue;
 
+			if (Work.BackEndNodes.AMNode.NodeState == BackendNode.NodeState.ok) {
+				Work.BackEndNodes.AMNode.NodeState = BackendNode.NodeState.outdate;
+			} else if (Work.BackEndNodes.AMNode.NodeState == BackendNode.NodeState.unable) {
+				Work.BackEndNodes.AMNode.NodeState = BackendNode.NodeState.ready;
+			}
 			return HeightMap;
 		}
 

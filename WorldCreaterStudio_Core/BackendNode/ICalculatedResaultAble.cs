@@ -42,7 +42,7 @@ namespace WorldCreaterStudio_Core.BackendNode {
 				return _value;
 			}
 			set {
-				if (_value.Equals (value)) return;
+				if (_value != null && _value.Equals (value)) return;
 				_value = value;
 				Changed = true;
 			}

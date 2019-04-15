@@ -215,7 +215,7 @@ namespace MiRaI.BE.AM.SingleValue {
 
 		public event DataCalculatingProcessingEventType OnProcessingChanged;
 
-		public AtmosphericMotionResault GetAtmosphericMotionDatas (SingleValueConfig config, int[,] heightMap, Work work) {
+		public AtmosphericMotionResault GetAtmosphericMotionDatasBySpecialConfig (SingleValueConfig config, int[,] heightMap, Work work) {
 			int w = heightMap.GetLength (0) - 1, h = heightMap.GetLength (1) - 1;
 			PointData[,] recont = new PointData[w, h];
 			PointData data = new PointData () {
@@ -235,9 +235,9 @@ namespace MiRaI.BE.AM.SingleValue {
 			return re;
 		}
 
-		public AtmosphericMotionResault GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap) {
+		public AtmosphericMotionResault GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap, Work work) {
 			if (!(config is SingleValueConfig)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException (typeof (SingleValueConfig), config.GetType ());
-			return GetAtmosphericMotionDatas (config as SingleValueConfig, heightMap);
+			return GetAtmosphericMotionDatasBySpecialConfig (config as SingleValueConfig, heightMap, work);
 		}
 	}
 
