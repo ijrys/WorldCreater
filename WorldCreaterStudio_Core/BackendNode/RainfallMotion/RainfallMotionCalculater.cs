@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 using WorldCreaterStudio_Core.ListNode;
+using WorldCreaterStudio_Core.Resouses;
 using WorldCreaterStudio_Core.Tools;
 
 namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
@@ -33,7 +35,7 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 	/// <summary>
 	/// 区域类型枚举
 	/// </summary>
-	enum AreaType {
+	public enum AreaType {
 		/// <summary>
 		/// 陆地
 		/// </summary>
@@ -59,47 +61,46 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 	/// <summary>
 	/// 区域数据
 	/// </summary>
-	struct PointData {
+	public struct PointData {
 		/// <summary>
 		/// 区域类型
 		/// </summary>
-		AreaType AreaType;
+		public AreaType AreaType;
 
 		/// <summary>
 		/// 降水强度。每单位时间降水0.01个全局高度单位
 		/// </summary>
-		int RainfallIntensity;
+		public int RainfallIntensity;
 
 		/// <summary>
 		/// 水深，0.01个全局高度单位
 		/// </summary>
-		int DeepOfWater;
+		public int DeepOfWater;
 	}
 
 	public class RainfallMotionResault : CalculatedResault<PointData> {
+		public ImageResourceReference RainfallIntensityImage { get; private set; }
+		public ImageResourceReference AreaTypeImage { get; private set; }
+
 		public override void Save (bool freshWithoutChanged = false) {
 			FileStream fs = DataFile.Open (FileMode.Create);
-			ByteStreamWriter bsw = new ByteStreamWriter (fs);
+			BinaryWriter bw = new BinaryWriter (fs);
 
 			int w = Value.GetLength (1), h = Value.GetLength (0);
 
-			bsw.Write (BitConverter.GetBytes (w), 4);
-			bsw.Write (BitConverter.GetBytes (h), 4);
+			bw.Write (w);
+			bw.Write (h);
 
 			for (int i = 0; i < h; i++) {
 				for (int j = 0; j < w; j++) {
-					bsw.Write (Value[i, j].power);
+					bw.Write ((byte)Value[i, j].AreaType);
+					bw.Write (Value[i, j].RainfallIntensity);
+					bw.Write (Value[i, j].DeepOfWater);
 				}
 			}
 
-			for (int i = 0; i < h; i++) {
-				for (int j = 0; j < w; j++) {
-					fs.WriteByte ((byte)Value[i, j].direction);
-				}
-			}
-
-			bsw.Flush ();
-			bsw.Close ();
+			bw.Flush ();
+			bw.Close ();
 
 			fs.Flush ();
 			fs.Close ();
@@ -111,19 +112,17 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			try {
 
 				FileStream fs = DataFile.Open (FileMode.Open);
+				BinaryReader br = new BinaryReader (fs);
 
-				int w, h, bufcont, bufnow = 0;
-				byte[] buffer = new byte[128];
-				bufcont = fs.Read (buffer, 0, buffer.Length);
-				if (bufcont < 8) {
+				int w, h;
+				if (fs.Length < 8) {
 					throw new Exceptions.DataResousesReadException.DataResousesFormException ("文件格式不正确");
 				}
 
-				w = BitConverter.ToInt32 (buffer, 0);
-				h = BitConverter.ToInt32 (buffer, 4);
-				bufnow = 8;
+				w = br.ReadInt32 ();
+				h = br.ReadInt32 ();
 
-				int bytecount = w * h * 2;
+				int bytecount = w * h * 5;
 				if (fs.Length < bytecount + 8) {
 					throw new Exceptions.DataResousesReadException.DataResousesFormException ("文件内容长度不正确");
 				}
@@ -132,32 +131,13 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 
 				for (int i = 0; i < h; i++) {
 					for (int j = 0; j < w; j++) {
-						if (bufnow == bufcont) {
-							bufnow = 0;
-							bufcont = fs.Read (buffer, 0, buffer.Length);
-						}
-						Value[i, j].power = buffer[bufnow];
-						bufnow++;
+						Value[i, j].AreaType = (AreaType)br.ReadByte ();
+						Value[i, j].RainfallIntensity = br.ReadInt32 ();
+						Value[i, j].DeepOfWater = br.ReadInt32 ();
 					}
 				}
-
-				for (int i = 0; i < h; i++) {
-					for (int j = 0; j < w; j++) {
-						if (bufnow == bufcont) {
-							bufnow = 0;
-							bufcont = fs.Read (buffer, 0, buffer.Length);
-						}
-						byte b = buffer[bufnow];
-						if (b > 8) {
-							throw new Exceptions.DataResousesReadException.DataResousesFormException ("不可转换的信息");
-						}
-						Value[i, j].direction = (Direction)b;
-						bufnow++;
-					}
-				}
-
+				br.Close ();
 				fs.Close ();
-
 				Changed = false;
 			}
 			catch (Exception ex) {
@@ -165,9 +145,10 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			}
 		}
 
-		public RainfallMotionResault (PointData[,] value, string dataName, Work work, string imgResKey) :
-			base (value, dataName, work, imgResKey) {
-
+		public RainfallMotionResault (PointData[,] value, string dataName, Work work, string overviewImgResKey, string riImgResKey, string atImgResKey) :
+			base (value, dataName, work, overviewImgResKey) {
+			RainfallIntensityImage = new ImageResourceReference (work, riImgResKey);
+			AreaTypeImage = new ImageResourceReference (work, atImgResKey);
 		}
 	}
 

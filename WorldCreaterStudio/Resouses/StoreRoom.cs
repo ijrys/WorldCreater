@@ -61,5 +61,6 @@ namespace WorldCreaterStudio.Resouses {
 
 	public static class BackEndCalcFactories {
 		public static IEnumerable<WorldCreaterStudio_Core.BackendNode.AtmosphericMotion.IAtmosphericMotionCalculaterFactoryAble> AM => WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.AtmosphericMotion.CalcFactories;
+		public static IEnumerable<WorldCreaterStudio_Core.BackendNode.RainfallMotion.IRainfallMotionCalculaterFactoryAble> RM => WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.RainfallMotion.CalcFactories;
 	}
 }

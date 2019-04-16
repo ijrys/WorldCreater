@@ -25,7 +25,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 
 			for (int i = 0; i < h; i++) {
 				for (int j = 0; j < w; j++) {
-					fs.WriteByte ((byte)Value[i, j].direction);
+					bsw.Write ((byte)Value[i, j].direction);
 				}
 			}
 

@@ -13,9 +13,9 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 	class RainfallMotionNode : IWorkLogicNodeAble {
 		public Work Work { get; private set; }
 
-		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_AMPanel;
+		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_RMPanel;
 
-		public string NodeName => "AtmosphericMotion";
+		public string NodeName => "RainfallMotion";
 
 		public ImageSource Icon => null;
 
