@@ -202,11 +202,6 @@ namespace WorldCreaterStudio {
 			amnode.Calculater.OnProcessingChanged -= Creater_OnProcessingChanged;
 		}
 
-		private void list_BE_AM_BGM_Selecter_Changed (object sender, SelectionChangedEventArgs e) {
-			ListBox lb = sender as ListBox;
-			if (lb == null) return;
-			//lb.SelectedItem;
-		}
 
 		private delegate void OnProcessingChangedDelegate(short permillage, string processDescription, bool freshImage, ImageSource image);
 		private void Creater_OnProcessingChanged(short permillage, string processDescription, bool freshImage, ImageSource image) {
@@ -233,7 +228,13 @@ namespace WorldCreaterStudio {
 			v3dw.ShowDialog();
 		}
 
-
+		private void btn_BE_RM_Click (object sender, RoutedEventArgs e) {
+			WorldCreaterStudio_Core.BackendNode.RainfallMotion.RainfallMotionNode rmnode = FunctionPanelConter.DataContext as WorldCreaterStudio_Core.BackendNode.RainfallMotion.RainfallMotionNode;
+			if (rmnode == null) return;
+			rmnode.Calculater.OnProcessingChanged += Creater_OnProcessingChanged;
+			rmnode.StartCalculating ();
+			rmnode.Calculater.OnProcessingChanged -= Creater_OnProcessingChanged;
+		}
 	}
 
 }

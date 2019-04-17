@@ -17,7 +17,7 @@ namespace MiRaI.BE.RM.SingleValue {
 	/// <summary>
 	/// ConfigPanel.xaml 的交互逻辑
 	/// </summary>
-	public partial class ConfigPanel : UserControl {
+	public partial class ConfigPanel : Grid {
 		public ConfigPanel () {
 			InitializeComponent ();
 		}

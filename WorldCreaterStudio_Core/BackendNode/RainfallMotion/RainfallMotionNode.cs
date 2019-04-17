@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
-	class RainfallMotionNode : IWorkLogicNodeAble {
+	public class RainfallMotionNode : IWorkLogicNodeAble {
 		public Work Work { get; private set; }
 
 		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_RMPanel;
@@ -108,10 +108,15 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			private set {
 				_resault = value;
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Resault"));
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultImage"));
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultOVImage"));
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultATImage"));
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultRIImage"));
 			}
 		}
-		public ImageSource ResaultImage => Resault?.ShowImage?.Image;
+
+		public ImageSource ResaultOVImage => Resault?.ShowImage?.Image;
+		public ImageSource ResaultATImage => Resault?.AreaTypeImage?.Image;
+		public ImageSource ResaultRIImage => Resault?.RainfallIntensityImage?.Image;
 
 		public ObservableCollection<IWorkLogicNodeAble> DisplayBGImages {
 			get => Work?.Images?.Childrens;

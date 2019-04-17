@@ -62,6 +62,20 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
+		private BackendNode.RainfallMotion.RainfallMotionNode _rmNode;
+		public BackendNode.RainfallMotion.RainfallMotionNode RMNode {
+			get {
+				return _rmNode;
+			}
+			private set {
+				_rmNode = value;
+				if (!isinit) {
+					NodeValueChanged?.Invoke (this);
+				}
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("RMNode"));
+			}
+		}
+
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
 			//throw new NotImplementedException();
 			return null;
@@ -69,10 +83,15 @@ namespace WorldCreaterStudio_Core {
 
 		public BackEndFactory (Work work) {
 			this.Work = work;
-			AMNode = new BackendNode.AtmosphericMotion.AtmosphericMotionNode (work);
 			Childrens = new ObservableCollection<IWorkLogicNodeAble> ();
+
+			AMNode = new BackendNode.AtmosphericMotion.AtmosphericMotionNode (work);
 			Childrens.Add (AMNode);
 			AMNode.NodeState = BackendNode.NodeState.unable;
+
+			RMNode = new BackendNode.RainfallMotion.RainfallMotionNode (work);
+			Childrens.Add (RMNode);
+			RMNode.NodeState = BackendNode.NodeState.unable;
 		}
 	}
 }

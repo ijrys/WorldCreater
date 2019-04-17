@@ -62,7 +62,7 @@
 			</ControlTemplate>
 
 
-			
+
 
 			<ControlTemplate x:Key="backEndFactoryShowPanel">
 				<Grid Width="540px" Height="210px" Grid.IsSharedSizeScope="True">
@@ -157,7 +157,7 @@
 						</Canvas>
 						<Image Grid.Column="0" ></Image>
 						<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-						<ListBox Grid.Column="2" x:Name="List_BGImgSelect" ItemsSource="{Binding DisplayBGImages}" SelectionChanged="list_BE_AM_BGM_Selecter_Changed">
+						<ListBox Grid.Column="2" x:Name="List_BGImgSelect" ItemsSource="{Binding DisplayBGImages}">
 							<ListBox.ItemTemplate>
 								<DataTemplate>
 									<TextBlock Text="{Binding Key}"/>
@@ -167,6 +167,7 @@
 					</Grid>
 				</Grid>
 			</ControlTemplate>
+
 			<ControlTemplate x:Key="Content_BEF_RM_Node">
 				<Grid>
 					<Grid.RowDefinitions>
@@ -187,7 +188,7 @@
 							</ComboBox.ItemTemplate>
 						</ComboBox>
 
-						<Button Grid.Column="1" IsEnabled="{Binding CanCalculater}" Click="btn_BE_AM_Click">计算</Button>
+						<Button Grid.Column="1" IsEnabled="{Binding CanCalculater}" Click="btn_BE_RM_Click">计算</Button>
 					</Grid>
 					<ContentControl Grid.Row="1" Template="{Binding ShowPanel}" DataContext="{Binding Configuration}"/>
 
@@ -198,21 +199,40 @@
 							<ColumnDefinition Width="auto" MinWidth="64px"/>
 						</Grid.ColumnDefinitions>
 						<Canvas>
-							<Grid DataContext="{Binding ElementName=List_BGImgSelect, Path=SelectedItem}">
-								<Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Image}" Canvas.Left="0" Canvas.Top="0"/>
+							<Grid DataContext="{Binding ElementName=List_BGImgSelect, Path=SelectedItem}"  Canvas.Left="0" Canvas.Top="0">
+								<Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Image}"/>
 								<TextBlock Text="{Binding Key}" Opacity="0.5"/>
 							</Grid>
-							<Image Source="{Binding ResaultImage}"/>
+							<Image x:Name="imgOverView" Source="{Binding ResaultOVImage}" Panel.ZIndex="4"/>
+							<Image x:Name="imgAT" Canvas.Left="0" Canvas.Top="0" Source="{Binding ResaultATImage}" Panel.ZIndex="3"/>
+							<Image x:Name="imgRI" Canvas.Left="0" Canvas.Top="0" Source="{Binding ResaultRIImage}" Panel.ZIndex="2"/>
 						</Canvas>
 						<Image Grid.Column="0" ></Image>
 						<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-						<ListBox Grid.Column="2" x:Name="List_BGImgSelect" ItemsSource="{Binding DisplayBGImages}" SelectionChanged="list_BE_AM_BGM_Selecter_Changed">
-							<ListBox.ItemTemplate>
-								<DataTemplate>
-									<TextBlock Text="{Binding Key}"/>
-								</DataTemplate>
-							</ListBox.ItemTemplate>
-						</ListBox>
+
+						<Grid Grid.Column="2">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="1*"/>
+								<RowDefinition Height="auto"/>
+							</Grid.RowDefinitions>
+
+							<ListBox Grid.Row="0" x:Name="List_BGImgSelect" ItemsSource="{Binding DisplayBGImages}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Key}"/>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+
+							<StackPanel Grid.Row="1">
+								<TextBlock>概览图</TextBlock>
+								<Slider Minimum="0" Maximum="1" Value="{Binding ElementName=imgOverView, Path=Opacity}" />
+								<TextBlock>降水强度图</TextBlock>
+								<Slider Minimum="0" Maximum="1" Value="{Binding ElementName=imgRI, Path=Opacity}"/>
+								<TextBlock>水环境分布图</TextBlock>
+								<Slider Minimum="0" Maximum="1" Value="{Binding ElementName=imgAT, Path=Opacity}"/>
+							</StackPanel>
+						</Grid>
 					</Grid>
 				</Grid>
 			</ControlTemplate>
@@ -254,7 +274,7 @@
 			<!--<Grid x:Name="FunctionPanelConter">
 	
 			</Grid>-->
-			<ContentControl x:Name="FunctionPanelConter">
+			<ContentControl x:Name="FunctionPanelConter" Template="{StaticResource Content_BEF_RM_Node}">
 
 			</ContentControl>
 

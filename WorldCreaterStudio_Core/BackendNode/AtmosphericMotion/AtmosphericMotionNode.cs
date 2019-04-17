@@ -223,7 +223,13 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 			if (Calculater == null) return;
 			Resault = Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
-			
+
+			if (Work.BackEndNodes.RMNode.NodeState == BackendNode.NodeState.ok) {
+				Work.BackEndNodes.RMNode.NodeState = BackendNode.NodeState.outdate;
+			}
+			else if (Work.BackEndNodes.RMNode.NodeState == BackendNode.NodeState.unable) {
+				Work.BackEndNodes.RMNode.NodeState = BackendNode.NodeState.ready;
+			}
 		}
 
 		public AtmosphericMotionNode (Work work) {

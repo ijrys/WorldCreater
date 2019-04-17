@@ -80,6 +80,8 @@ namespace RandomTend {
 			bitmap = ValueToImage.ValueToGrayImage.GetBitmapWithError(-2097152, 2097152, _map);
 			if (work != null) {
 				work.FrontEndNodes.Image_Add("FE.HeightValue", bitmap, "前端工厂高度值图");
+				bitmap = ValueToImage.ValueToColorImage.GetBitmap (-2097152, 2097152, _map);
+				work.FrontEndNodes.Image_Add ("FE.HeightValueColor", bitmap, "前端工厂高度值图，零分检查");
 			}
 
 			//中间数据放入资源节点
