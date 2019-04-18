@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WorldCreaterStudio_Core.BackendNode.AtmosphericMotion;
 using WorldCreaterStudio_Core.BackendNode.RainfallMotion;
+using WorldCreaterStudio_Core.BackendNode.SolarIlluminance;
 
 namespace WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary {
 	public static class AtmosphericMotion {
@@ -73,6 +74,42 @@ namespace WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary {
 		/// <param name="createrFactory"></param>
 		public static void RegisterACreaterFactory (IRainfallMotionCalculaterFactoryAble createrFactory) {
 			_calcFactories = new List<IRainfallMotionCalculaterFactoryAble> ();
+			//注册programSet
+			_programSetToCreaterFactory[createrFactory.CalculaterProgramSet] = createrFactory;
+			_calcFactories.Add (createrFactory);
+		}
+	}
+
+	public static class SolarIlluminance {
+		/// <summary>
+		/// 记录从ProgramSet到MapCreaterFactory的关系
+		/// </summary>
+		private static Dictionary<string, ISolarIlluminanceCalculaterFactoryAble> _programSetToCreaterFactory = new Dictionary<string, ISolarIlluminanceCalculaterFactoryAble> ();
+
+		private static List<ISolarIlluminanceCalculaterFactoryAble> _calcFactories;
+		public static IEnumerable<ISolarIlluminanceCalculaterFactoryAble> CalcFactories {
+			get => _calcFactories;
+		}
+
+		/// <summary>
+		/// 根据ProgramSet获取一个MapCreaterFactory
+		/// </summary>
+		/// <param name="programSet"></param>
+		/// <returns></returns>
+		public static ISolarIlluminanceCalculaterFactoryAble GetCreaterFactoryByProgramSet (string programSet) {
+			if (string.IsNullOrEmpty (programSet)) return null;
+			if (_programSetToCreaterFactory.ContainsKey (programSet)) {
+				return _programSetToCreaterFactory[programSet];
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// 注册一个CreaterFactory
+		/// </summary>
+		/// <param name="createrFactory"></param>
+		public static void RegisterACreaterFactory (ISolarIlluminanceCalculaterFactoryAble createrFactory) {
+			_calcFactories = new List<ISolarIlluminanceCalculaterFactoryAble> ();
 			//注册programSet
 			_programSetToCreaterFactory[createrFactory.CalculaterProgramSet] = createrFactory;
 			_calcFactories.Add (createrFactory);

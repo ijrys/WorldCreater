@@ -18,7 +18,7 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 
 		public Work Work { get; private set; }
 
-		public ControlTemplate ShowPanel => null; // todo StoreRoom.ShowPanel.BEF_AMPanel;
+		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_SIPanel;
 
 		public string NodeName => "SolarIlluminance";
 
@@ -161,7 +161,7 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 			Configuration = factory.GetAConfiguration ();
 		}
 
-		public void StartCalculating () { // todo
+		public void StartCalculating () {
 			if (Work.BackEndNodes.RMNode.Resault == null ||
 				NodeState == NodeState.unable) {
 				return;
@@ -169,12 +169,6 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 			if (Calculater == null) return;
 			Resault = Calculater.GetSolarIlluminanceDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
 
-			//if (Work.BackEndNodes.RMNode.NodeState == BackendNode.NodeState.ok) {
-			//	Work.BackEndNodes.RMNode.NodeState = BackendNode.NodeState.outdate;
-			//}
-			//else if (Work.BackEndNodes.RMNode.NodeState == BackendNode.NodeState.unable) {
-			//	Work.BackEndNodes.RMNode.NodeState = BackendNode.NodeState.ready;
-			//}
 		}
 
 		public SolarIlluminanceNode (Work work) {

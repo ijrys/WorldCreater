@@ -139,6 +139,7 @@ namespace WorldCreaterStudio {
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BackEndFactoryPanel = Resources["backEndFactoryShowPanel"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_AMPanel = Resources["Content_BEF_AM_Node"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_RMPanel = Resources["Content_BEF_RM_Node"] as ControlTemplate;
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_SIPanel = Resources["Content_BEF_SI_Node"] as ControlTemplate;
 
 
 			WorldCreaterStudio_Core.StoreRoom.BackEndNodeStateTemplate.OkPanel =app.Resources["Content_BEF_NodeState_OK"] as ControlTemplate;
@@ -234,6 +235,9 @@ namespace WorldCreaterStudio {
 			rmnode.Calculater.OnProcessingChanged += Creater_OnProcessingChanged;
 			rmnode.StartCalculating ();
 			rmnode.Calculater.OnProcessingChanged -= Creater_OnProcessingChanged;
+		}
+
+		private void btn_BE_SI_Click (object sender, RoutedEventArgs e) { // todo
 		}
 	}
 

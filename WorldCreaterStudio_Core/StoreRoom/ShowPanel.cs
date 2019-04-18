@@ -18,6 +18,7 @@ namespace WorldCreaterStudio_Core.StoreRoom {
 		public static event ShowPanelChangedEvent BackEndFactoryPanelChanged;
 		public static event ShowPanelChangedEvent BEF_AMPanelChanged;
 		public static event ShowPanelChangedEvent BEF_RMPanelChanged;
+		public static event ShowPanelChangedEvent BEF_SIPanelChanged;
 
 
 		private static ShowPanelType _imagePanel = null;
@@ -26,6 +27,7 @@ namespace WorldCreaterStudio_Core.StoreRoom {
 		private static ShowPanelType _backEndFactoryPanel = null;
 		private static ShowPanelType _bef_AMPanel = null;
 		private static ShowPanelType _bef_RMPanel = null;
+		private static ShowPanelType _bef_SIPanel = null;
 
 		/// <summary>
 		/// 用于展示图片资源
@@ -57,6 +59,10 @@ namespace WorldCreaterStudio_Core.StoreRoom {
 		/// </summary>
 		public static ShowPanelType BEF_RMPanel { get => _bef_RMPanel; set { _bef_RMPanel = value; BEF_RMPanelChanged?.Invoke(null, value); } }
 
+		/// <summary>
+		/// 用于展示后端工厂.RM的信息
+		/// </summary>
+		public static ShowPanelType BEF_SIPanel { get => _bef_SIPanel; set { _bef_SIPanel = value; BEF_SIPanelChanged?.Invoke (null, value); } }
 
 	}
 }
