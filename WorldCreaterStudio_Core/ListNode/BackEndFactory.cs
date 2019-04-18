@@ -76,6 +76,21 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
+		private BackendNode.SolarIlluminance.SolarIlluminanceNode _siNode;
+		public BackendNode.SolarIlluminance.SolarIlluminanceNode SINode {
+			get {
+				return _siNode;
+			}
+			private set {
+				_siNode = value;
+				if (!isinit) {
+					NodeValueChanged?.Invoke (this);
+				}
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("SINode"));
+			}
+		}
+
+
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
 			//throw new NotImplementedException();
 			return null;
@@ -92,6 +107,10 @@ namespace WorldCreaterStudio_Core {
 			RMNode = new BackendNode.RainfallMotion.RainfallMotionNode (work);
 			Childrens.Add (RMNode);
 			RMNode.NodeState = BackendNode.NodeState.unable;
+
+			SINode = new BackendNode.SolarIlluminance.SolarIlluminanceNode (work);
+			Childrens.Add (SINode);
+			SINode.NodeState = BackendNode.NodeState.unable;
 		}
 	}
 }

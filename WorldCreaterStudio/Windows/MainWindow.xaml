@@ -86,7 +86,7 @@
 						<ContentControl  Grid.Row="2" Template="{Binding StateDisplayTemplate}"/>
 					</Grid>
 
-					<Grid DataContext="{Binding AMNode}" Grid.Column="2">
+					<Grid DataContext="{Binding RMNode}" Grid.Column="2">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="auto" SharedSizeGroup="SHG"/>
 							<RowDefinition Height="10px"/>
@@ -274,7 +274,7 @@
 			<!--<Grid x:Name="FunctionPanelConter">
 	
 			</Grid>-->
-			<ContentControl x:Name="FunctionPanelConter" Template="{StaticResource Content_BEF_RM_Node}">
+			<ContentControl x:Name="FunctionPanelConter" >
 
 			</ContentControl>
 

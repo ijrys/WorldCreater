@@ -71,6 +71,9 @@
     <Compile Include="BackendNode\NodeState.cs" />
     <Compile Include="BackendNode\RainfallMotion\RainfallMotionCalculater.cs" />
     <Compile Include="BackendNode\RainfallMotion\RainfallMotionNode.cs" />
+    <Compile Include="BackendNode\SolarIlluminance\SolarIlluminanceCalculater.cs" />
+    <Compile Include="BackendNode\SolarIlluminance\SolarIlluminanceNode.cs" />
+    <Compile Include="BackendNode\SolarIlluminance\SolarIlluminanceResault.cs" />
     <Compile Include="Exceptions\DataResousesReadException.cs" />
     <Compile Include="Exceptions\DirectoryExistedException.cs" />
     <Compile Include="Exceptions\GuidNotSameException.cs" />

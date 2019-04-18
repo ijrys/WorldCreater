@@ -24,21 +24,83 @@ namespace Test {
 			//AMSign.AMSignOutClass8XX ();
 
 
-			CartesianToPolar (1, 1);
-			CartesianToPolar (-1, 1);
-			CartesianToPolar (-1, -1);
-			CartesianToPolar (1, -1);
+			//CartesianToPolar (1, 1);
+			//CartesianToPolar (-1, 1);
+			//CartesianToPolar (-1, -1);
+			//CartesianToPolar (1, -1);
 
-			CartesianToPolar (2, 1);
-			CartesianToPolar (1, 2);
-			CartesianToPolar (-2, 1);
-			CartesianToPolar (-1, 2);
+			//CartesianToPolar (2, 1);
+			//CartesianToPolar (1, 2);
+			//CartesianToPolar (-2, 1);
+			//CartesianToPolar (-1, 2);
+			Console.WriteLine (Math.Acos(1));
+
+
+			NormalVector (0, 1, 0, 1, 0, 0, 0, 0, 1);
+			Console.WriteLine ();
+
+			AngleOfLineAndPanel (0, 1, 0, 1, 0, 0, 0, 0, 1, -1, -1, -1);
+			Console.WriteLine ();
+			AngleOfLineAndPanel (0, 1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0);
+			Console.WriteLine ();
+			AngleOfLineAndPanel (0, 1, 0, 1, 0, 0, 0, 0, 1, -1, 0, 0);
+			Console.WriteLine ();
+			AngleOfLineAndPanel (0, 1, 0, 1, 0, 0, 0, 0, 1, 1, -1, 0);
 
 #if !OF
 			Console.WriteLine ("end work, press enter to exit");
 			Console.ReadLine ();
 #endif
 		}
+
+		static void NormalVector (double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3) {
+			double lx1, ly1, lz1, lx2, ly2, lz2;
+			lx1 = x2 - x1;
+			ly1 = y2 - y1;
+			lz1 = z2 - z1;
+
+			lx2 = x3 - x2;
+			ly2 = y3 - y2;
+			lz2 = z3 - z2;
+
+			double i, j, k;
+			i = ly1 * lz2 - lz1 * ly2;
+			j = lz1 * lx2 - lx1 * lz2;
+			k = lx1 * ly2 - ly1 * lx2;
+
+			Console.WriteLine ($"{lx1:0.00}, {ly1:0.00}, {lz1:0.00}");
+			Console.WriteLine ($"{lx2:0.00}, {ly2:0.00}, {lz2:0.00}");
+			Console.WriteLine ($"{i:0.00}, {j:0.00}, {k:0.00}");
+		}
+
+		static void AngleOfLineAndPanel (double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double lx, double ly, double lz) {
+			//计算法向量的反向量
+			double lx1, ly1, lz1, lx2, ly2, lz2;
+			lx1 = x2 - x1;
+			ly1 = y2 - y1;
+			lz1 = z2 - z1;
+
+			lx2 = x3 - x2;
+			ly2 = y3 - y2;
+			lz2 = z3 - z2;
+
+			double i, j, k;
+			i = ly1 * lz2 - lz1 * ly2;
+			j = lz1 * lx2 - lx1 * lz2;
+			k = lx1 * ly2 - ly1 * lx2;
+			Console.WriteLine ($"{lx1:0.00}, {ly1:0.00}, {lz1:0.00}");
+			Console.WriteLine ($"{lx2:0.00}, {ly2:0.00}, {lz2:0.00}");
+			Console.WriteLine ($"{i:0.00}, {j:0.00}, {k:0.00}");
+
+			//计算角度
+			double lenofline = Math.Sqrt (lx * lx + ly * ly + lz * lz);
+			double lenofnv = Math.Sqrt (i * i + j * j + k * k);
+			double cos = (i * lx + j * ly + k * lz) / lenofline / lenofnv;
+
+			Console.WriteLine ($"angle cos : {cos:0.000000000000000000000}");
+			Console.WriteLine ($"            {Math.Acos(cos):0.0000}");
+		}
+
 		/// <summary>
 		/// 笛卡尔转极坐标
 		/// </summary>

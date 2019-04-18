@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="AtmosphericMotionToImage.cs" />
     <Compile Include="RainfallMotionToImage.cs" />
+    <Compile Include="SolarIlluminance.cs" />
     <Compile Include="ValueToColorImage.cs" />
     <Compile Include="ValueToGrayImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
