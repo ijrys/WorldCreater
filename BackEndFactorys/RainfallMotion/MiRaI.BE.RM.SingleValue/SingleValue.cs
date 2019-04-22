@@ -81,14 +81,14 @@ namespace MiRaI.BE.RM.SingleValue {
 		public event DataCalculatingProcessingEventType OnProcessingChanged;
 
 		public RainfallMotionResault GetAtmosphericMotionDatasBySpecialConfig (SingleValueConfig config, int[,] heightMap, Work work) {
-			int w = heightMap.GetLength (0), h = heightMap.GetLength (1);
+			int w = heightMap.GetLength (0) - 1, h = heightMap.GetLength (1) - 1;
 			PointData[,] recont = new PointData[w, h];
 			int ri = config.RainfallIntensity;
 			int sl = config.SeaLevel;
 
 			for (int i = 0; i < w; i++) {
 				for (int j = 0; j < h; j++) {
-					int hdiff = heightMap[i, j] - config.SeaLevel;
+					int hdiff = heightMap[i, j] - sl;
 					AreaType areaType;
 					if (hdiff > 0) areaType = AreaType.land;
 					//else if (hdiff > -2) areaType = AreaType.marsh;

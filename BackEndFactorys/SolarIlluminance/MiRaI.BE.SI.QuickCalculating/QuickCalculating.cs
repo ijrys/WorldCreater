@@ -65,7 +65,7 @@ namespace MiRaI.BE.SI.QuickCalculating {
 			double lx = 0, ly = 0, lz = 0, lenofline = Math.Sqrt (lx * lx + ly * ly + lz * lz);
 
 			byte[,] blockvalue = new byte[th, tw];
-			byte[,] recont = new byte[h, w];
+			//byte[,] recont = new byte[h, w];
 			int[,] tmphei = new int[th, tw];
 
 			int lx1, ly1, lz1, lx2, ly2, lz2, di, dj, dk;
@@ -146,33 +146,33 @@ namespace MiRaI.BE.SI.QuickCalculating {
 				}
 			}
 
-			// blockvalue to pointvalue
-			for (int i = 1; i < th; i++) {
-				for (int j = 1; j < tw; j++) {
-					recont[i, j] = (byte)((blockvalue[i, j] + blockvalue[i - 1, j] + blockvalue[i, j - 1] + blockvalue[i - 1, j - 1]) / 4);
-				}
-			}
-			for (int i = 1; i < tw; i ++) { // 最上一行
-				recont[0, i] = (byte)((blockvalue[0, i - 1] + blockvalue[0, i]) / 2);
-			}
-			for (int i = 1; i < tw; i++) { // 最下一行
-				recont[th, i] = (byte)((blockvalue[th - 1, i - 1] + blockvalue[th - 1, i]) / 2);
-			}
-			for (int i = 1; i < th; i++) { // 最左一列
-				recont[i, 0] = (byte)((blockvalue[i - 1, 0] + blockvalue[i, 0]) / 2);
-			}
-			for (int i = 1; i < th; i++) { // 最右一列
-				recont[i, tw] = (byte)((blockvalue[i - 1, tw - 1] + blockvalue[i, tw - 1]) / 2);
-			}
-			// 四角
-			recont[0, 0] = blockvalue[0, 0];
-			recont[th, 0] = blockvalue[th - 1, 0];
-			recont[0, tw] = blockvalue[0, tw - 1];
-			recont[th, tw] = blockvalue[th - 1, tw - 1];
+			//// blockvalue to pointvalue
+			//for (int i = 1; i < th; i++) {
+			//	for (int j = 1; j < tw; j++) {
+			//		recont[i, j] = (byte)((blockvalue[i, j] + blockvalue[i - 1, j] + blockvalue[i, j - 1] + blockvalue[i - 1, j - 1]) / 4);
+			//	}
+			//}
+			//for (int i = 1; i < tw; i ++) { // 最上一行
+			//	recont[0, i] = (byte)((blockvalue[0, i - 1] + blockvalue[0, i]) / 2);
+			//}
+			//for (int i = 1; i < tw; i++) { // 最下一行
+			//	recont[th, i] = (byte)((blockvalue[th - 1, i - 1] + blockvalue[th - 1, i]) / 2);
+			//}
+			//for (int i = 1; i < th; i++) { // 最左一列
+			//	recont[i, 0] = (byte)((blockvalue[i - 1, 0] + blockvalue[i, 0]) / 2);
+			//}
+			//for (int i = 1; i < th; i++) { // 最右一列
+			//	recont[i, tw] = (byte)((blockvalue[i - 1, tw - 1] + blockvalue[i, tw - 1]) / 2);
+			//}
+			//// 四角
+			//recont[0, 0] = blockvalue[0, 0];
+			//recont[th, 0] = blockvalue[th - 1, 0];
+			//recont[0, tw] = blockvalue[0, tw - 1];
+			//recont[th, tw] = blockvalue[th - 1, tw - 1];
 
-			BitmapSource image = ValueToImage.SolarIlluminance.GetBitmap (recont);
+			BitmapSource image = ValueToImage.SolarIlluminance.GetBitmap (blockvalue);
 			work.Images.Add ("BE.SI.Map", image, "SolarIlluminance Visual Map");
-			SolarIlluminanceResault re = new SolarIlluminanceResault (recont, "SolarIlluminance Visual Map", work, "BE.SI.Map");
+			SolarIlluminanceResault re = new SolarIlluminanceResault (blockvalue, "SolarIlluminance Visual Map", work, "BE.SI.Map");
 			return re;
 		}
 

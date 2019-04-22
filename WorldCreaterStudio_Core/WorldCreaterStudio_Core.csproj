@@ -94,6 +94,7 @@
     <Compile Include="Resouses\IResourseAble.cs" />
     <Compile Include="ListNode\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resouses\MeshGeometry3DGroup.cs" />
     <Compile Include="Resouses\ValueResource.cs" />
     <Compile Include="Resouses\ImageResourceReferenceManager.cs" />
     <Compile Include="StoreRoom\BackEndCalculaterDictionary.cs" />
@@ -111,6 +112,9 @@
       <Project>{3dc94112-32e4-4edf-9fec-5a45d0f10f73}</Project>
       <Name>WorldCreaterStudio_Resouses</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BackendNode\Biomes\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

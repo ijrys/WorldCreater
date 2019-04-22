@@ -73,7 +73,7 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 		public int RainfallIntensity;
 
 		/// <summary>
-		/// 水深，0.01个全局高度单位
+		/// 水深，同全局高度单位
 		/// </summary>
 		public int DeepOfWater;
 	}
