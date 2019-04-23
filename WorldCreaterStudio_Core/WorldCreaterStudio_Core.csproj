@@ -67,6 +67,8 @@
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionCalculater.cs" />
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionNode.cs" />
     <Compile Include="BackendNode\AtmosphericMotion\AtmosphericMotionResault.cs" />
+    <Compile Include="BackendNode\Biomes\BiomesCalculater.cs" />
+    <Compile Include="BackendNode\Biomes\BiomesNode.cs" />
     <Compile Include="BackendNode\ICalculatedResaultAble.cs" />
     <Compile Include="BackendNode\NodeState.cs" />
     <Compile Include="BackendNode\RainfallMotion\RainfallMotionCalculater.cs" />
@@ -113,8 +115,6 @@
       <Name>WorldCreaterStudio_Resouses</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BackendNode\Biomes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

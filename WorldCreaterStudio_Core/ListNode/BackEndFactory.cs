@@ -90,6 +90,19 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
+		private BackendNode.Biomes.BiomesNode _biNode;
+		public BackendNode.Biomes.BiomesNode BINode {
+			get {
+				return _biNode;
+			}
+			private set {
+				_biNode = value;
+				if (!isinit) {
+					NodeValueChanged?.Invoke (this);
+				}
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("BINode"));
+			}
+		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
 			//throw new NotImplementedException();
@@ -111,6 +124,10 @@ namespace WorldCreaterStudio_Core {
 			SINode = new BackendNode.SolarIlluminance.SolarIlluminanceNode (work);
 			Childrens.Add (SINode);
 			SINode.NodeState = BackendNode.NodeState.unable;
+
+			BINode = new BackendNode.Biomes.BiomesNode (work);
+			Childrens.Add (BINode);
+			BINode.NodeState = BackendNode.NodeState.unable;
 		}
 	}
 }

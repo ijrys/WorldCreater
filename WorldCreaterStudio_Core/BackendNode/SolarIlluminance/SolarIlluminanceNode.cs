@@ -169,6 +169,12 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 			if (Calculater == null) return;
 			Resault = Calculater.GetSolarIlluminanceDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
 
+			if (Work.BackEndNodes.BINode.NodeState == BackendNode.NodeState.ok) {
+				Work.BackEndNodes.BINode.NodeState = BackendNode.NodeState.outdate;
+			}
+			else if (Work.BackEndNodes.BINode.NodeState == BackendNode.NodeState.unable) {
+				Work.BackEndNodes.BINode.NodeState = BackendNode.NodeState.ready;
+			}
 		}
 
 		public SolarIlluminanceNode (Work work) {

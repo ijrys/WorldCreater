@@ -9,13 +9,13 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
 
-namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
-	public class RainfallMotionNode : IWorkLogicNodeAble {
+namespace WorldCreaterStudio_Core.BackendNode.Biomes {
+	public class BiomesNode : IWorkLogicNodeAble {
 		public Work Work { get; private set; }
 
-		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_RMPanel;
+		public ControlTemplate ShowPanel => null; // todo StoreRoom.ShowPanel.BEF_RMPanel;
 
-		public string NodeName => "RainfallMotion";
+		public string NodeName => "Biomes";
 
 		public ImageSource Icon => null;
 
@@ -57,11 +57,11 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 		public bool CanCalculater => NodeState != NodeState.unable;
 
 
-		private IRainfallMotionCalculaterAble _calculater = null;
+		private IBiomesCalculaterAble _calculater = null;
 		/// <summary>
 		/// 获取或设置模拟器
 		/// </summary>
-		public IRainfallMotionCalculaterAble Calculater {
+		public IBiomesCalculaterAble Calculater {
 			get => _calculater;
 			set {
 				if (_calculater == value) return;
@@ -71,11 +71,11 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			}
 		}
 
-		private IRainfallMotionConfigAble _configuration;
+		private IBiomesConfigAble _configuration;
 		/// <summary>
 		/// 获取AM模拟器所需要的配置对象
 		/// </summary>
-		public IRainfallMotionConfigAble Configuration {
+		public IBiomesConfigAble Configuration {
 			get => _configuration;
 			set {
 				//if (_configuration == null) return;
@@ -90,8 +90,8 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			}
 		}
 
-		private IRainfallMotionCalculaterFactoryAble _factory;
-		public IRainfallMotionCalculaterFactoryAble Factory {
+		private IBiomesCalculaterFactoryAble _factory;
+		public IBiomesCalculaterFactoryAble Factory {
 			get => _factory;
 			set {
 				//if (_factory == value) return;
@@ -102,21 +102,15 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			}
 		}
 
-		private RainfallMotionResault _resault;
-		public RainfallMotionResault Resault {
+		private BiomesResault _resault;
+		public BiomesResault Resault {
 			get => _resault;
 			private set {
 				_resault = value;
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Resault"));
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultOVImage"));
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultATImage"));
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultRIImage"));
 			}
 		}
 
-		public ImageSource ResaultOVImage => Resault?.ShowImage?.Image;
-		public ImageSource ResaultATImage => Resault?.AreaTypeImage?.Image;
-		public ImageSource ResaultRIImage => Resault?.RainfallIntensityImage?.Image;
 
 		public ObservableCollection<IWorkLogicNodeAble> DisplayBGImages {
 			get => Work?.Images?.Childrens;
@@ -157,7 +151,7 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 		/// 设置模拟器
 		/// </summary>
 		/// <param name="factory">模拟器产生工厂</param>
-		public void SetCalculater (IRainfallMotionCalculaterFactoryAble factory) {
+		public void SetCalculater (IBiomesCalculaterFactoryAble factory) {
 			Calculater = factory.GetACalculater ();
 			Configuration = factory.GetAConfiguration ();
 		}
@@ -167,17 +161,11 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 				return;
 			}
 			if (Calculater == null) return;
-			Resault = Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
+			Resault = Calculater.GetBiomesDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
 
-			if (Work.BackEndNodes.SINode.NodeState == BackendNode.NodeState.ok) {
-				Work.BackEndNodes.SINode.NodeState = BackendNode.NodeState.outdate;
-			}
-			else if (Work.BackEndNodes.SINode.NodeState == BackendNode.NodeState.unable) {
-				Work.BackEndNodes.SINode.NodeState = BackendNode.NodeState.ready;
-			}
 		}
 
-		public RainfallMotionNode (Work work) {
+		public BiomesNode (Work work) {
 			this.Work = work;
 		}
 	}

@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AtmosphericMotionToImage.cs" />
+    <Compile Include="BiomesToImage.cs" />
     <Compile Include="RainfallMotionToImage.cs" />
     <Compile Include="SolarIlluminance.cs" />
     <Compile Include="ValueToColorImage.cs" />

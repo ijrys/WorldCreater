@@ -8,49 +8,6 @@ using WorldCreaterStudio_Core.BackendNode.AtmosphericMotion;
 
 namespace ValueToImage {
 	public static class AtmosphericMotionToImage {
-		//public static WriteableBitmap GetBitmap (PointData[,] datas, BitmapImage baseImage) {
-		//	int width = datas.GetLength (1);
-		//	int height = datas.GetLength (0);
-		//	int mapheight = baseImage.PixelHeight;
-		//	int mapwidth = baseImage.PixelWidth;
-
-		//	WriteableBitmap re = null;
-		//	if (baseImage.Format == System.Windows.Media.PixelFormats.Gray8) {
-		//		re = GetBGImgGray8 (baseImage);
-		//	}
-		//	else if (baseImage.Format == System.Windows.Media.PixelFormats.Indexed8) {
-		//		re = GetBGImgIndex8 (baseImage);
-		//	}
-		//	else if (baseImage.Format == System.Windows.Media.PixelFormats.Bgr24) {
-		//		re = GetBGImgBGR24 (baseImage);
-		//	}
-		//	else if (baseImage.Format == System.Windows.Media.PixelFormats.Bgr24) {
-		//	}
-
-		//	byte[] buffer = new byte[mapwidth * 3];
-		//	//复制图像
-		//	for (int h = 0; h < mapheight; h++) {
-		//		for (int w = 0; w < mapwidth; w++) {
-		//			buffer[w * 3] = buffer[w * 3 + 1] = buffer[w * 3 + 2] = baseImage.CopyPixels
-		//		}
-		//	}
-
-
-		//	int wb = width / 8, hb = height / 8;
-		//	for (int nh = 0; nh < hb; nh++) {
-		//		for (int nw = 0; nw < wb; nw++) {
-		//			int p0, p1, p2, p3, p4, p5, p6, p7, p8;
-		//			p0 = p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = 0;
-		//			//背景图
-		//			for (int h = 0; h < 9; h++) {
-		//				for (int w = 0; w < 9; w++) {
-		//					buffer[]
-		//				}
-		//			}
-		//		}
-		//	}
-		//}
-
 		public static WriteableBitmap GetBitmap (PointData[,] datas) {
 			int width = datas.GetLength (1);
 			int height = datas.GetLength (0);
