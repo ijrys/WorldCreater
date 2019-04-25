@@ -7,6 +7,9 @@ using System.Windows.Media.Imaging;
 using WorldCreaterStudio_Core.BackendNode.RainfallMotion;
 
 namespace ValueToImage {
+	/// <summary>
+	/// 配合RainfallMotion的值转换器。
+	/// </summary>
 	public static class RainfallMotionToImage {
 		private static System.Windows.Media.Color[] ricolors = new System.Windows.Media.Color[256];
 		private static System.Windows.Media.Color[] atcolors = new System.Windows.Media.Color[256];
@@ -57,6 +60,11 @@ namespace ValueToImage {
 
 		}
 
+		/// <summary>
+		/// 获取降雨强度可视化图
+		/// </summary>
+		/// <param name="datas">原始数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetRainfallIntensityBitmap (PointData[,] datas) {
 			int width = datas.GetLength (1);
 			int height = datas.GetLength (0);
@@ -76,6 +84,11 @@ namespace ValueToImage {
 			return re;
 		}
 
+		/// <summary>
+		/// 获取区域类型可视化图
+		/// </summary>
+		/// <param name="datas">原始数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetAreaTpyeBitmap (PointData[,] datas) {
 			int width = datas.GetLength (1);
 			int height = datas.GetLength (0);
@@ -94,6 +107,11 @@ namespace ValueToImage {
 			return re;
 		}
 
+		/// <summary>
+		/// 获取水深可视化图
+		/// </summary>
+		/// <param name="datas">原始数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetWaterDeepBitmap (PointData[,] datas) {
 			int width = datas.GetLength (1);
 			int height = datas.GetLength (0);

@@ -8,6 +8,9 @@ using System.Windows.Media.Imaging;
 using WorldCreaterStudio_Core.BackendNode.Biomes;
 
 namespace ValueToImage {
+	/// <summary>
+	/// 配合BiomesToImage的值转换器
+	/// </summary>
 	public static class BiomesToImage {
 		private static System.Windows.Media.Color[] colors = new System.Windows.Media.Color[256];
 		private static BitmapPalette palette;
@@ -54,6 +57,11 @@ namespace ValueToImage {
 			palette = new BitmapPalette (colors);
 		}
 
+		/// <summary>
+		/// 获取生物分布图
+		/// </summary>
+		/// <param name="value">原始数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetBitmap (BiomesType[,] value) {
 			int width = value.GetLength (1);
 			int height = value.GetLength (0);

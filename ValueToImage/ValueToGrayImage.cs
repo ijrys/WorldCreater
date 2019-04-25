@@ -8,17 +8,17 @@ using System.Windows.Media.Imaging;
 
 namespace ValueToImage {
 	/// <summary>
-	/// 将值转化为灰度图片
+	/// 将高度数据转换为可视的灰度图
 	/// </summary>
 	public static class ValueToGrayImage {
 		/// <summary>
 		/// 获取一个灰度图
 		/// </summary>
-		/// <param name="minvalue">指定最小的value</param>
-		/// <param name="maxvalue">指定最大的value</param>
-		/// <param name="mingray">指定最小value对应的gray</param>
-		/// <param name="maxgray">指定最大value对应的gray</param>
-		/// <param name="map">数据来源图</param>
+		/// <param name="minvalue">高度的最小值，小于或等于该值的将显示为最小亮度</param>
+		/// <param name="maxvalue">高度的最大值，大于或等于该值的将显示为最大亮度</param>
+		/// <param name="mingray">设定最小亮度</param>
+		/// <param name="maxgray">设定最大亮度</param>
+		/// <param name="map">高度数据</param>
 		/// <returns></returns>
 		public static WriteableBitmap GetBitmap(int minvalue, int maxvalue, byte mingray, byte maxgray, int[,] map) {
 			if (maxvalue < minvalue || maxgray < mingray || map == null) return null;
@@ -53,13 +53,13 @@ namespace ValueToImage {
 		}
 
 		/// <summary>
-		/// 获取一个值对应的value
+		/// 获取一个值在高度范围内的转换结果
 		/// </summary>
-		/// <param name="minvalue">指定最小的value</param>
-		/// <param name="maxvalue">指定最大的value，应不小于minvalue</param>
-		/// <param name="mingray">指定最小value对应的gray</param>
-		/// <param name="maxgray">指定最大value对应的gray，应不小于mingray</param>
-		/// <param name="value">数据</param>
+		/// <param name="minvalue">高度的最小值，小于或等于该值的将返回mingray</param>
+		/// <param name="maxvalue">高度的最大值，大于或等于该值的将返回maxgray</param>
+		/// <param name="mingray">设定最小亮度</param>
+		/// <param name="maxgray">设定最大亮度</param>
+		/// <param name="value">高度数据</param>
 		/// <returns></returns>
 		public static byte GetPixel (int minvalue, int maxvalue, byte mingray, byte maxgray, int value) {
 			if (maxvalue < minvalue || maxgray < mingray) return 0;
@@ -76,6 +76,13 @@ namespace ValueToImage {
 			return aimbyte;
 		}
 
+		/// <summary>
+		/// 获取一个带有高度超出检查的灰度图，用于检查生成的地形高度数据是否在合法范围内
+		/// </summary>
+		/// <param name="minvalue">高度数据的下限，小于这个值的区域将设置为红色(255,0,0)</param>
+		/// <param name="maxvalue">高度数据的上限，大于这个值的区域将设置为青色(0,255,255)</param>
+		/// <param name="map">高度数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetBitmapWithError (int minvalue, int maxvalue, int[,] map) {
 			if (map == null) return null;
 			int w = map.GetLength(1);

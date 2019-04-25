@@ -63,5 +63,6 @@ namespace WorldCreaterStudio.Resouses {
 		public static IEnumerable<WorldCreaterStudio_Core.BackendNode.AtmosphericMotion.IAtmosphericMotionCalculaterFactoryAble> AM => WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.AtmosphericMotion.CalcFactories;
 		public static IEnumerable<WorldCreaterStudio_Core.BackendNode.RainfallMotion.IRainfallMotionCalculaterFactoryAble> RM => WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.RainfallMotion.CalcFactories;
 		public static IEnumerable<WorldCreaterStudio_Core.BackendNode.SolarIlluminance.ISolarIlluminanceCalculaterFactoryAble> SI => WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.SolarIlluminance.CalcFactories;
+		public static IEnumerable<WorldCreaterStudio_Core.BackendNode.Biomes.IBiomesCalculaterFactoryAble> BI => WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary.Biomes.CalcFactories;
 	}
 }

@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 namespace ValueToImage {
 
 	/// <summary>
-	/// 将值转化为彩图
+	/// 将高度数据转换为可视的彩色图
 	/// </summary>
 	public static class ValueToColorImage {
 		private static BitmapPalette LineColorPalette {
@@ -28,6 +28,13 @@ namespace ValueToImage {
 			LineColorPalette = new BitmapPalette (colors);
 		}
 
+		/// <summary>
+		/// 获取一张彩色图。海平面值为0
+		/// </summary>
+		/// <param name="minvalue">高度数据的下限，小于这个值的区域将视为minvalue</param>
+		/// <param name="maxvalue">高度数据的上限，大于这个值的区域将视为maxvalue</param>
+		/// <param name="map">高度数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetBitmap (int minvalue, int maxvalue, int[,] map) {
 			if (maxvalue < minvalue || map == null) return null;
 

@@ -223,9 +223,17 @@
       <Project>{57f48c6c-1790-4f37-b784-e470eba82e07}</Project>
       <Name>MiRaI.BE.AM.SingleValue</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BackEndFactorys\Biomes\MiRaI.BE.BI.QuickCalc\MiRaI.BE.BI.QuickCalc.csproj">
+      <Project>{9b6b4305-1c21-4e39-b237-0190d422e543}</Project>
+      <Name>MiRaI.BE.BI.QuickCalc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BackEndFactorys\RainfallMotion\MiRaI.BE.RM.SingleValue\MiRaI.BE.RM.SingleValue.csproj">
       <Project>{420bd4b9-afde-4b07-8ffc-46ce9e65b54f}</Project>
       <Name>MiRaI.BE.RM.SingleValue</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BackEndFactorys\SolarIlluminance\MiRaI.BE.SI.QuickCalculating\MiRaI.BE.SI.QuickCalculating.csproj">
+      <Project>{f6e12e62-8565-416c-80b2-af9f613b1f8e}</Project>
+      <Name>MiRaI.BE.SI.QuickCalculating</Name>
     </ProjectReference>
     <ProjectReference Include="..\FrontEndFactorys\RandomTend\RandomTend.csproj">
       <Project>{80514c05-aac1-490f-a637-92f99c91d95e}</Project>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorldCreaterStudio_Core.BackendNode.AtmosphericMotion;
+using WorldCreaterStudio_Core.BackendNode.Biomes;
 using WorldCreaterStudio_Core.BackendNode.RainfallMotion;
 using WorldCreaterStudio_Core.BackendNode.SolarIlluminance;
 
@@ -110,6 +111,42 @@ namespace WorldCreaterStudio_Core.StoreRoom.BackEndCalculaterDictionary {
 		/// <param name="createrFactory"></param>
 		public static void RegisterACreaterFactory (ISolarIlluminanceCalculaterFactoryAble createrFactory) {
 			_calcFactories = new List<ISolarIlluminanceCalculaterFactoryAble> ();
+			//注册programSet
+			_programSetToCreaterFactory[createrFactory.CalculaterProgramSet] = createrFactory;
+			_calcFactories.Add (createrFactory);
+		}
+	}
+
+	public static class Biomes {
+		/// <summary>
+		/// 记录从ProgramSet到MapCreaterFactory的关系
+		/// </summary>
+		private static Dictionary<string, IBiomesCalculaterFactoryAble> _programSetToCreaterFactory = new Dictionary<string, IBiomesCalculaterFactoryAble> ();
+
+		private static List<IBiomesCalculaterFactoryAble> _calcFactories;
+		public static IEnumerable<IBiomesCalculaterFactoryAble> CalcFactories {
+			get => _calcFactories;
+		}
+
+		/// <summary>
+		/// 根据ProgramSet获取一个MapCreaterFactory
+		/// </summary>
+		/// <param name="programSet"></param>
+		/// <returns></returns>
+		public static IBiomesCalculaterFactoryAble GetCreaterFactoryByProgramSet (string programSet) {
+			if (string.IsNullOrEmpty (programSet)) return null;
+			if (_programSetToCreaterFactory.ContainsKey (programSet)) {
+				return _programSetToCreaterFactory[programSet];
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// 注册一个CreaterFactory
+		/// </summary>
+		/// <param name="createrFactory"></param>
+		public static void RegisterACreaterFactory (IBiomesCalculaterFactoryAble createrFactory) {
+			_calcFactories = new List<IBiomesCalculaterFactoryAble> ();
 			//注册programSet
 			_programSetToCreaterFactory[createrFactory.CalculaterProgramSet] = createrFactory;
 			_calcFactories.Add (createrFactory);

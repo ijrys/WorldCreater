@@ -6,7 +6,12 @@
              xmlns:local="clr-namespace:MiRaI.BE.BI.QuickCalc"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+	<Grid.Resources>
+		<ResourceDictionary>
+			<ControlTemplate x:Key="configTemplate">
+				<TextBlock>NoData</TextBlock>
+
+			</ControlTemplate>
+		</ResourceDictionary>
+	</Grid.Resources>
 </Grid>

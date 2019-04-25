@@ -33,12 +33,24 @@ namespace Test {
 			//CartesianToPolar (1, 2);
 			//CartesianToPolar (-2, 1);
 			//CartesianToPolar (-1, 2);
-			Console.WriteLine (Math.Acos(1));
 
 
-			NormalVector (0, 1, 0, 1, 0, 0, 0, 0, 1);
-			Console.WriteLine ();
+			Console.WriteLine (Math.Sin(2 * Math.PI / 360 * 30));
+			Console.WriteLine (Math.Sin(2 * Math.PI / 360 * 60));
+			Console.WriteLine (Math.Cos(2 * Math.PI / 360 * 30));
+			Console.WriteLine (Math.Cos(2 * Math.PI / 360 * 60));
 
+#if !OF
+			Console.WriteLine ("end work, press enter to exit");
+			Console.ReadLine ();
+#endif
+		}
+
+		static void NormalDemo () {
+			//Console.WriteLine (Math.Acos(1));
+
+			//NormalVector (0, 1, 0, 1, 0, 0, 0, 0, 1);
+			//Console.WriteLine ();
 			AngleOfLineAndPanel (0, 1, 0, 1, 0, 0, 0, 0, 1, -1, -1, -1);
 			Console.WriteLine ();
 			AngleOfLineAndPanel (0, 1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0);
@@ -47,10 +59,6 @@ namespace Test {
 			Console.WriteLine ();
 			AngleOfLineAndPanel (0, 1, 0, 1, 0, 0, 0, 0, 1, 1, -1, 0);
 
-#if !OF
-			Console.WriteLine ("end work, press enter to exit");
-			Console.ReadLine ();
-#endif
 		}
 
 		static void NormalVector (double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3) {

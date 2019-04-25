@@ -7,30 +7,22 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace ValueToImage {
+	/// <summary>
+	/// 配合SolarIlluminance的值转换器
+	/// </summary>
 	public static class SolarIlluminance {
+
+		/// <summary>
+		/// 获取光照强度图，返回值为Gray8
+		/// </summary>
+		/// <param name="value">原始数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetBitmap (byte[,] value) {
 			int width = value.GetLength (1);
 			int height = value.GetLength (0);
 
 			WriteableBitmap wb = new WriteableBitmap (width, height, 96, 96, System.Windows.Media.PixelFormats.Gray8, null);
-			//for (int i = 0; i < height; i++) {
-			//	for (int j = 0; j < width; j++) {
-			//		byte aimbyte = 0;
-			//		if (map[i, j] <= minvalue) {
-			//			aimbyte = mingray;
-			//		}
-			//		else if (map[i, j] >= maxgray) {
-			//			aimbyte = maxgray;
-			//		}
-			//		else {
-			//			aimbyte = (byte)((map[i, j] - minvalue) * graydiff / valuediff);
-			//		}
 
-			//		contbyte[i * width + j] = aimbyte;
-			//	}
-			//}
-
-			// copy data to the bitmap
 			Int32Rect rect = new Int32Rect (0, 0, width, height);
 			wb.WritePixels (rect, value, width, 0);
 

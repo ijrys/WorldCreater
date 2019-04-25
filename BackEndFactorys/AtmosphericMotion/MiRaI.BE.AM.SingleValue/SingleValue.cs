@@ -1,209 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
-using System.Xml;
 using WorldCreaterStudio_Core;
 using WorldCreaterStudio_Core.BackendNode.AtmosphericMotion;
 using WorldCreaterStudio_Core.ListNode;
 
 namespace MiRaI.BE.AM.SingleValue {
-
-	public class SingleValueConfig :
-		IAtmosphericMotionConfigAble {
-		public event NodeValueChangedEventType ValueChanged;
-		public event PropertyChangedEventHandler PropertyChanged;
-
-
-		private Direction _direction;
-		/// <summary>
-		/// 获取或设置风向
-		/// </summary>
-		public Direction Direction {
-			get=> _direction;
-			set {
-				if (_direction == value) return;
-				Direction oldvalue = _direction;
-				_direction = value;
-				ValueChanged?.Invoke (null);
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Direction"));
-
-				switch (oldvalue) {
-					case Direction.C:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToC"));
-						break;
-					case Direction.NW:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToNW"));
-						break;
-					case Direction.N:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToN"));
-						break;
-					case Direction.NE:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToNE"));
-						break;
-					case Direction.E:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToE"));
-						break;
-					case Direction.SE:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToSE"));
-						break;
-					case Direction.S:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToS"));
-						break;
-					case Direction.SW:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToSW"));
-						break;
-					case Direction.W:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToW"));
-						break;
-					default:
-						break;
-				}
-				switch (value) {
-					case Direction.C:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToC"));
-						break;
-					case Direction.NW:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToNW"));
-						break;
-					case Direction.N:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToN"));
-						break;
-					case Direction.NE:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToNE"));
-						break;
-					case Direction.E:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToE"));
-						break;
-					case Direction.SE:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToSE"));
-						break;
-					case Direction.S:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToS"));
-						break;
-					case Direction.SW:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToSW"));
-						break;
-					case Direction.W:
-						PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("IsToW"));
-						break;
-					default:
-						break;
-				}
-			}
-		}
-
-		#region 风向的九个按钮
-		public bool IsToC {
-			get { return Direction == Direction.C; }
-			set {
-				if (value) { Direction = Direction.C; }
-			}
-		}
-		public bool IsToNW {
-			get { return Direction == Direction.NW; }
-			set {
-				if (value) { Direction = Direction.NW; }
-				else { if (Direction == Direction.NW) { Direction = Direction.C; } }
-			}
-		}
-		public bool IsToN {
-			get { return Direction == Direction.N; }
-			set {
-				if (value) { Direction = Direction.N; }
-				else { if (Direction == Direction.N) { Direction = Direction.C; } }
-			}
-		}
-		public bool IsToNE {
-			get { return Direction == Direction.NE; }
-			set {
-				if (value) { Direction = Direction.NE; }
-				else { if (Direction == Direction.NE) { Direction = Direction.C; } }
-			}
-		}
-		public bool IsToE {
-			get { return Direction == Direction.E; }
-			set {
-				if (value) { Direction = Direction.E; }
-				else { if (Direction == Direction.E) { Direction = Direction.C; } }
-			}
-		}
-		public bool IsToSE {
-			get { return Direction == Direction.SE; }
-			set {
-				if (value) { Direction = Direction.SE; }
-				else { if (Direction == Direction.SE) { Direction = Direction.C; } }
-			}
-		}
-		public bool IsToS {
-			get { return Direction == Direction.S; }
-			set {
-				if (value) { Direction = Direction.S; }
-				else { if (Direction == Direction.S) { Direction = Direction.C; } }
-			}
-		}
-		public bool IsToSW {
-			get { return Direction == Direction.SW; }
-			set {
-				if (value) { Direction = Direction.SW; }
-				else { if (Direction == Direction.SW) { Direction = Direction.C; } }
-			}
-		}
-		public bool IsToW {
-			get { return Direction == Direction.W; }
-			set {
-				if (value) { Direction = Direction.W; }
-				else { if (Direction == Direction.W) { Direction = Direction.C; } }
-			}
-		}
-		#endregion
-
-		private byte _power;
-		/// <summary>
-		/// 获取或设置风力
-		/// </summary>
-		public byte Power {
-			get => _power;
-			set {
-				_power = value;
-				ValueChanged?.Invoke (null);
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Power"));
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("DisplayPower"));
-			}
-		}
-
-		/// <summary>
-		/// 用于展示的真实风力
-		/// </summary>
-		public double DisplayPower {
-			get => _power / 20;
-		}
-
-		private System.Windows.Controls.ControlTemplate _showPanel;
-		public System.Windows.Controls.ControlTemplate ShowPanel {
-			get {
-				if (_showPanel == null) {
-					_showPanel = new ConfigPanel ().Resources["configTemplate"] as System.Windows.Controls.ControlTemplate;
-				}
-				return _showPanel;
-			}
-		}
-
-
-		public void LoadFromXMLNode (XmlElement xmlnode) {
-			throw new NotImplementedException ();
-		}
-
-		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
-		}
-	}
-
 	/// <summary>
-	/// 设置单值的模拟器
+	/// 使用单值快速填充的空气运动模拟器
 	/// </summary>
 	public class SingleValue :
 		IAtmosphericMotionCalculaterAble {
@@ -213,8 +20,18 @@ namespace MiRaI.BE.AM.SingleValue {
 
 		public Guid CreaterGuid => typeof (SingleValue).GUID;
 
+		/// <summary>
+		/// 模拟过程产生新进度消息时事件
+		/// </summary>
 		public event DataCalculatingProcessingEventType OnProcessingChanged;
 
+		/// <summary>
+		/// 使用SingleValueConfig类型的配置项进行模拟
+		/// </summary>
+		/// <param name="config">配置设置</param>
+		/// <param name="heightMap">高度数据</param>
+		/// <param name="work">执行方法的工作集</param>
+		/// <returns></returns>
 		public AtmosphericMotionResault GetAtmosphericMotionDatasBySpecialConfig (SingleValueConfig config, int[,] heightMap, Work work) {
 			int w = heightMap.GetLength (0) - 1, h = heightMap.GetLength (1) - 1;
 			PointData[,] recont = new PointData[w, h];
@@ -235,33 +52,17 @@ namespace MiRaI.BE.AM.SingleValue {
 			return re;
 		}
 
+		/// <summary>
+		/// 使用一个IAtmosphericMotionConfigAble类型的配置项进行模拟。
+		/// 若不为SingleValueConfig类型，抛出IncongruentConfigurationException
+		/// </summary>
+		/// <param name="config">配置设置</param>
+		/// <param name="heightMap">高度数据</param>
+		/// <param name="work">执行方法的工作集</param>
+		/// <returns></returns>
 		public AtmosphericMotionResault GetAtmosphericMotionDatas (IAtmosphericMotionConfigAble config, int[,] heightMap, Work work) {
 			if (!(config is SingleValueConfig)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException (typeof (SingleValueConfig), config.GetType ());
 			return GetAtmosphericMotionDatasBySpecialConfig (config as SingleValueConfig, heightMap, work);
-		}
-	}
-
-
-	public class SingleValueFactory : IAtmosphericMotionCalculaterFactoryAble {
-		public string DisplayName => "单一值风力设定";
-
-		public string DisplayType => "BE.AM";
-
-		public string CalculaterProgramSet => "MiRaI.BE.AM.SV|0.1";
-
-		public Guid CalculaterGuid => typeof (SingleValue).GUID;
-
-
-		private SingleValue _temp = null;
-		public IAtmosphericMotionCalculaterAble GetACalculater () {
-			if (_temp == null) {
-				_temp = new SingleValue ();
-			}
-			return _temp;
-		}
-
-		public IAtmosphericMotionConfigAble GetAConfiguration () {
-			return new SingleValueConfig ();
 		}
 	}
 }

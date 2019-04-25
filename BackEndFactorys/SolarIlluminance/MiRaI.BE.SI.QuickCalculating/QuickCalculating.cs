@@ -23,7 +23,7 @@ namespace MiRaI.BE.SI.QuickCalculating {
 			set {
 				_angle = value;
 				ValueChanged?.Invoke (null);
-				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs("Angle"));
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Angle"));
 			}
 		}
 
@@ -52,9 +52,9 @@ namespace MiRaI.BE.SI.QuickCalculating {
 	/// </summary>
 	public class QuickCalculating :
 		ISolarIlluminanceCalculaterAble {
-		public string CreaterName => "单一值风力设定";
+		public string CreaterName => "反射面法线快速计算";
 
-		public string CreaterProgramSet => "MiRaI.BE.AM.SV|0.1";
+		public string CreaterProgramSet => "MiRaI.BE.SI.QC|0.1";
 
 		public Guid CreaterGuid => typeof (QuickCalculating).GUID;
 
@@ -62,13 +62,19 @@ namespace MiRaI.BE.SI.QuickCalculating {
 
 		public SolarIlluminanceResault GetSolarIlluminanceResaultDatasBySpecialConfig (QuickCalculatingConfig config, int[,] heightMap, Work work) {
 			int w = heightMap.GetLength (1), h = heightMap.GetLength (0), tw = w - 1, th = h - 1;
-			double lx = 0, ly = 0, lz = 0, lenofline = Math.Sqrt (lx * lx + ly * ly + lz * lz);
+			double lx = 0, ly = 0, lz = 0, heightscale = 0.001, xyscale = 100;
+			double angle = Math.PI * -2 / 360 * config.Angle;
+			lx = Math.Sin (angle);
+			ly = Math.Cos (angle);
+
+			double lenofline = Math.Sqrt (lx * lx + ly * ly + lz * lz);
 
 			byte[,] blockvalue = new byte[th, tw];
 			//byte[,] recont = new byte[h, w];
 			int[,] tmphei = new int[th, tw];
 
-			int lx1, ly1, lz1, lx2, ly2, lz2, di, dj, dk;
+			double lx1, ly1, lz1, lx2, ly2, lz2;
+			double di, dj, dk;
 			double lenofnv, doubletmp;
 
 			double[,] normalVector = new double[th, tw];
@@ -78,61 +84,61 @@ namespace MiRaI.BE.SI.QuickCalculating {
 				}
 			}
 
-			for (int i = 1; i < th; i++) {
-				for (int j = 1; j < tw; j++) {
+			for (int i = 0; i < th; i++) {
+				for (int j = 0; j < tw; j++) {
 					// 计算权重
 					double pow = 0;
 
 
 					#region power1
-					lx1 = -1; ly1 = 0; lz1 = heightMap[i, j] - heightMap[i, j + 1];
-					lx2 = 1; ly2 = 1; lz2 = (tmphei[i, j] - heightMap[i, j]) * 2;
+					lx1 = -1; ly1 = 0; lz1 = (heightMap[i, j] - heightMap[i, j + 1]) * heightscale / xyscale;
+					lx2 = 1; ly2 = 1; lz2 = (tmphei[i, j] - heightMap[i, j]) * 2 * heightscale / xyscale;
 
 					di = ly1 * lz2 - lz1 * ly2;
 					dj = lz1 * lx2 - lx1 * lz2;
 					dk = lx1 * ly2 - ly1 * lx2;
 
 					lenofnv = Math.Sqrt (di * di + dj * dj + dk * dk);
-					doubletmp = (i * lx + j * ly + dk * lz) / lenofnv / lenofline;
+					doubletmp = (di * lx + dj * ly + dk * lz) / lenofnv / lenofline;
 					pow += doubletmp;
 					#endregion
 
 					#region power2
-					lx1 = 0; ly1 = -1; lz1 = heightMap[i, j + 1] - heightMap[i + 1, j + 1];
-					lx2 = -1; ly2 = 1; lz2 = (tmphei[i, j] - heightMap[i, j + 1]) * 2;
+					lx1 = 0; ly1 = -1; lz1 = (heightMap[i, j + 1] - heightMap[i + 1, j + 1]) * heightscale / xyscale;
+					lx2 = -1; ly2 = 1; lz2 = (tmphei[i, j] - heightMap[i, j + 1]) * 2 * heightscale / xyscale;
 
 					di = ly1 * lz2 - lz1 * ly2;
 					dj = lz1 * lx2 - lx1 * lz2;
 					dk = lx1 * ly2 - ly1 * lx2;
 
 					lenofnv = Math.Sqrt (di * di + dj * dj + dk * dk);
-					doubletmp = (i * lx + j * ly + dk * lz) / lenofnv / lenofline;
+					doubletmp = (di * lx + dj * ly + dk * lz) / lenofnv / lenofline;
 					pow += doubletmp;
 					#endregion
 
 					#region power3
-					lx1 = 1; ly1 = 0; lz1 = heightMap[i + 1, j + 1] - heightMap[i + 1, j];
-					lx2 = -1; ly2 = -1; lz2 = (tmphei[i, j] - heightMap[i + 1, j + 1]) * 2;
+					lx1 = 1; ly1 = 0; lz1 = (heightMap[i + 1, j + 1] - heightMap[i + 1, j]) * heightscale / xyscale;
+					lx2 = -1; ly2 = -1; lz2 = (tmphei[i, j] - heightMap[i + 1, j + 1]) * 2 * heightscale / xyscale;
 
 					di = ly1 * lz2 - lz1 * ly2;
 					dj = lz1 * lx2 - lx1 * lz2;
 					dk = lx1 * ly2 - ly1 * lx2;
 
 					lenofnv = Math.Sqrt (di * di + dj * dj + dk * dk);
-					doubletmp = (i * lx + j * ly + dk * lz) / lenofnv / lenofline;
+					doubletmp = (di * lx + dj * ly + dk * lz) / lenofnv / lenofline;
 					pow += doubletmp;
 					#endregion
 
 					#region power4
-					lx1 = 0; ly1 = 1; lz1 = heightMap[i + 1, j] - heightMap[i, j];
-					lx2 = 1; ly2 = -1; lz2 = (tmphei[i, j] - heightMap[i + 1, j]) * 2;
+					lx1 = 0; ly1 = 1; lz1 = (heightMap[i + 1, j] - heightMap[i, j]) * heightscale / xyscale;
+					lx2 = 1; ly2 = -1; lz2 = (tmphei[i, j] - heightMap[i + 1, j]) * 2 * heightscale / xyscale;
 
 					di = ly1 * lz2 - lz1 * ly2;
 					dj = lz1 * lx2 - lx1 * lz2;
 					dk = lx1 * ly2 - ly1 * lx2;
 
 					lenofnv = Math.Sqrt (di * di + dj * dj + dk * dk);
-					doubletmp = (i * lx + j * ly + dk * lz) / lenofnv / lenofline;
+					doubletmp = (di * lx + dj * ly + dk * lz) / lenofnv / lenofline;
 					pow += doubletmp;
 					#endregion
 
@@ -209,7 +215,7 @@ namespace MiRaI.BE.SI.QuickCalculating {
 
 
 	public class QuickCalculatingFactory : ISolarIlluminanceCalculaterFactoryAble {
-		public string DisplayName => "单一值风力设定";
+		public string DisplayName => "反射面法线快速计算";
 
 		public string DisplayType => "BE.SI";
 

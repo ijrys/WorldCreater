@@ -13,7 +13,7 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 	public class BiomesNode : IWorkLogicNodeAble {
 		public Work Work { get; private set; }
 
-		public ControlTemplate ShowPanel => null; // todo StoreRoom.ShowPanel.BEF_RMPanel;
+		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.BEF_BIPanel; // todo StoreRoom.ShowPanel.BEF_RMPanel;
 
 		public string NodeName => "Biomes";
 
@@ -111,6 +111,7 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 			}
 		}
 
+		public ImageSource ResaultImage => Resault?.ShowImage?.Image;
 
 		public ObservableCollection<IWorkLogicNodeAble> DisplayBGImages {
 			get => Work?.Images?.Childrens;
@@ -162,7 +163,6 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 			}
 			if (Calculater == null) return;
 			Resault = Calculater.GetBiomesDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
-
 		}
 
 		public BiomesNode (Work work) {

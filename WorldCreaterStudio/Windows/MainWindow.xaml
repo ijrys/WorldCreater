@@ -96,7 +96,7 @@
 						<ContentControl Grid.Row="2" Template="{Binding StateDisplayTemplate}"/>
 					</Grid>
 
-					<Grid DataContext="{Binding AMNode}" Grid.Column="4">
+					<Grid DataContext="{Binding SINode}" Grid.Column="4">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="auto" SharedSizeGroup="SHG"/>
 							<RowDefinition Height="10px"/>
@@ -106,7 +106,7 @@
 						<ContentControl Grid.Row="2" Template="{Binding StateDisplayTemplate}"/>
 					</Grid>
 
-					<Grid DataContext="{Binding AMNode}" Grid.Column="6">
+					<Grid DataContext="{Binding BINode}" Grid.Column="6">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="auto" SharedSizeGroup="SHG"/>
 							<RowDefinition Height="10px"/>
@@ -272,9 +272,71 @@
 								<Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Image}"/>
 								<TextBlock Text="{Binding Key}" Opacity="0.5"/>
 							</Grid>
-							<Image x:Name="imgOverView" Source="{Binding ResaultOVImage}" Panel.ZIndex="4"/>
+							<Image x:Name="imgOverView" Source="{Binding ResaultImage}" Panel.ZIndex="4"/>
 						</Canvas>
 						
+						<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
+
+						<Grid Grid.Column="2">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="1*"/>
+								<RowDefinition Height="auto"/>
+							</Grid.RowDefinitions>
+
+							<ListBox Grid.Row="0" x:Name="List_BGImgSelect" ItemsSource="{Binding DisplayBGImages}">
+								<ListBox.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Text="{Binding Key}"/>
+									</DataTemplate>
+								</ListBox.ItemTemplate>
+							</ListBox>
+
+							<StackPanel Grid.Row="1">
+								<Slider Minimum="0" Maximum="1" Value="{Binding ElementName=imgOverView, Path=Opacity}" />
+							</StackPanel>
+						</Grid>
+					</Grid>
+				</Grid>
+			</ControlTemplate>
+
+			<ControlTemplate x:Key="Content_BEF_BI_Node">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="auto" MaxHeight="128px"/>
+						<RowDefinition Height="1*"/>
+					</Grid.RowDefinitions>
+					<Grid Grid.Row="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*"/>
+						</Grid.ColumnDefinitions>
+						<ComboBox Grid.Column="0" SelectedItem="{Binding Factory}" ItemsSource="{x:Static res:BackEndCalcFactories.BI}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding DisplayName}"/>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+
+						<Button Grid.Column="1" IsEnabled="{Binding CanCalculater}" Click="btn_BE_BI_Click">计算</Button>
+					</Grid>
+					<ContentControl Grid.Row="1" Template="{Binding ShowPanel}" DataContext="{Binding Configuration}"/>
+
+					<Grid Grid.Row="2">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="4px"/>
+							<ColumnDefinition Width="auto" MinWidth="64px"/>
+						</Grid.ColumnDefinitions>
+						<Canvas>
+							<Grid DataContext="{Binding ElementName=List_BGImgSelect, Path=SelectedItem}"  Canvas.Left="0" Canvas.Top="0">
+								<Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="{Binding Image}"/>
+								<TextBlock Text="{Binding Key}" Opacity="0.5"/>
+							</Grid>
+							<Image x:Name="imgOverView" Source="{Binding ResaultImage}" Panel.ZIndex="4"/>
+						</Canvas>
+
 						<GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
 
 						<Grid Grid.Column="2">

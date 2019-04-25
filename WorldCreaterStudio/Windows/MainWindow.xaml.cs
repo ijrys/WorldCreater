@@ -140,6 +140,7 @@ namespace WorldCreaterStudio {
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_AMPanel = Resources["Content_BEF_AM_Node"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_RMPanel = Resources["Content_BEF_RM_Node"] as ControlTemplate;
 			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_SIPanel = Resources["Content_BEF_SI_Node"] as ControlTemplate;
+			WorldCreaterStudio_Core.StoreRoom.ShowPanel.BEF_BIPanel = Resources["Content_BEF_BI_Node"] as ControlTemplate;
 
 
 			WorldCreaterStudio_Core.StoreRoom.BackEndNodeStateTemplate.OkPanel =app.Resources["Content_BEF_NodeState_OK"] as ControlTemplate;
@@ -238,6 +239,19 @@ namespace WorldCreaterStudio {
 		}
 
 		private void btn_BE_SI_Click (object sender, RoutedEventArgs e) { // todo
+			WorldCreaterStudio_Core.BackendNode.SolarIlluminance.SolarIlluminanceNode sinode = FunctionPanelConter.DataContext as WorldCreaterStudio_Core.BackendNode.SolarIlluminance.SolarIlluminanceNode;
+			if (sinode == null) return;
+			sinode.Calculater.OnProcessingChanged += Creater_OnProcessingChanged;
+			sinode.StartCalculating ();
+			sinode.Calculater.OnProcessingChanged -= Creater_OnProcessingChanged;
+		}
+
+		private void btn_BE_BI_Click (object sender, RoutedEventArgs e) {
+			WorldCreaterStudio_Core.BackendNode.Biomes.BiomesNode binode = FunctionPanelConter.DataContext as WorldCreaterStudio_Core.BackendNode.Biomes.BiomesNode;
+			if (binode == null) return;
+			binode.Calculater.OnProcessingChanged += Creater_OnProcessingChanged;
+			binode.StartCalculating ();
+			binode.Calculater.OnProcessingChanged -= Creater_OnProcessingChanged;
 		}
 	}
 

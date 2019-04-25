@@ -68,7 +68,7 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 
 		public SolarIlluminanceResault (byte[,] value, string dataName, Work work, string imgResKey) :
 			base (value, dataName, work, imgResKey) {
-
+			
 		}
 	}
 }

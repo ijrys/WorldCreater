@@ -7,7 +7,15 @@ using System.Windows.Media.Imaging;
 using WorldCreaterStudio_Core.BackendNode.AtmosphericMotion;
 
 namespace ValueToImage {
+	/// <summary>
+	/// 配合AtmosphericMotion的值转换器
+	/// </summary>
 	public static class AtmosphericMotionToImage {
+		/// <summary>
+		/// 获取区域风向图
+		/// </summary>
+		/// <param name="datas">风向数据</param>
+		/// <returns></returns>
 		public static WriteableBitmap GetBitmap (PointData[,] datas) {
 			int width = datas.GetLength (1);
 			int height = datas.GetLength (0);
