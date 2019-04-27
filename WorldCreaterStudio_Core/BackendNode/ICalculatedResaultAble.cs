@@ -76,9 +76,7 @@ namespace WorldCreaterStudio_Core.BackendNode {
 		public event NodeValueChangedEventType NodeValueChanged;
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
-		}
+		public abstract XmlElement XmlNode (XmlDocument xmlDocument, bool save = false);
 
 		public abstract void Save (bool freshWithoutChanged = false);
 		protected abstract void Load ();
@@ -92,6 +90,9 @@ namespace WorldCreaterStudio_Core.BackendNode {
 			if (imgResKey != null) { // 如果有图片资源
 				ShowImage = new ImageResourceReference (work, imgResKey);
 			}
+			string dataPath = Path.Combine (work.WorkDirectionary.FullName, dataName);
+			DataFile = new FileInfo (dataPath);
+
 		}
 	}
 }

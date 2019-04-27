@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WorldCreaterStudio_Core.BackendNode {
+	public delegate void NodeStateChangedDelegate (object sender, NodeState newvalue);
+
 	/// <summary>
 	/// 表示节点的状态
 	/// </summary>

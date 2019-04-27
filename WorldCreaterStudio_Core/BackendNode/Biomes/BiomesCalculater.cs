@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using System.Xml;
 using WorldCreaterStudio_Core.ListNode;
 using WorldCreaterStudio_Core.Resouses;
 using WorldCreaterStudio_Core.Tools;
@@ -157,6 +158,10 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 			catch (Exception ex) {
 				throw new Exceptions.DataResousesReadException ("读写文件时发生错误", DataFile, ex);
 			}
+		}
+
+		public override XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
+			throw new NotImplementedException ();
 		}
 
 		public BiomesResault (BiomesType[,] value, string dataName, Work work, string overviewImgResKey) :

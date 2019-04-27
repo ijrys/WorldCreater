@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using WorldCreaterStudio_Core.ListNode;
 namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 	/// <summary>
@@ -10,6 +11,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 	/// </summary>
 	public interface IAtmosphericMotionConfigAble
 		: IDataCalculaterConfigurationAble {
+
 	}
 
 	/// <summary>

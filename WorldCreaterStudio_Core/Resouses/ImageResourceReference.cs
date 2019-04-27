@@ -41,7 +41,9 @@ namespace WorldCreaterStudio_Core.Resouses {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException();
+			XmlElement node = xmlDocument.CreateElement ("ImgRef");
+			node.SetAttribute ("key", this.ResourseKey);
+			return node;
 		}
 
 		public ImageResourceReference(Work work, string key) {

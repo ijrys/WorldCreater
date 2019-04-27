@@ -22,7 +22,7 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 
 		public string NodeName => "SolarIlluminance";
 
-		public ImageSource Icon => null;
+		public ImageSource Icon => WorldCreaterStudio_Resouses.Images.Dark_Icon_SINode;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
@@ -168,6 +168,8 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 			}
 			if (Calculater == null) return;
 			Resault = Calculater.GetSolarIlluminanceDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
+
+			this.NodeState = NodeState.ok;
 
 			if (Work.BackEndNodes.BINode.NodeState == BackendNode.NodeState.ok) {
 				Work.BackEndNodes.BINode.NodeState = BackendNode.NodeState.outdate;

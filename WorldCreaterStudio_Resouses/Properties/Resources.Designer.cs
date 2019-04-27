@@ -19,7 +19,7 @@ namespace WorldCreaterStudio_Resouses.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -63,9 +63,29 @@ namespace WorldCreaterStudio_Resouses.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        public static System.Drawing.Bitmap Dark_Icon_AMNode {
+            get {
+                object obj = ResourceManager.GetObject("Dark_Icon_AMNode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         public static System.Drawing.Bitmap Dark_Icon_BackEndWork {
             get {
                 object obj = ResourceManager.GetObject("Dark_Icon_BackEndWork", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap Dark_Icon_BINode {
+            get {
+                object obj = ResourceManager.GetObject("Dark_Icon_BINode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +136,26 @@ namespace WorldCreaterStudio_Resouses.Properties {
         public static System.Drawing.Bitmap Dark_Icon_ResLib {
             get {
                 object obj = ResourceManager.GetObject("Dark_Icon_ResLib", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap Dark_Icon_RMNode {
+            get {
+                object obj = ResourceManager.GetObject("Dark_Icon_RMNode", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap Dark_Icon_SINode {
+            get {
+                object obj = ResourceManager.GetObject("Dark_Icon_SINode", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

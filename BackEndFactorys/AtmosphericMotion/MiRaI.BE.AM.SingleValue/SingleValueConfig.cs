@@ -187,11 +187,27 @@ namespace MiRaI.BE.AM.SingleValue {
 
 
 		public void LoadFromXMLNode (XmlElement xmlnode) {
-			throw new NotImplementedException ();
+			if (xmlnode.Name != "Config") return;
+			string powstr = xmlnode.Attributes["power"]?.Value;
+			string dirstr = xmlnode.Attributes["dir"]?.Value;
+			if (powstr == null || dirstr == null) return;
+
+			
+			if (byte.TryParse(powstr, out byte bpower) &&
+				Enum.TryParse (dirstr, out Direction bdir)) {
+				Power = bpower;
+				Direction = bdir;
+			} else {
+				return;
+			}
 		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement re = xmlDocument.CreateElement ("Config");
+			re.SetAttribute ("power", Power.ToString ());
+			re.SetAttribute ("dir", (Direction).ToString ());
+			return re;
 		}
+
 	}
 }

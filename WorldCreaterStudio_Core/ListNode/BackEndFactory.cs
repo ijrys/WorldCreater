@@ -9,9 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml;
+using WorldCreaterStudio_Core.BackendNode;
 
 namespace WorldCreaterStudio_Core {
-	
 
 	public class BackEndFactory : IWorkLogicNodeAble {
 		private bool isinit = false;
@@ -22,7 +22,7 @@ namespace WorldCreaterStudio_Core {
 
 		public string NodeName => "后端工厂";
 
-		public ImageSource Icon { get; set; }
+		public ImageSource Icon { get; set; } = WorldCreaterStudio_Resouses.Images.Dark_Icon_BackEndWork;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
 
@@ -48,13 +48,19 @@ namespace WorldCreaterStudio_Core {
 		private BackendNode.AtmosphericMotion.AtmosphericMotionNode _amNode;
 		public BackendNode.AtmosphericMotion.AtmosphericMotionNode AMNode {
 			get {
-				//if (_amNode == null) {
-				//	_amNode = new BackendNode.AtmosphericMotion.AtmosphericMotionNode ();
-				//}
 				return _amNode;
 			}
 			private set {
+				if (_amNode == value) return;
+				if (_amNode != null) {
+					_amNode.NodeValueChanged -= ChildNodeValueChanged;
+					_amNode.NodestateChanged -= AM_NodestateChanged;
+				}
 				_amNode = value;
+				if (value != null) {
+					value.NodeValueChanged += ChildNodeValueChanged;
+					value.NodestateChanged += AM_NodestateChanged;
+				}
 				if (!isinit) {
 					NodeValueChanged?.Invoke (this);
 				}
@@ -68,7 +74,16 @@ namespace WorldCreaterStudio_Core {
 				return _rmNode;
 			}
 			private set {
+				if (_rmNode == value) return;
+				if (_rmNode != null) {
+					_rmNode.NodeValueChanged -= ChildNodeValueChanged;
+					//_rmNode.NodestateChanged -= RM_NodestateChanged; ;
+				}
 				_rmNode = value;
+				if (value != null) {
+					value.NodeValueChanged += ChildNodeValueChanged;
+					//value.NodestateChanged += AM_NodestateChanged;
+				}
 				if (!isinit) {
 					NodeValueChanged?.Invoke (this);
 				}
@@ -82,7 +97,16 @@ namespace WorldCreaterStudio_Core {
 				return _siNode;
 			}
 			private set {
+				if (_siNode == value) return;
+				if (_siNode != null) {
+					_siNode.NodeValueChanged -= ChildNodeValueChanged;
+					//_siNode.NodestateChanged -= SI_NodestateChanged;
+				}
 				_siNode = value;
+				if (value != null) {
+					value.NodeValueChanged += ChildNodeValueChanged;
+					//value.NodestateChanged += AM_NodestateChanged;
+				}
 				if (!isinit) {
 					NodeValueChanged?.Invoke (this);
 				}
@@ -96,7 +120,16 @@ namespace WorldCreaterStudio_Core {
 				return _biNode;
 			}
 			private set {
+				if (_biNode == value) return;
+				if (_biNode != null) {
+					_biNode.NodeValueChanged -= ChildNodeValueChanged;
+					//_amNode.NodestateChanged -= AM_NodestateChanged; ;
+				}
 				_biNode = value;
+				if (value != null) {
+					value.NodeValueChanged += ChildNodeValueChanged;
+					//value.NodestateChanged += AM_NodestateChanged; ;
+				}
 				if (!isinit) {
 					NodeValueChanged?.Invoke (this);
 				}
@@ -104,10 +137,69 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
-		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			//throw new NotImplementedException();
-			return null;
+		#region NodeStateChanged
+		private void AM_NodestateChanged (object sender, NodeState newvalue) {
+			if (newvalue == NodeState.ok && RMNode != null) {
+				if (RMNode.NodeState == NodeState.ok) {
+					RMNode.NodeState = NodeState.outdate;
+				}
+				else if (RMNode.NodeState == NodeState.unable) {
+					RMNode.NodeState = NodeState.ready;
+				}
+			}
 		}
+
+		private void RM_NodestateChanged (object sender, NodeState newvalue) {
+			if (newvalue == NodeState.ok && SINode != null) {
+				if (SINode.NodeState == NodeState.ok) {
+					SINode.NodeState = NodeState.outdate;
+				}
+				else if (SINode.NodeState == NodeState.unable) {
+					SINode.NodeState = NodeState.ready;
+				}
+			}
+		}
+
+		private void SI_NodestateChanged (object sender, NodeState newvalue) {
+			if (newvalue == NodeState.ok && BINode != null) {
+				if (BINode.NodeState == NodeState.ok) {
+					BINode.NodeState = NodeState.outdate;
+				}
+				else if (BINode.NodeState == NodeState.unable) {
+					BINode.NodeState = NodeState.ready;
+				}
+			}
+		}
+		#endregion
+
+		private void ChildNodeValueChanged (IWorkLogicNodeAble node) {
+			if (!isinit) {
+				this.Changed = true;
+			}
+		}
+
+
+		#region XML相关
+		public bool InitByXMLNode (XmlElement xmlnode) {
+			if (xmlnode.Name != "BackEndFactory") return false;
+			isinit = true;
+
+			foreach (XmlElement item in xmlnode.ChildNodes) {
+				if (item.Name == "AMNode") { //资源引用
+					AMNode.InitByXMLNode (item);
+				}
+			}
+
+			isinit = false;
+			return true;
+		}
+
+		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
+			XmlElement re = xmlDocument.CreateElement ("BackEndFactory");
+			re.AppendChild (AMNode.XmlNode (xmlDocument, save));
+			return re;
+		}
+		#endregion
 
 		public BackEndFactory (Work work) {
 			this.Work = work;

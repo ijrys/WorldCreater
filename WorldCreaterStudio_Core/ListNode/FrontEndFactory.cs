@@ -158,7 +158,7 @@ namespace WorldCreaterStudio_Core {
 		/// 使用xml节点初始化前端工厂
 		/// </summary>
 		/// <param name="xmlnode"></param>
-		public bool InitByXMLNode(XmlElement xmlnode) { //TODO
+		public bool InitByXMLNode(XmlElement xmlnode) {
 			if (xmlnode.Name != "FrontEndFactory") return false;
 			string programSet = xmlnode.Attributes["creater"]?.Value;
 
@@ -171,7 +171,6 @@ namespace WorldCreaterStudio_Core {
 					Configuration.LoadFromXMLNode(item);
 				}
 			}
-
 			return true;
 		}
 

@@ -27,7 +27,6 @@ namespace WorldCreaterStudio_Core {
 		private ImageSource _icon;
 		private string _nodeName;
 
-
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public event NodeValueChangedEventType NodeValueChanged;
@@ -35,6 +34,9 @@ namespace WorldCreaterStudio_Core {
 		#endregion
 
 		#region 属性
+		public DirectoryInfo WorkDirectionary => _workDirectionary;
+
+
 		/// <summary>
 		/// 获取节点所在的工作，这里为当前对象
 		/// </summary>
@@ -217,12 +219,11 @@ namespace WorldCreaterStudio_Core {
 				root.AppendChild(fefactory);
 			}
 
-			//TODO
 			// back end work
-			//if (BackEndNodes != null) {
-			//	XmlNode befactory = BackEndNodes.XmlNode(document);
-			//	root.AppendChild(befactory);
-			//}
+			if (BackEndNodes != null) {
+				XmlNode befactory = BackEndNodes.XmlNode (document);
+				root.AppendChild (befactory);
+			}
 
 			document.Save(_workFile.FullName);
 
@@ -296,7 +297,7 @@ namespace WorldCreaterStudio_Core {
 						work.FrontEndNodes.InitByXMLNode(item);
 						break;
 					case "backendfactory": //后端工厂
-
+						work.BackEndNodes.InitByXMLNode (item);
 						break;
 				}
 				if (item.Name.ToLower() == "images") {

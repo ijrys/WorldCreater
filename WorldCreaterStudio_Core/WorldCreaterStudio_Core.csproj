@@ -92,7 +92,6 @@
     <Compile Include="Resouses\ImageResourceManager.cs" />
     <Compile Include="Resouses\ImageResourceReference.cs" />
     <Compile Include="Resouses\ImageResourse.cs" />
-    <Compile Include="ListNode\[del]ImageResousesNode.cs" />
     <Compile Include="Resouses\IResourseAble.cs" />
     <Compile Include="ListNode\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

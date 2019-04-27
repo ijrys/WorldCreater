@@ -60,6 +60,10 @@ namespace WorldCreaterStudio_Resouses {
 		private static BitmapImage _dark_Icon_Gra = null;
 		private static BitmapImage _dark_Icon_Pro = null;
 		private static BitmapImage _dark_Icon_ResLib = null;
+		private static BitmapImage _dark_Icon_AMNode = null;
+		private static BitmapImage _dark_Icon_RMNode = null;
+		private static BitmapImage _dark_Icon_SINode = null;
+		private static BitmapImage _dark_Icon_BINode = null;
 		#endregion
 
 		/// <summary>
@@ -137,6 +141,58 @@ namespace WorldCreaterStudio_Resouses {
 				}
 
 				return _dark_Icon_FrontEndWork;
+			}
+		}
+
+		/// <summary>
+		///   Dark_Icon_AMNode
+		/// </summary>
+		public static BitmapImage Dark_Icon_AMNode {
+			get {
+				if (_dark_Icon_AMNode == null) {
+					_dark_Icon_AMNode = BitmapConvert (Properties.Resources.Dark_Icon_AMNode);
+				}
+
+				return _dark_Icon_AMNode;
+			}
+		}
+
+		/// <summary>
+		///   Dark_Icon_RMNode
+		/// </summary>
+		public static BitmapImage Dark_Icon_RMNode {
+			get {
+				if (_dark_Icon_RMNode == null) {
+					_dark_Icon_RMNode = BitmapConvert (Properties.Resources.Dark_Icon_RMNode);
+				}
+
+				return _dark_Icon_RMNode;
+			}
+		}
+
+		/// <summary>
+		///   Dark_Icon_SINode
+		/// </summary>
+		public static BitmapImage Dark_Icon_SINode {
+			get {
+				if (_dark_Icon_SINode == null) {
+					_dark_Icon_SINode = BitmapConvert (Properties.Resources.Dark_Icon_SINode);
+				}
+
+				return _dark_Icon_SINode;
+			}
+		}
+
+		/// <summary>
+		///   Dark_Icon_BINode
+		/// </summary>
+		public static BitmapImage Dark_Icon_BINode {
+			get {
+				if (_dark_Icon_BINode == null) {
+					_dark_Icon_BINode = BitmapConvert (Properties.Resources.Dark_Icon_BINode);
+				}
+
+				return _dark_Icon_BINode;
 			}
 		}
 	}

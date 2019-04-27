@@ -118,8 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Dark_Icon_AMNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark_Icon_AMNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Dark_Icon_BackEndWork" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\dark_icon_backendwork.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dark_Icon_BINode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark_Icon_BINode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Dark_Icon_FrontEndWork" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\dark_icon_frontendwork.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,5 +141,11 @@
   </data>
   <data name="Dark_Icon_ResLib" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\dark_icon_reslib.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dark_Icon_RMNode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark_Icon_RMNode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dark_Icon_SINode" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dark_Icon_SINode.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

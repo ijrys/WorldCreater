@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 	public class SolarIlluminanceResault : CalculatedResault<byte> {
@@ -64,6 +65,10 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 			catch (Exception ex) {
 				throw new Exceptions.DataResousesReadException ("读写文件时发生错误", DataFile, ex);
 			}
+		}
+
+		public override XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
+			throw new NotImplementedException ();
 		}
 
 		public SolarIlluminanceResault (byte[,] value, string dataName, Work work, string imgResKey) :

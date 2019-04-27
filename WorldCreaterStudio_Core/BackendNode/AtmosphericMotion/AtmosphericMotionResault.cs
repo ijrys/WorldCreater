@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using WorldCreaterStudio_Core.Tools;
 
 namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
@@ -40,7 +41,6 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 
 		protected override void Load () {
 			try {
-
 				FileStream fs = DataFile.Open (FileMode.Open);
 
 				int w, h, bufcont, bufnow = 0;
@@ -96,9 +96,36 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 		}
 
+		public override XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
+			XmlElement node = xmlDocument.CreateElement ("Resault");
+			Save ();
+			node.SetAttribute ("dataName", DataFile == null ? "" : DataFile.Name);
+			node.SetAttribute ("imgrefkey", ShowImage == null ? "" : ShowImage.ResourseKey);
+
+			if (save) { Changed = false; }
+			return node;
+		}
+
 		public AtmosphericMotionResault (PointData[,] value, string dataName, Work work, string imgResKey) :
 			base (value, dataName, work, imgResKey) {
 
+		}
+
+		public static AtmosphericMotionResault InitByXMLNode (XmlElement node, Work work) {
+			if (node.Name != "Resault") return null;
+			string dataname = node.Attributes["dataName"]?.Value;
+			if (dataname == null) return null;
+			string imgrefkey = node.Attributes["imgrefkey"]?.Value;
+			if (imgrefkey == null) return null;
+
+			AtmosphericMotionResault res = new AtmosphericMotionResault (null, dataname, work, imgrefkey);
+			try {
+				res.Load ();
+			} catch (Exception ex) {
+				return null;
+			}
+
+			return res;
 		}
 	}
 }

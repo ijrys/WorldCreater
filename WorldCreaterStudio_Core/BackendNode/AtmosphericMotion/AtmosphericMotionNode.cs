@@ -77,7 +77,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 
 		public string NodeName => "AtmosphericMotion";
 
-		public ImageSource Icon => null;
+		public ImageSource Icon => WorldCreaterStudio_Resouses.Images.Dark_Icon_AMNode;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
@@ -112,10 +112,12 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("NodeState"));
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("StateDisplayTemplate"));
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("CanCalculater"));
+
+				NodestateChanged?.Invoke (this, value);
 			}
 		}
 		public bool CanCalculater => NodeState != NodeState.unable;
-
+		public event NodeStateChangedDelegate NodestateChanged;
 
 		private IAtmosphericMotionCalculaterAble _calculater = null;
 		/// <summary>
@@ -205,7 +207,44 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement node = xmlDocument.CreateElement ("AMNode");
+			node.SetAttribute ("creater", Calculater == null ? "" : Calculater.CreaterProgramSet);
+			node.SetAttribute ("state", NodeState.ToString ());
+
+			if (Resault != null) {
+				node.AppendChild (Resault.XmlNode (xmlDocument, save));
+			}
+
+			if (Configuration != null) {
+				node.AppendChild (Configuration.XmlNode (xmlDocument, save));
+			}
+
+			if (save) {
+				Changed = false;
+			}
+			return node;
+		}
+
+		public bool InitByXMLNode (XmlElement xmlnode) {
+			if (xmlnode.Name != "AMNode") return false;
+			string creater = xmlnode.Attributes["creater"]?.Value;
+			string statestr = xmlnode.Attributes["state"]?.Value;
+			NodeState state;
+			if (creater == null || statestr == null || !Enum.TryParse (statestr, out state)) return false;
+			NodeState = state;
+
+			SetCalculater (StoreRoom.BackEndCalculaterDictionary.AtmosphericMotion.GetCreaterFactoryByProgramSet (creater));
+
+			foreach (XmlElement item in xmlnode.ChildNodes) {
+				if (item.Name == "Resault") {
+					Resault = AtmosphericMotionResault.InitByXMLNode (item, Work);
+				}
+				else if (item.Name == "Config") {
+					Configuration.LoadFromXMLNode (item);
+				}
+			}
+
+			return true;
 		}
 
 		/// <summary>
@@ -223,13 +262,7 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			}
 			if (Calculater == null) return;
 			Resault = Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
-
-			if (Work.BackEndNodes.RMNode.NodeState == BackendNode.NodeState.ok) {
-				Work.BackEndNodes.RMNode.NodeState = BackendNode.NodeState.outdate;
-			}
-			else if (Work.BackEndNodes.RMNode.NodeState == BackendNode.NodeState.unable) {
-				Work.BackEndNodes.RMNode.NodeState = BackendNode.NodeState.ready;
-			}
+			this.NodeState = NodeState.ok;
 		}
 
 		public AtmosphericMotionNode (Work work) {

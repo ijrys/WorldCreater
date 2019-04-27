@@ -17,7 +17,7 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 
 		public string NodeName => "RainfallMotion";
 
-		public ImageSource Icon => null;
+		public ImageSource Icon => WorldCreaterStudio_Resouses.Images.Dark_Icon_RMNode;
 
 		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
 
@@ -168,7 +168,7 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			}
 			if (Calculater == null) return;
 			Resault = Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
-
+			this.NodeState = NodeState.ok;
 			if (Work.BackEndNodes.SINode.NodeState == BackendNode.NodeState.ok) {
 				Work.BackEndNodes.SINode.NodeState = BackendNode.NodeState.outdate;
 			}
