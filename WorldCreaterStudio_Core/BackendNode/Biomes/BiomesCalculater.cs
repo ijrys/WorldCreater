@@ -117,9 +117,9 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 			}
 
 			bw.Flush ();
-			bw.Close ();
-
 			fs.Flush ();
+
+			bw.Close ();
 			fs.Close ();
 
 			Changed = false;
@@ -161,7 +161,31 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 		}
 
 		public override XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement node = xmlDocument.CreateElement ("Resault");
+			Save ();
+			node.SetAttribute ("dataName", DataFile == null ? "" : DataFile.Name);
+			node.SetAttribute ("imgrefkey", ShowImage == null ? "" : ShowImage.ResourseKey);
+
+			if (save) { Changed = false; }
+			return node;
+		}
+
+		public static BiomesResault InitByXMLNode (XmlElement node, Work work) {
+			if (node.Name != "Resault") return null;
+			string dataname = node.Attributes["dataName"]?.Value;
+			if (dataname == null) return null;
+			string imgrefkey = node.Attributes["imgrefkey"]?.Value;
+			if (imgrefkey == null) return null;
+
+			BiomesResault res = new BiomesResault (null, dataname, work, imgrefkey);
+			try {
+				res.Load ();
+			}
+			catch (Exception ex) {
+				return null;
+			}
+
+			return res;
 		}
 
 		public BiomesResault (BiomesType[,] value, string dataName, Work work, string overviewImgResKey) :

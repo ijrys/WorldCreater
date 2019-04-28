@@ -24,9 +24,9 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 			}
 
 			bsw.Flush ();
-			bsw.Close ();
-
 			fs.Flush ();
+
+			bsw.Close ();
 			fs.Close ();
 
 			Changed = false;
@@ -68,7 +68,31 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 		}
 
 		public override XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement node = xmlDocument.CreateElement ("Resault");
+			Save ();
+			node.SetAttribute ("dataName", DataFile == null ? "" : DataFile.Name);
+			node.SetAttribute ("imgrefkey", ShowImage == null ? "" : ShowImage.ResourseKey);
+
+			if (save) { Changed = false; }
+			return node;
+		}
+
+		public static SolarIlluminanceResault InitByXMLNode (XmlElement node, Work work) {
+			if (node.Name != "Resault") return null;
+			string dataname = node.Attributes["dataName"]?.Value;
+			if (dataname == null) return null;
+			string imgrefkey = node.Attributes["imgrefkey"]?.Value;
+			if (imgrefkey == null) return null;
+
+			SolarIlluminanceResault res = new SolarIlluminanceResault (null, dataname, work, imgrefkey);
+			try {
+				res.Load ();
+			}
+			catch (Exception ex) {
+				return null;
+			}
+
+			return res;
 		}
 
 		public SolarIlluminanceResault (byte[,] value, string dataName, Work work, string imgResKey) :

@@ -22,11 +22,11 @@ namespace MiRaI.BE.BI.QuickCalc {
 
 
 		public void LoadFromXMLNode (XmlElement xmlnode) {
-			throw new NotImplementedException ();
 		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement re = xmlDocument.CreateElement ("Config");
+			return re;
 		}
 	}
 }

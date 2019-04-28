@@ -52,10 +52,12 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("NodeState"));
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("StateDisplayTemplate"));
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("CanCalculater"));
+
+				NodestateChanged?.Invoke (this, value);
 			}
 		}
 		public bool CanCalculater => NodeState != NodeState.unable;
-
+		public event NodeStateChangedDelegate NodestateChanged;
 
 		private IRainfallMotionCalculaterAble _calculater = null;
 		/// <summary>
@@ -150,7 +152,46 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement node = xmlDocument.CreateElement ("RMNode");
+			node.SetAttribute ("creater", Calculater == null ? "" : Calculater.CreaterProgramSet);
+			node.SetAttribute ("state", NodeState.ToString ());
+
+			if (Resault != null) {
+				node.AppendChild (Resault.XmlNode (xmlDocument, save));
+			}
+
+			if (Configuration != null) {
+				node.AppendChild (Configuration.XmlNode (xmlDocument, save));
+			}
+
+			if (save) {
+				Changed = false;
+			}
+			return node;
+		}
+
+		public bool InitByXMLNode (XmlElement xmlnode) {
+			if (xmlnode.Name != "RMNode") return false;
+			string creater = xmlnode.Attributes["creater"]?.Value;
+			string statestr = xmlnode.Attributes["state"]?.Value;
+			NodeState state;
+			if (creater == null || statestr == null || !Enum.TryParse (statestr, out state)) return false;
+			NodeState = state;
+
+			if (!string.IsNullOrEmpty (creater)) {
+				SetCalculater (StoreRoom.BackEndCalculaterDictionary.RainfallMotion.GetCreaterFactoryByProgramSet (creater));
+			}
+
+			foreach (XmlElement item in xmlnode.ChildNodes) {
+				if (item.Name == "Resault") {
+					Resault = RainfallMotionResault.InitByXMLNode (item, Work);
+				}
+				else if (item.Name == "Config") {
+					Configuration.LoadFromXMLNode (item);
+				}
+			}
+
+			return true;
 		}
 
 		/// <summary>
@@ -181,12 +222,12 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			if (Calculater == null) return;
 			Resault = Calculater.GetAtmosphericMotionDatas (Configuration, Work.FrontEndNodes.ResaultHeightMap.Value, this.Work);
 			this.NodeState = NodeState.ok;
-			if (Work.BackEndNodes.SINode.NodeState == BackendNode.NodeState.ok) {
-				Work.BackEndNodes.SINode.NodeState = BackendNode.NodeState.outdate;
-			}
-			else if (Work.BackEndNodes.SINode.NodeState == BackendNode.NodeState.unable) {
-				Work.BackEndNodes.SINode.NodeState = BackendNode.NodeState.ready;
-			}
+			//if (Work.BackEndNodes.SINode.NodeState == BackendNode.NodeState.ok) {
+			//	Work.BackEndNodes.SINode.NodeState = BackendNode.NodeState.outdate;
+			//}
+			//else if (Work.BackEndNodes.SINode.NodeState == BackendNode.NodeState.unable) {
+			//	Work.BackEndNodes.SINode.NodeState = BackendNode.NodeState.ready;
+			//}
 		}
 
 		public RainfallMotionNode (Work work) {

@@ -39,11 +39,23 @@ namespace MiRaI.BE.SI.QuickCalculating {
 
 
 		public void LoadFromXMLNode (XmlElement xmlnode) {
-			throw new NotImplementedException ();
+			if (xmlnode.Name != "Config") return;
+			string angstr = xmlnode.Attributes["power"]?.Value;
+			if (angstr == null) return;
+
+
+			if (double.TryParse (angstr, out double ang)) {
+				Angle = ang;
+			}
+			else {
+				return;
+			}
 		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement re = xmlDocument.CreateElement ("Config");
+			re.SetAttribute ("angle", Angle.ToString ());
+			return re;
 		}
 	}
 

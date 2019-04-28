@@ -59,11 +59,27 @@ namespace MiRaI.BE.RM.SingleValue {
 
 
 		public void LoadFromXMLNode (XmlElement xmlnode) {
-			throw new NotImplementedException ();
+			if (xmlnode.Name != "Config") return;
+			string ristr = xmlnode.Attributes["ri"]?.Value;
+			string sistr = xmlnode.Attributes["si"]?.Value;
+			if (ristr == null || sistr == null) return;
+
+
+			if (int.TryParse (ristr, out int ri) &&
+				int.TryParse (sistr, out int si)) {
+				RainfallIntensity = ri;
+				SeaLevel = si;
+			}
+			else {
+				return;
+			}
 		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement re = xmlDocument.CreateElement ("Config");
+			re.SetAttribute ("ri", RainfallIntensity.ToString ());
+			re.SetAttribute ("sl", SeaLevel.ToString ());
+			return re;
 		}
 	}
 

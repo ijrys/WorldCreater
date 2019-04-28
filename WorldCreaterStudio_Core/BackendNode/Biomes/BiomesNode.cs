@@ -52,10 +52,12 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("NodeState"));
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("StateDisplayTemplate"));
 				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("CanCalculater"));
+
+				NodestateChanged?.Invoke (this, value);
 			}
 		}
 		public bool CanCalculater => NodeState != NodeState.unable;
-
+		public event NodeStateChangedDelegate NodestateChanged;
 
 		private IBiomesCalculaterAble _calculater = null;
 		/// <summary>
@@ -145,7 +147,46 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 		}
 
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement node = xmlDocument.CreateElement ("BINode");
+			node.SetAttribute ("creater", Calculater == null ? "" : Calculater.CreaterProgramSet);
+			node.SetAttribute ("state", NodeState.ToString ());
+
+			if (Resault != null) {
+				node.AppendChild (Resault.XmlNode (xmlDocument, save));
+			}
+
+			if (Configuration != null) {
+				node.AppendChild (Configuration.XmlNode (xmlDocument, save));
+			}
+
+			if (save) {
+				Changed = false;
+			}
+			return node;
+		}
+
+		public bool InitByXMLNode (XmlElement xmlnode) {
+			if (xmlnode.Name != "BINode") return false;
+			string creater = xmlnode.Attributes["creater"]?.Value;
+			string statestr = xmlnode.Attributes["state"]?.Value;
+			NodeState state;
+			if (creater == null || statestr == null || !Enum.TryParse (statestr, out state)) return false;
+			NodeState = state;
+
+			if (!string.IsNullOrEmpty (creater)) {
+				SetCalculater (StoreRoom.BackEndCalculaterDictionary.Biomes.GetCreaterFactoryByProgramSet (creater));
+			}
+
+			foreach (XmlElement item in xmlnode.ChildNodes) {
+				if (item.Name == "Resault") {
+					Resault = BiomesResault.InitByXMLNode (item, Work);
+				}
+				else if (item.Name == "Config") {
+					Configuration.LoadFromXMLNode (item);
+				}
+			}
+
+			return true;
 		}
 
 		/// <summary>

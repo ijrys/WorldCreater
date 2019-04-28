@@ -101,9 +101,9 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 			}
 
 			bw.Flush ();
-			bw.Close ();
-
 			fs.Flush ();
+
+			bw.Close ();
 			fs.Close ();
 
 			Changed = false;
@@ -147,7 +147,36 @@ namespace WorldCreaterStudio_Core.BackendNode.RainfallMotion {
 		}
 
 		public override XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
-			throw new NotImplementedException ();
+			XmlElement node = xmlDocument.CreateElement ("Resault");
+			Save ();
+			node.SetAttribute ("dataName", DataFile == null ? "" : DataFile.Name);
+			node.SetAttribute ("imgrefkey", ShowImage == null ? "" : ShowImage.ResourseKey);
+			node.SetAttribute ("riimgrefkey", ShowImage == null ? "" : RainfallIntensityImage.ResourseKey);
+			node.SetAttribute ("atimgrefkey", ShowImage == null ? "" : AreaTypeImage.ResourseKey);
+
+			if (save) { Changed = false; }
+			return node;
+		}
+		public static RainfallMotionResault InitByXMLNode (XmlElement node, Work work) {
+			if (node.Name != "Resault") return null;
+			string dataname = node.Attributes["dataName"]?.Value;
+			if (dataname == null) return null;
+			string imgrefkey = node.Attributes["imgrefkey"]?.Value;
+			if (imgrefkey == null) return null;
+			string riimgrefkey = node.Attributes["riimgrefkey"]?.Value;
+			if (riimgrefkey == null) return null;
+			string atimgrefkey = node.Attributes["atimgrefkey"]?.Value;
+			if (atimgrefkey == null) return null;
+
+			RainfallMotionResault res = new RainfallMotionResault (null, dataname, work, imgrefkey, riimgrefkey, atimgrefkey);
+			try {
+				res.Load ();
+			}
+			catch (Exception ex) {
+				return null;
+			}
+
+			return res;
 		}
 
 		public RainfallMotionResault (PointData[,] value, string dataName, Work work, string overviewImgResKey, string riImgResKey, string atImgResKey) :

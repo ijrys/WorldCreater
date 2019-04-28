@@ -77,12 +77,12 @@ namespace WorldCreaterStudio_Core {
 				if (_rmNode == value) return;
 				if (_rmNode != null) {
 					_rmNode.NodeValueChanged -= ChildNodeValueChanged;
-					//_rmNode.NodestateChanged -= RM_NodestateChanged; ;
+					_rmNode.NodestateChanged -= RM_NodestateChanged; ;
 				}
 				_rmNode = value;
 				if (value != null) {
 					value.NodeValueChanged += ChildNodeValueChanged;
-					//value.NodestateChanged += AM_NodestateChanged;
+					value.NodestateChanged += RM_NodestateChanged;
 				}
 				if (!isinit) {
 					NodeValueChanged?.Invoke (this);
@@ -100,12 +100,12 @@ namespace WorldCreaterStudio_Core {
 				if (_siNode == value) return;
 				if (_siNode != null) {
 					_siNode.NodeValueChanged -= ChildNodeValueChanged;
-					//_siNode.NodestateChanged -= SI_NodestateChanged;
+					_siNode.NodestateChanged -= SI_NodestateChanged;
 				}
 				_siNode = value;
 				if (value != null) {
 					value.NodeValueChanged += ChildNodeValueChanged;
-					//value.NodestateChanged += AM_NodestateChanged;
+					value.NodestateChanged += SI_NodestateChanged;
 				}
 				if (!isinit) {
 					NodeValueChanged?.Invoke (this);
@@ -185,8 +185,17 @@ namespace WorldCreaterStudio_Core {
 			isinit = true;
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
-				if (item.Name == "AMNode") { //资源引用
+				if (item.Name == "AMNode") {
 					AMNode.InitByXMLNode (item);
+				}
+				else if (item.Name == "RMNode") {
+					RMNode.InitByXMLNode (item);
+				}
+				else if (item.Name == "SINode") {
+					SINode.InitByXMLNode (item);
+				}
+				else if (item.Name == "BINode") {
+					BINode.InitByXMLNode (item);
 				}
 			}
 
@@ -197,6 +206,9 @@ namespace WorldCreaterStudio_Core {
 		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
 			XmlElement re = xmlDocument.CreateElement ("BackEndFactory");
 			re.AppendChild (AMNode.XmlNode (xmlDocument, save));
+			re.AppendChild (RMNode.XmlNode (xmlDocument, save));
+			re.AppendChild (SINode.XmlNode (xmlDocument, save));
+			re.AppendChild (BINode.XmlNode (xmlDocument, save));
 			return re;
 		}
 		#endregion

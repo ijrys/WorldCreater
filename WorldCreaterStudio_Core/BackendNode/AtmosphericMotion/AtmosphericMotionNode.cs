@@ -233,7 +233,9 @@ namespace WorldCreaterStudio_Core.BackendNode.AtmosphericMotion {
 			if (creater == null || statestr == null || !Enum.TryParse (statestr, out state)) return false;
 			NodeState = state;
 
-			SetCalculater (StoreRoom.BackEndCalculaterDictionary.AtmosphericMotion.GetCreaterFactoryByProgramSet (creater));
+			if (!string.IsNullOrEmpty (creater)) {
+				SetCalculater (StoreRoom.BackEndCalculaterDictionary.AtmosphericMotion.GetCreaterFactoryByProgramSet (creater));
+			}
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
 				if (item.Name == "Resault") {
