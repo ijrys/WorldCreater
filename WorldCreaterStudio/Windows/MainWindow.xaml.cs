@@ -224,7 +224,7 @@ namespace WorldCreaterStudio {
 
 		private void View3D (Work work) {
 			if (work == null) return;
-			int[,] value = work.FrontEndNodes?.HeightMap?.Value;
+			int[,] value = work.FrontEndNodes?.ResaultHeightMap?.Value;
 			if (value == null) return;
 			View3DWindow v3dw = new View3DWindow(value);
 			v3dw.ShowDialog();

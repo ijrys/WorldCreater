@@ -44,23 +44,37 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 		public FileInfo DataFile { get; private set; }
 
+		public void LoadValue () {
+			FileStream fs = new FileStream (DataFile.FullName, FileMode.OpenOrCreate);
+			BinaryReader br = new BinaryReader (fs);
+
+			int w = br.ReadInt32(), h = br.ReadInt32 ();
+
+
+			for (int i = 0; i < h; i++) {
+				for (int j = 0; j < w; j++) {
+					Value[i, j] = br.ReadInt32 ();
+				}
+			}
+
+			fs.Flush ();
+			fs.Close ();
+		}
+
 		public void Save(bool freshWithoutChanged = false) {
 			if (!Changed && !freshWithoutChanged) return;
 
 			FileStream fs = new FileStream(DataFile.FullName, FileMode.OpenOrCreate);
+			BinaryWriter bw = new BinaryWriter (fs);
+
 			int w = Value.GetLength(1), h = Value.GetLength(0);
 
-			fs.SetLength(8192);
-			int maxIntCount = 8192 / 8, nowIntCount = 2;
-
-			fs.Write(BitConverter.GetBytes(w), 0, 4);
-			fs.Write(BitConverter.GetBytes(h), 0, 4);
+			bw.Write (w);
+			bw.Write (h);
 
 			for (int i = 0; i < h; i++) {
 				for (int j = 0; j < w; j++) {
-					fs.Write(BitConverter.GetBytes(Value[i, j]), 0, 4);
-					nowIntCount++;
-					if (nowIntCount >= maxIntCount) { fs.Flush(); nowIntCount = 0; }
+					bw.Write (Value[i, j]);
 				}
 			}
 
@@ -73,6 +87,7 @@ namespace WorldCreaterStudio_Core.Resouses {
 		public ValueResource (int[,] value, string dataName) {
 			Value = value;
 			string filename = Tools.Path.GetAFileName(dataName);
+			DataFile = new FileInfo (Path.Combine (Work.WorkDirectionary.FullName, filename));
 			NodeName = dataName;
 		}
 	}

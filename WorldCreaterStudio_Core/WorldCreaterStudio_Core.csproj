@@ -81,6 +81,7 @@
     <Compile Include="Exceptions\GuidNotSameException.cs" />
     <Compile Include="Exceptions\IncongruentConfigurationException.cs" />
     <Compile Include="Exceptions\NoCreaterFactoryException.cs" />
+    <Compile Include="FrontendNode\CreatingResault.cs" />
     <Compile Include="ListNode\DataCalculater.cs" />
     <Compile Include="MapCreater\BaseConfiguration.cs" />
     <Compile Include="MapCreater\Configuration.cs" />

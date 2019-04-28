@@ -162,12 +162,28 @@ namespace WorldCreaterStudio_Core.BackendNode.SolarIlluminance {
 		}
 
 		public void StartCalculating () {
+			//if (Work.BackEndNodes.RMNode.Resault == null ||
+			//	NodeState == NodeState.unable) {
+			//	return;
+			//}
+			//if (Calculater == null) return;
+			//Resault = Calculater.GetSolarIlluminanceDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
+
+			//this.NodeState = NodeState.ok;
+
+			//if (Work.BackEndNodes.BINode.NodeState == BackendNode.NodeState.ok) {
+			//	Work.BackEndNodes.BINode.NodeState = BackendNode.NodeState.outdate;
+			//}
+			//else if (Work.BackEndNodes.BINode.NodeState == BackendNode.NodeState.unable) {
+			//	Work.BackEndNodes.BINode.NodeState = BackendNode.NodeState.ready;
+			//}
 			if (Work.BackEndNodes.RMNode.Resault == null ||
+				Work.FrontEndNodes.ResaultHeightMap?.Value == null ||
 				NodeState == NodeState.unable) {
 				return;
 			}
 			if (Calculater == null) return;
-			Resault = Calculater.GetSolarIlluminanceDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
+			Resault = Calculater.GetSolarIlluminanceDatas (Configuration, Work.FrontEndNodes.ResaultHeightMap.Value, this.Work);
 
 			this.NodeState = NodeState.ok;
 

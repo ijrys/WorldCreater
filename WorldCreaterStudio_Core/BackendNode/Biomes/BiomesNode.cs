@@ -158,11 +158,17 @@ namespace WorldCreaterStudio_Core.BackendNode.Biomes {
 		}
 
 		public void StartCalculating () {
-			if (Work.FrontEndNodes.HeightMap.Value == null || NodeState == NodeState.unable) {
+			//if (Work.FrontEndNodes.HeightMap.Value == null || NodeState == NodeState.unable) {
+			//	return;
+			//}
+			//if (Calculater == null) return;
+			//Resault = Calculater.GetBiomesDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
+			//this.NodeState = NodeState.ok;
+			if (Work.FrontEndNodes.ResaultHeightMap?.Value == null || NodeState == NodeState.unable) {
 				return;
 			}
 			if (Calculater == null) return;
-			Resault = Calculater.GetBiomesDatas (Configuration, Work.FrontEndNodes.HeightMap.Value, this.Work);
+			Resault = Calculater.GetBiomesDatas (Configuration, Work.FrontEndNodes.ResaultHeightMap.Value, this.Work);
 			this.NodeState = NodeState.ok;
 		}
 

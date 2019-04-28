@@ -40,7 +40,7 @@ namespace WorldCreaterStudio_Core.MapCreater {
 		/// </summary>
 		/// <param name="configuration">创建地形需要的配置</param>
 		/// <returns></returns>
-		public abstract ValueResource CreatAMap(Configuration configuration, Work work);
+		public abstract FrontendNode.CreatingResault CreatAMap(Configuration configuration, Work work);
 
 		/// <summary>
 		/// 当进度发生更新时事件

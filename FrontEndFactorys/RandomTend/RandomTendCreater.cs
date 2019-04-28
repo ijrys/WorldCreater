@@ -12,7 +12,7 @@ namespace RandomTend {
 
 		public override Guid CreaterGuid => typeof(RandomTendCreater).GUID;
 
-		public override ValueResource CreatAMap(Configuration configuration, WorldCreaterStudio_Core.Work work) {
+		public override WorldCreaterStudio_Core.FrontendNode.CreatingResault CreatAMap(Configuration configuration, WorldCreaterStudio_Core.Work work) {
 			//设置检查
 			if (!(configuration is RTConfiguration)) throw new WorldCreaterStudio_Core.Exceptions.IncongruentConfigurationException(typeof(RTConfiguration), configuration.GetType());
 			RTConfiguration rtconfig = (configuration as RTConfiguration);
@@ -85,12 +85,13 @@ namespace RandomTend {
 			}
 
 			//中间数据放入资源节点
-			CreateredMapValue = new Dictionary<string, ValueResource>();
-			ValueResource hvm = new ValueResource(_map, "HVM");
-			CreateredMapValue["HVM"] = hvm;
+			//CreateredMapValue = new Dictionary<string, ValueResource>();
+			//ValueResource hvm = new ValueResource(_map, "HVM");
+			//CreateredMapValue["HVM"] = hvm;
 			//CreateredMapValue["RVM"] = _map;
+			WorldCreaterStudio_Core.FrontendNode.CreatingResault resault = new WorldCreaterStudio_Core.FrontendNode.CreatingResault (_map, "HeightValue", work, "FE.HeightValue");
 
-			return hvm;
+			return resault;
 		}
 	}
 }
