@@ -48,6 +48,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="QuickCalculatingConfig.cs" />
+    <Compile Include="QuickCalculatingFactory.cs" />
     <Page Include="ConfigPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

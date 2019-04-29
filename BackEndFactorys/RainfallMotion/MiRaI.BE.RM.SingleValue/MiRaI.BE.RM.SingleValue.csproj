@@ -50,6 +50,8 @@
     </Compile>
     <Compile Include="SingleValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleValueConfig.cs" />
+    <Compile Include="SingleValueFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\ValueToImage\ValueToImage.csproj">
