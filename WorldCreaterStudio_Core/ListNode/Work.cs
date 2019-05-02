@@ -5,10 +5,12 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using System.Xml;
 
 namespace WorldCreaterStudio_Core {
@@ -26,6 +28,8 @@ namespace WorldCreaterStudio_Core {
 		private bool _changed;
 		private ImageSource _icon;
 		private string _nodeName;
+
+		public Dispatcher Dispatcher { get; private set; }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -250,6 +254,7 @@ namespace WorldCreaterStudio_Core {
 			//Childrens.Add(Images);
 			//Childrens.Add(FrontEndNodes);
 			//Childrens.Add(BackEndNodes);
+			Dispatcher = Dispatcher.FromThread (Thread.CurrentThread);
 
 			Changed = false;
 
@@ -268,6 +273,7 @@ namespace WorldCreaterStudio_Core {
 
 			//work.Childrens.Add(work.Images);
 			//work.Childrens.Add(work.FrontEndNodes);
+
 			return work;
 		}
 

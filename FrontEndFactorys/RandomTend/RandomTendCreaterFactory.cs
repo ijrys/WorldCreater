@@ -14,12 +14,20 @@ namespace RandomTend {
 
 		public override string CreaterProgramSet => "MiRaI.RandomTend.RandomTend|0.1";
 
-		public override Guid CreaterGuid => new Guid("FDAAD2ED-3072-4110-B685-AD1D5139F90B");
+		public override Guid CreaterGuid => typeof (RandomTendCreater).GUID;
 
+		/// <summary>
+		/// 获取一个相应的配置对象
+		/// </summary>
+		/// <returns></returns>
 		public override Configuration GetAConfiguration() {
 			return new RTConfiguration();
 		}
 
+		/// <summary>
+		/// 获取一个创建器
+		/// </summary>
+		/// <returns></returns>
 		public override MapCreater GetACreater() {
 			return new RandomTendCreater();
 		}

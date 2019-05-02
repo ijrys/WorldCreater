@@ -27,9 +27,10 @@ namespace WorldCreaterStudio_Core.Resouses {
 
 		public ImageResourse this[string key] {
 			get {
-				if (_res.ContainsKey(key)) {
+				if (_res.ContainsKey (key)) {
 					return _res[key];
-				} else {
+				}
+				else {
 					return null;
 				}
 			}
@@ -58,10 +59,10 @@ namespace WorldCreaterStudio_Core.Resouses {
 				bool oldvalue = _changed;
 				_changed = value;
 				if (value) {
-					NodeValueChanged?.Invoke(this);
+					NodeValueChanged?.Invoke (this);
 				}
 				if (value != oldvalue) {
-					PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Changed"));
+					PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Changed"));
 				}
 			}
 		}
@@ -73,34 +74,36 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <param name="key"></param>
 		/// <param name="image"></param>
 		/// <param name="description"></param>
-		public ImageResourse Add(string key, BitmapSource image, string description) {
-			Changed = true;
-			if (_res.ContainsKey(key)) {
-				_res[key].Image = image;
-				return _res[key];
-			} else {
-				ImageResourse imgres  = new ImageResourse(key) {
-					Description = description,
-					Image = image,
-				};
-				_res[key] = imgres;
-				_imgs.Add(imgres);
-				return imgres;
-			}
+		public ImageResourse Add (string key, BitmapSource image, string description) {
+				Changed = true;
+				if (_res.ContainsKey (key)) {
+					_res[key].Image = image;
+					return _res[key];
+				}
+				else {
+					ImageResourse imgres = new ImageResourse (key) {
+						Description = description,
+						Image = image,
+					};
+					_res[key] = imgres;
+					_imgs.Add (imgres);
+					return imgres;
+				}
 		}
 
 		/// <summary>
 		/// 添加一个资源
 		/// </summary>
 		/// <param name="resourse"></param>
-		public void Add(ImageResourse resourse) {
+		public void Add (ImageResourse resourse) {
 			Changed = true;
 			string key = resourse.Key;
-			if (_res.ContainsKey(key)) {
+			if (_res.ContainsKey (key)) {
 				_res[key].Image = resourse.Image;
-			} else {
+			}
+			else {
 				_res[key] = resourse;
-				_imgs.Add(resourse);
+				_imgs.Add (resourse);
 			}
 		}
 
@@ -110,28 +113,28 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <param name="key"></param>
 		public void Remove (string key) {
 			Changed = true;
-			if (_res.ContainsKey(key)) {
+			if (_res.ContainsKey (key)) {
 				ImageResourse item = _res[key];
-				_res.Remove(key);
-				_imgs.Remove(item);
+				_res.Remove (key);
+				_imgs.Remove (item);
 			}
 		}
 
 		/// <summary>
 		/// 保存资源文件到默认资源文件夹
 		/// </summary>
-		public void Save() {
-			Save(_workResousesDir.FullName);
+		public void Save () {
+			Save (_workResousesDir.FullName);
 		}
 
 		/// <summary>
 		/// 保存资源文件到指定文件夹
 		/// </summary>
 		/// <param name="basePath"></param>
-		public void Save(string basePath) {
+		public void Save (string basePath) {
 			foreach (var item in _res) {
 				if (item.Value.DataChanged) {
-					item.Value.Save(basePath);
+					item.Value.Save (basePath);
 				}
 			}
 			Changed = false;
@@ -142,15 +145,15 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// </summary>
 		/// <param name="xmlDocument"></param>
 		/// <returns></returns>
-		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
-			XmlElement node = xmlDocument.CreateElement("images");
+		public XmlElement XmlNode (XmlDocument xmlDocument, bool save = false) {
+			XmlElement node = xmlDocument.CreateElement ("images");
 
 			foreach (KeyValuePair<string, ImageResourse> irkvp in _res) {
-				node.AppendChild(irkvp.Value.XmlNode(xmlDocument, save));
+				node.AppendChild (irkvp.Value.XmlNode (xmlDocument, save));
 			}
 
 			if (save) {
-				Save();
+				Save ();
 				Changed = false;
 			}
 			return node;
@@ -162,14 +165,14 @@ namespace WorldCreaterStudio_Core.Resouses {
 		/// <param name="xmlnode"></param>
 		/// <param name="resDir"></param>
 		/// <returns></returns>
-		public static ImageResourceManager LoadFromXmlNode(XmlElement xmlnode, DirectoryInfo resDir, Work work) {
+		public static ImageResourceManager LoadFromXmlNode (XmlElement xmlnode, DirectoryInfo resDir, Work work) {
 			if (xmlnode.Name != "images") return null;
 
-			ImageResourceManager re = new ImageResourceManager(resDir, work);
+			ImageResourceManager re = new ImageResourceManager (resDir, work);
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
-				ImageResourse ir = ImageResourse.LoadFromXmlNode(item, resDir.FullName);
-				re.Add(ir);
+				ImageResourse ir = ImageResourse.LoadFromXmlNode (item, resDir.FullName);
+				re.Add (ir);
 			}
 
 			re.Changed = false;
@@ -177,8 +180,8 @@ namespace WorldCreaterStudio_Core.Resouses {
 		}
 
 		public ImageResourceManager (DirectoryInfo resDir, Work work) {
-			_res = new Dictionary<string, ImageResourse>();
-			_imgs = new ObservableCollection<IWorkLogicNodeAble>();
+			_res = new Dictionary<string, ImageResourse> ();
+			_imgs = new ObservableCollection<IWorkLogicNodeAble> ();
 			_workResousesDir = resDir;
 
 			Work = work;

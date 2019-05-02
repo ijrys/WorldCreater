@@ -22,6 +22,9 @@ namespace MiRaI.BE.BI.QuickCalc {
 
 		public Guid CreaterGuid => typeof (QuickCalc).GUID;
 
+		/// <summary>
+		/// 模拟过程产生新进度消息时事件
+		/// </summary>
 		public event DataCalculatingProcessingEventType OnProcessingChanged;
 
 		public BiomesResault GetBiomesDatasBySpecialConfig (QuickCalcConfig config, int[,] heightMap, Work work) {
