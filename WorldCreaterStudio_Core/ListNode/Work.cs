@@ -28,18 +28,32 @@ namespace WorldCreaterStudio_Core {
 		private bool _changed;
 		private ImageSource _icon;
 		private string _nodeName;
+		private FrontEndFactory _frontEndNodes;
+		private BackEndFactory _backEndNodes;
+		#endregion
 
-		public Dispatcher Dispatcher { get; private set; }
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
+		#region 事件
+		/// <summary>
+		/// 节点值发生改变事件
+		/// </summary>
 		public event NodeValueChangedEventType NodeValueChanged;
 
+		/// <summary>
+		/// 属性发生改变时通知绑定元素
+		/// </summary>
+		public event PropertyChangedEventHandler PropertyChanged;
 		#endregion
 
 		#region 属性
-		public DirectoryInfo WorkDirectionary => _workDirectionary;
+		/// <summary>
+		/// 获取创建线程的工作队列
+		/// </summary>
+		public Dispatcher Dispatcher { get; private set; }
 
+		/// <summary>
+		/// 获取工作目录信息
+		/// </summary>
+		public DirectoryInfo WorkDirectionary => _workDirectionary;
 
 		/// <summary>
 		/// 获取节点所在的工作，这里为当前对象
@@ -72,7 +86,7 @@ namespace WorldCreaterStudio_Core {
 
 		private Resouses.ImageResourceManager _images;
 		/// <summary>
-		/// 获取图片资源管理
+		/// 获取工作的图片资源管理器
 		/// </summary>
 		public Resouses.ImageResourceManager Images {
 			get => _images;
@@ -96,11 +110,7 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
-		private void Children_NodeValueChanged(IWorkLogicNodeAble node) {
-			Changed = true;
-		}
 
-		private FrontEndFactory _frontEndNodes;
 		/// <summary>
 		/// 获取前端工厂节点
 		/// </summary>
@@ -124,7 +134,6 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
-		private BackEndFactory _backEndNodes;
 		/// <summary>
 		/// 获取后端工厂节点
 		/// </summary>
@@ -153,6 +162,7 @@ namespace WorldCreaterStudio_Core {
 		/// 获取所有子节点，用于工作列表展示，其他逻辑节点请通过相应属性或方法更改
 		/// </summary>
 		public ObservableCollection<IWorkLogicNodeAble> Childrens { get; private set; }
+		
 		/// <summary>
 		/// 获取工作的GUID
 		/// </summary>
@@ -176,13 +186,10 @@ namespace WorldCreaterStudio_Core {
 		}
 
 		#endregion
-		///// <summary>
-		///// 子节点发生值改变时调用
-		///// </summary>
-		///// <param name="sender">发生改变的节点</param>
-		//public void ChildrenValueChanged (IWorkLogicNodeAble sender) {
-		//	if (Childrens.Contains(sender)) _changed = true;
-		//}
+
+		private void Children_NodeValueChanged(IWorkLogicNodeAble node) {
+			Changed = true;
+		}
 
 		/// <summary>
 		/// 获取表示节点的XML节点，用于方便Project的管理
@@ -202,9 +209,9 @@ namespace WorldCreaterStudio_Core {
 		}
 
 		/// <summary>
-		/// 保存工程
+		/// 保存工作到存储器
 		/// </summary>
-		/// <param name="saveEvenUnchanged"></param>
+		/// <param name="saveEvenUnchanged">指示在工程没有发生更改时是否强制保存。false：不强制保存,true：强制保存</param>
 		public void Save(bool saveEvenUnchanged = false) {
 			if (!saveEvenUnchanged && !Changed) return;
 			XmlDocument document = new XmlDocument();
@@ -250,14 +257,9 @@ namespace WorldCreaterStudio_Core {
 			FrontEndNodes = new FrontEndFactory(this);
 			BackEndNodes = new BackEndFactory(this);
 
-
-			//Childrens.Add(Images);
-			//Childrens.Add(FrontEndNodes);
-			//Childrens.Add(BackEndNodes);
 			Dispatcher = Dispatcher.FromThread (Thread.CurrentThread);
 
 			Changed = false;
-
 		}
 
 		public static Work NewWork(string workPath, string filename, string workName) {
@@ -310,15 +312,18 @@ namespace WorldCreaterStudio_Core {
 
 				}
 			}
-			//work.Childrens.Add(work.Images);
-			//work.Childrens.Add(work.FrontEndNodes);
+
 			work.Changed = false;
 			return work;
 		}
 		#endregion
 
 		#region 工具方法
-
+		/// <summary>
+		/// 从文件中加载一张图片
+		/// </summary>
+		/// <param name="path">图片路径</param>
+		/// <returns></returns>
 		private static BitmapImage GetBitmapFromFile(string path) {
 			if (!File.Exists(path)) return null;
 			BitmapImage result = new BitmapImage();

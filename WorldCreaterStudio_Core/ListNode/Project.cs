@@ -49,18 +49,8 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		public bool Changed { get; private set; }
 
-
 		public XmlElement XmlNode(XmlDocument xmlDocument, bool save = false) {
 			throw new NotImplementedException();
-		}
-
-		private Project(string projectPath, string filename, string proName) {
-			_projectDirectionary = new DirectoryInfo(projectPath);
-			string projFileFullPath = Path.Combine(projectPath, filename);
-			_projectFile = new FileInfo(projFileFullPath);
-			NodeName = proName;
-			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
-			Guid = Guid.NewGuid();
 		}
 
 		public void Save(bool saveEvenUnchanged = false) {
@@ -80,9 +70,27 @@ namespace WorldCreaterStudio_Core {
 				}
 			}
 
-			
+
 			document.Save(_projectFile.FullName);
 			Changed = false;
+		}
+
+		public Work NewWork(string workPath, string filename, string workName) {
+			string worDir = Path.Combine(_projectDirectionary.FullName, workPath);
+			Work work = Work.NewWork(worDir, filename, workName);
+			Childrens.Add(work);
+			Changed = true;
+
+			return work;
+		}
+
+		private Project(string projectPath, string filename, string proName) {
+			_projectDirectionary = new DirectoryInfo(projectPath);
+			string projFileFullPath = Path.Combine(projectPath, filename);
+			_projectFile = new FileInfo(projFileFullPath);
+			NodeName = proName;
+			Childrens = new ObservableCollection<IWorkLogicNodeAble>();
+			Guid = Guid.NewGuid();
 		}
 
 		public static Project OpenProject(string projectPath, string filename) {
@@ -107,9 +115,11 @@ namespace WorldCreaterStudio_Core {
 					}
 
 					project.Childrens.Add(work);
-				} catch (Exceptions.GuidNotSameException) {
+				}
+				catch (Exceptions.GuidNotSameException) {
 
-				} catch (Exception ex) {
+				}
+				catch (Exception ex) {
 
 				}
 
@@ -129,15 +139,6 @@ namespace WorldCreaterStudio_Core {
 			project.Save(true);
 
 			return project;
-		}
-
-		public Work NewWork (string workPath, string filename, string workName) {
-			string worDir = Path.Combine(_projectDirectionary.FullName, workPath);
-			Work work = Work.NewWork(worDir, filename, workName);
-			Childrens.Add(work);
-			Changed = true;
-
-			return work;
 		}
 	}
 }

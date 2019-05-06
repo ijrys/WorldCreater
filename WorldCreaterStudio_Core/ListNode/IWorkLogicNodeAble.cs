@@ -18,32 +18,32 @@ namespace WorldCreaterStudio_Core {
 	/// </summary>
 	public interface IWorkLogicNodeAble: INotifyPropertyChanged {
 		/// <summary>
-		/// 节点所在的工作
+		/// 获取节点所在的工作
 		/// </summary>
 		Work Work { get; }
 
 		/// <summary>
-		/// 节点可展示的面板
+		/// 获取节点可展示的面板
 		/// </summary>
 		ControlTemplate ShowPanel { get; }
 
 		/// <summary>
-		/// 节点展示名称
+		/// 获取节点在工程树形图中的展示名称
 		/// </summary>
 		string NodeName { get; }
 
 		/// <summary>
-		/// 节点展示的图标
+		/// 获取节点在工程树形图中的展示图标
 		/// </summary>
 		ImageSource Icon { get; }
 
 		/// <summary>
-		/// 节点的子节点
+		/// 获取节点的子节点
 		/// </summary>
 		ObservableCollection<IWorkLogicNodeAble> Childrens { get; }
 
 		/// <summary>
-		/// 指示是否有值发生了改变
+		/// 获取节点是否有值发生了改变
 		/// </summary>
 		bool Changed { get; }
 

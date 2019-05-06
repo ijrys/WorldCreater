@@ -28,15 +28,15 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		public ControlTemplate ShowPanel => StoreRoom.ShowPanel.FrontEndFactoryPanel;
 
-		/// <summary>
-		/// [待删]
-		/// </summary>
-		private ControlTemplate ConfigurationPanel {
-			get {
-				if (Configuration == null) return null;
-				return Configuration.ShowPanel;
-			}
-		}
+		// <summary>
+		// [待删]
+		// </summary>
+		//private ControlTemplate ConfigurationPanel {
+		//	get {
+		//		if (Configuration == null) return null;
+		//		return Configuration.ShowPanel;
+		//	}
+		//}
 
 		/// <summary>
 		/// 获取节点在工作列表中展示的名称
@@ -49,6 +49,27 @@ namespace WorldCreaterStudio_Core {
 		public ImageSource Icon { get; set; } = WorldCreaterStudio_Resouses.Images.Dark_Icon_FrontEndWork;
 
 		/// <summary>
+		/// 获取节点的所有子节点
+		/// </summary>
+		public ObservableCollection<IWorkLogicNodeAble> Childrens => null;
+
+		private bool _changed;
+		public bool Changed {
+			get => _changed;
+			set {
+				bool oldvalue = _changed;
+				_changed = value;
+				if (value) {
+					NodeValueChanged?.Invoke (this);
+				}
+				if (value != oldvalue) {
+					PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Changed"));
+				}
+			}
+		}
+
+
+		/// <summary>
 		/// 获取用于Creater的设置
 		/// </summary>
 		public MapCreater.Configuration Configuration { get; private set; }
@@ -58,10 +79,6 @@ namespace WorldCreaterStudio_Core {
 		/// </summary>
 		public MapCreater.MapCreater Creater { get; private set; }
 
-		/// <summary>
-		/// 获取节点的所有子节点
-		/// </summary>
-		public ObservableCollection<IWorkLogicNodeAble> Childrens => null; //{ get => ImageReferenceManager?.Childrens; }
 
 		private ImageResourceReferenceManager _imageReferenceManager;
 		public ImageResourceReferenceManager ImageReferenceManager {
@@ -86,26 +103,10 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
-		private void Children_NodeValueChanged (IWorkLogicNodeAble node) {
-			Changed = true;
-		}
-
-		//public ValueResource RandomMap { get => CreateredMapValue?["RVM"]; }
-
-		//public ValueResource HeightMap { get => CreateredMapValue?["HVM"]; }
 
 		private FrontendNode.CreatingResault _resaultRandomMap;
 		private FrontendNode.CreatingResault _resaultHeightMap;
 
-		//public FrontendNode.CreatingResault ResaultRandomMap {
-		//	get => _resaultRandomMap;
-		//	private set {
-		//		if (_resaultRandomMap == value) return;
-		//		_resaultRandomMap = value;
-		//		PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("ResaultRandomMap"));
-		//		NodeValueChanged?.Invoke (this);
-		//	}
-		//}
 		public FrontendNode.CreatingResault ResaultHeightMap {
 			get => _resaultHeightMap;
 			private set {
@@ -116,40 +117,24 @@ namespace WorldCreaterStudio_Core {
 			}
 		}
 
-		//private Dictionary<string, ValueResource> _createredMapValue;
-		//public Dictionary<string, ValueResource> CreateredMapValue {
-		//	get => _createredMapValue;
-		//	private set {
-		//		if (_createredMapValue != value) {
-		//			_createredMapValue = value;
-		//			//Childrens = new ObservableCollection<IWorkLogicNodeAble>(value.Values.ToList());
-		//			Changed = true;
-		//			PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("CreateredMapValue"));
-		//			//PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Childrens"));
-		//		}
-		//	}
-		//}
-
-		private bool _changed;
-
-		public bool Changed {
-			get => _changed;
-			set {
-				bool oldvalue = _changed;
-				_changed = value;
-				if (value) {
-					NodeValueChanged?.Invoke (this);
-				}
-				if (value != oldvalue) {
-					PropertyChanged?.Invoke (this, new PropertyChangedEventArgs ("Changed"));
-				}
-			}
-		}
-
+		#endregion
 		public event NodeValueChangedEventType NodeValueChanged;
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		#endregion
+		/// <summary>
+		/// 子节点值发生改变时事件方法
+		/// </summary>
+		/// <param name="node">来源节点</param>
+		private void Children_NodeValueChanged (IWorkLogicNodeAble node) {
+			Changed = true;
+		}
+
+		/// <summary>
+		/// 配置节点值发生改变时事件方法
+		/// </summary>
+		private void Configuration_ValueChanged () {
+			Changed = true;
+		}
 
 		#region XML相关方法
 		/// <summary>
@@ -165,15 +150,11 @@ namespace WorldCreaterStudio_Core {
 				node.AppendChild (Configuration.XmlNode (xmlDocument, save));
 			}
 
-			//if (ImageReferenceManager != null) {
-			//	node.AppendChild(ImageReferenceManager.XmlNode(xmlDocument, save));
-			//}
+
 			if (ResaultHeightMap != null) {
 				node.AppendChild (ResaultHeightMap.XmlNode (xmlDocument, save));
 			}
-			//if (ResaultRandomMap != null) {
-			//	node.AppendChild (ResaultRandomMap.XmlNode (xmlDocument, save));
-			//}
+
 
 			if (save) Changed = false;
 			return node;
@@ -182,7 +163,7 @@ namespace WorldCreaterStudio_Core {
 		/// <summary>
 		/// 使用xml节点初始化前端工厂
 		/// </summary>
-		/// <param name="xmlnode"></param>
+		/// <param name="xmlnode">信息来源的XML节点</param>
 		public bool InitByXMLNode (XmlElement xmlnode) {
 			if (xmlnode.Name != "FrontEndFactory") return false;
 			string programSet = xmlnode.Attributes["creater"]?.Value;
@@ -191,18 +172,13 @@ namespace WorldCreaterStudio_Core {
 
 			foreach (XmlElement item in xmlnode.ChildNodes) {
 				if (item.Name == "images") { //资源引用
-					//ImageResourceReferenceManager imageManager = Resouses.ImageResourceReferenceManager.LoadFromXmlNode (item, this.Work); // todo
 				}
 				else if (item.Name == "setting") {
 					Configuration.LoadFromXMLNode (item);
 				}
 				else if (item.Name == "Resault") {
 					FrontendNode.CreatingResault resault = FrontendNode.CreatingResault.GetResaultByXMLNode (Work, item);
-					//if (resault.NodeName == "RandomMap") {
-					//	ResaultRandomMap = resault;
-					//} else if (resault.NodeName == "HeightMap") {
 					if (resault != null) ResaultHeightMap = resault;
-					//}
 				}
 			}
 			return true;
@@ -211,13 +187,12 @@ namespace WorldCreaterStudio_Core {
 		#endregion
 
 		#region ImageReference相关
-
 		/// <summary>
 		/// 添加一个图片资源
 		/// </summary>
-		/// <param name="key"></param>
-		/// <param name="image"></param>
-		/// <param name="description"></param>
+		/// <param name="key">资源的键</param>
+		/// <param name="image">资源</param>
+		/// <param name="description">描述信息</param>
 		public void Image_Add (string key, BitmapSource image, string description = "") {
 			ImageReferenceManager.Add (key, image, description);
 		}
@@ -256,9 +231,6 @@ namespace WorldCreaterStudio_Core {
 			Changed = true;
 		}
 
-		private void Configuration_ValueChanged () {
-			Changed = true;
-		}
 
 		/// <summary>
 		/// 创建一个地图
@@ -266,8 +238,6 @@ namespace WorldCreaterStudio_Core {
 		/// <returns></returns>
 		public FrontendNode.CreatingResault CreateAMap () {
 			ResaultHeightMap = Creater.CreatAMap (Configuration, Work);
-			//CreateredMapValue = Creater.CreateredMapValue;
-			
 
 			if (Work.BackEndNodes.AMNode.NodeState == BackendNode.NodeState.ok) {
 				Work.BackEndNodes.AMNode.NodeState = BackendNode.NodeState.outdate;
@@ -288,9 +258,10 @@ namespace WorldCreaterStudio_Core {
 		}
 
 		/// <summary>
-		/// 从XML节点中加载一个FrontEndFactory
+		/// 从XML节点中获取一个FrontEndFactory
 		/// </summary>
-		/// <param name="xmlnode"></param>
+		/// <param name="xmlnode">信息来源的XML节点</param>
+		/// <param name="parentWork">所属的工作</param>
 		/// <returns></returns>
 		public static FrontEndFactory LoadFromXmlNode (XmlElement xmlnode, Work parentWork) {
 			FrontEndFactory re = new FrontEndFactory (parentWork);
