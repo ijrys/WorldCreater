@@ -1,0 +1,27 @@
+﻿<Window x:Class="WorldCreaterStudio.Windows.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldCreaterStudio.Windows"
+        mc:Ignorable="d"
+        Title="About" Height="300" Width="400" Background="{DynamicResource Brush_Control_BG_Normal_Normal}">
+    <Grid Margin="4">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="1*"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<ScrollViewer>
+			<StackPanel x:Name="stack_Info">
+				<TextBlock FontSize="30">World Creater</TextBlock>
+				<TextBlock FontSize="16" Margin="8,8,4,0">1.1.0.3 3DUpdate</TextBlock>
+				<TextBlock FontSize="16" Margin="8,4,4,4">2019 05 07</TextBlock>
+				<TextBlock Height="2px" Margin="8px" Background="#AAA"></TextBlock>
+
+				
+			</StackPanel>
+		</ScrollViewer>
+
+		<Button Grid.Row="1" Margin="8" FontSize="16" Padding="4" Click="Button_Click">确定</Button>
+    </Grid>
+</Window>

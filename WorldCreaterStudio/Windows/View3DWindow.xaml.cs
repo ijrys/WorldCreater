@@ -23,7 +23,7 @@ namespace WorldCreaterStudio.Windows {
 		/// <summary>
 		/// 纵向缩放倍率
 		/// </summary>
-		double heightBL;
+		double heightBL = 0.0005;
 		int[,] _map;
 
 		public View3DWindow(int[,] maps) {
@@ -38,54 +38,60 @@ namespace WorldCreaterStudio.Windows {
 			int h, w;
 			h = _map.GetLength(0);
 			w = _map.GetLength(1);
-			SetPosition(0, _map[h / 2, w / 2] * heightBL + 100, 0);
+			//SetPosition(0, _map[h / 2, w / 2] * heightBL + 100, 0);
+			SetPosition(0, _map[0, 0] * heightBL + 100, 0);
 
 			//SetPosition (-2, 2, 2);
 		}
 
 
 		private void DrawMap() {
-			int max = _map[0, 0];
-			int min = max;
-			foreach (int item in _map) {
-				if (max < item)
-					max = item;
-				else if (min > item)
-					min = item;
-			}
-			int mid = (max + min) / 2;
-			int diff = (max - min);
-			double bl = Math.Max(_map.GetLength(0), _map.GetLength(1)) / 1024.0;
-			if (bl > 1.0) bl = 1.0;
-			else if (bl < 0.2) bl = 0.2;
-			bl = bl * 1000 / diff;
+			//int max = _map[0, 0];
+			//int min = max;
+			//foreach (int item in _map) {
+			//	if (max < item)
+			//		max = item;
+			//	else if (min > item)
+			//		min = item;
+			//}
+			//int mid = (max + min) / 2;
+			//int diff = (max - min);
+			//double bl = Math.Max(_map.GetLength(0), _map.GetLength(1)) / 1024.0;
+			//if (bl > 1.0) bl = 1.0;
+			//else if (bl < 0.2) bl = 0.2;
+			//bl = bl * 1000 / diff;
 
-			this.heightBL = bl;
+			//this.heightBL = bl;
 			MeshGeometry3D fbx = new MeshGeometry3D();
-			Point3DCollection points = new Point3DCollection();
-			int h, w;
-			h = _map.GetLength(0);
-			w = _map.GetLength(1);
-			for (int z = 0; z < h; z++) {
-				for (int x = 0; x < w; x++) {
-					Point3D point = new Point3D(x * 2 - w, (_map[z, x] - mid) * bl, z * 2 - h);
-					points.Add(point);
-				}
-			}
-			fbx.Positions = points;
-			Int32Collection sjxs = new Int32Collection();
-			for (int z = 0; z < h - 1; z++) {
-				for (int x = 0; x < w - 1; x++) {
-					sjxs.Add((x + 1) * _map.GetLength(1) + z + 1);
-					sjxs.Add(x * _map.GetLength(1) + z + 1);
-					sjxs.Add(x * _map.GetLength(1) + z);
+			//Point3DCollection points = new Point3DCollection();
+			//int h, w;
+			//h = _map.GetLength(0);
+			//w = _map.GetLength(1);
+			//for (int z = 0; z < h; z++) {
+			//	for (int x = 0; x < w; x++) {
+			//		Point3D point = new Point3D(x * 2 - w, (_map[z, x] - mid) * bl, z * 2 - h);
+			//		points.Add(point);
+			//	}
+			//}
+			//fbx.Positions = points;
+			//Int32Collection sjxs = new Int32Collection();
+			//for (int z = 0; z < h - 1; z++) {
+			//	for (int x = 0; x < w - 1; x++) {
+			//		sjxs.Add((x + 1) * _map.GetLength(1) + z + 1);
+			//		sjxs.Add(x * _map.GetLength(1) + z + 1);
+			//		sjxs.Add(x * _map.GetLength(1) + z);
 
-					sjxs.Add(x * _map.GetLength(1) + z);
-					sjxs.Add((x + 1) * _map.GetLength(1) + z);
-					sjxs.Add((x + 1) * _map.GetLength(1) + z + 1);
-				}
-			}
-			fbx.TriangleIndices = sjxs;
+			//		sjxs.Add(x * _map.GetLength(1) + z);
+			//		sjxs.Add((x + 1) * _map.GetLength(1) + z);
+			//		sjxs.Add((x + 1) * _map.GetLength(1) + z + 1);
+			//	}
+			//}
+			//fbx.TriangleIndices = sjxs;
+
+
+
+			fbx = ValueTo3DModel.HeightToModel.GetModelWithSubdivide(_map, heightBL);
+
 			fBXCont.Geometry = fbx;
 
 		}

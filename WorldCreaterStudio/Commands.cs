@@ -14,6 +14,7 @@ namespace WorldCreaterStudio {
 		public static RoutedUICommand NewProject { get; private set; }
 		public static RoutedUICommand Save { get; private set; }
 		public static RoutedUICommand Open { get; private set; }
+		public static RoutedUICommand About { get; private set; }
 		static Commands() {
 			//New Work
 			InputGestureCollection igc1 = new InputGestureCollection();
@@ -34,6 +35,9 @@ namespace WorldCreaterStudio {
 			igc1 = new InputGestureCollection();
 			igc1.Add(new KeyGesture(Key.O, ModifierKeys.Control, "Ctrl+O"));
 			Open = new RoutedUICommand("Open", "OpenProject", typeof(Commands), igc1);
+
+			//
+			About = new RoutedUICommand("About", "AboutTheAPP", typeof(Commands), null);
 		}
 	}
 }

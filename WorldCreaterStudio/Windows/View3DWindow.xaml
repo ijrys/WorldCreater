@@ -31,7 +31,7 @@
 			<TextBlock x:Name="trans" Grid.Row="2"></TextBlock>
 			<TextBlock x:Name="position" Grid.Row="3"></TextBlock>
 		</Grid>
-		<Viewport3D Grid.Column="1" ClipToBounds="False" x:Name="_viewport">
+		<Viewport3D Grid.Column="1" x:Name="_viewport">
 			<Viewport3D.Camera>
 				<PerspectiveCamera x:Name="cameria" Position="0.5,2,0.5" LookDirection="0,-1,0" UpDirection="0,1,0" />
 			</Viewport3D.Camera>

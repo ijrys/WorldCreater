@@ -377,11 +377,13 @@
 				<MenuItem Header="新建工作" Command="local:Commands.NewWork"></MenuItem>
 				<Separator/>
 				<MenuItem Header="保存" Command="local:Commands.Save"></MenuItem>
-
 			</MenuItem>
+			
 			<MenuItem Header="设置">
+				
 			</MenuItem>
-			<MenuItem Header="关于">
+			
+			<MenuItem Header="关于" Command="local:Commands.About">
 			</MenuItem>
 		</Menu>
 		<ToolBar Grid.Row="1">

@@ -88,7 +88,7 @@ namespace WorldCreaterStudio_Core.ListNode {
 		Guid CalculaterGuid { get; }
 
 		/// <summary>
-		/// 获取一个MapCreater
+		/// 获取一个Calculater
 		/// </summary>
 		/// <returns></returns>
 		CalcT GetACalculater ();

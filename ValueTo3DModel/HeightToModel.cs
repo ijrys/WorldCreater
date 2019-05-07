@@ -8,12 +8,12 @@ using System.Windows.Media.Media3D;
 
 namespace ValueTo3DModel {
 	public static class HeightToModel {
-		public static MeshGeometry3D GetModelWithSubdivide (int[,] heightmap) {
+		public static MeshGeometry3D GetModelWithSubdivide (int[,] heightmap, double heightscale = 0.1) {
 			MeshGeometry3D fbx = new MeshGeometry3D ();
 			Point3DCollection points = new Point3DCollection ();
 
 			int w = heightmap.GetLength (1), h = heightmap.GetLength (0), ws = w - 1, hs = h - 1;
-			double bl = 1.0;
+			double bl = heightscale;
 
 			double[,] midvalue = new double[h - 1, w - 1];
 			for (int i = 0; i < hs; i++) {

@@ -71,6 +71,10 @@ namespace WorldCreaterStudio {
 			newCommand.Executed += Command_Open_Executed; ;
 			CommandBindings.Add (newCommand);
 
+			newCommand = new CommandBinding(Commands.About);
+			newCommand.Executed += Command_About_Executed;
+			CommandBindings.Add(newCommand);
+
 			//面板注册
 			RegShowPanel ();
 		}
@@ -118,6 +122,11 @@ namespace WorldCreaterStudio {
 			else {
 				Project = project;
 			}
+		}
+
+		private void Command_About_Executed(object sender, ExecutedRoutedEventArgs e) {
+			AboutWindow aw = new AboutWindow();
+			aw.ShowDialog();
 		}
 
 		private void ProjectChangedFunction (Project value) {
