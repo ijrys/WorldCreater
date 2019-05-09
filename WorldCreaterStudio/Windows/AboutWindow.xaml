@@ -14,11 +14,10 @@
 		<ScrollViewer>
 			<StackPanel x:Name="stack_Info">
 				<TextBlock FontSize="30">World Creater</TextBlock>
-				<TextBlock FontSize="16" Margin="8,8,4,0">1.1.0.3 3DUpdate</TextBlock>
-				<TextBlock FontSize="16" Margin="8,4,4,4">2019 05 07</TextBlock>
+				<TextBlock FontSize="16" Margin="8,8,4,0">1.2.0.1 UI Update</TextBlock>
+				<TextBlock FontSize="16" Margin="8,4,4,4">2019 05 09</TextBlock>
 				<TextBlock Height="2px" Margin="8px" Background="#AAA"></TextBlock>
 
-				
 			</StackPanel>
 		</ScrollViewer>
 

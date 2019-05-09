@@ -75,6 +75,10 @@ namespace WorldCreaterStudio {
 			newCommand.Executed += Command_About_Executed;
 			CommandBindings.Add(newCommand);
 
+			newCommand = new CommandBinding(Commands.Configuration);
+			newCommand.Executed += Command_Connfiguration_Executed;
+			CommandBindings.Add(newCommand);
+
 			//面板注册
 			RegShowPanel ();
 		}
@@ -128,6 +132,12 @@ namespace WorldCreaterStudio {
 			AboutWindow aw = new AboutWindow();
 			aw.ShowDialog();
 		}
+
+		private void Command_Connfiguration_Executed(object sender, ExecutedRoutedEventArgs e) {
+			ConfigurationWindow cw = new ConfigurationWindow();
+			cw.ShowDialog();
+		}
+
 
 		private void ProjectChangedFunction (Project value) {
 			if (value == null) {

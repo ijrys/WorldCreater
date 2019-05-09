@@ -378,8 +378,8 @@
 				<Separator/>
 				<MenuItem Header="保存" Command="local:Commands.Save"></MenuItem>
 			</MenuItem>
-			
-			<MenuItem Header="设置">
+
+			<MenuItem Header="设置" Command="local:Commands.Configuration">
 				
 			</MenuItem>
 			
