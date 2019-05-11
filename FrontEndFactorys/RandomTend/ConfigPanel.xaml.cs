@@ -20,6 +20,7 @@ namespace RandomTend {
 	public partial class ConfigPanel : Grid {
 		public ConfigPanel() {
 			InitializeComponent();
+			//Xceed.Wpf.Toolkit.IntegerUpDown
 		}
 	}
 }

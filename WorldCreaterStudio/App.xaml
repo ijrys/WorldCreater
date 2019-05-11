@@ -8,9 +8,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<!--<ResourceDictionary Source="Resouses\Style.xaml"/>
 				<ResourceDictionary Source="Resouses\ControlTemplate.xaml"/>-->
-				<!--<ResourceDictionary Source="Resouses\Theme\Dark.xaml"/>-->
-				<!--<ResourceDictionary x:Name="UITheme" Source="Resouses\Theme\Dark.xaml"/>-->
-				<!--<ResourceDictionary Source="Resouses\Theme\Light.xaml"/>-->
+				<ResourceDictionary Source="Resouses\Theme\Dark.xaml"/>
 				<ResourceDictionary Source="Resouses\ControlTemplates\Label.xaml"/>
 				<ResourceDictionary Source="Resouses\ControlTemplates\Button.xaml"/>
 				<ResourceDictionary Source="Resouses\ControlTemplates\GroupBox.xaml"/>
