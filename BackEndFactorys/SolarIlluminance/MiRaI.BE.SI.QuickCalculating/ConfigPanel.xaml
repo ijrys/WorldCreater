@@ -9,42 +9,44 @@
 	<Grid.Resources>
 		<ResourceDictionary>
 			<ControlTemplate x:Key="configTemplate">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="1*"/>
-						<ColumnDefinition Width="1*"/>
-					</Grid.ColumnDefinitions>
-					<Canvas Width="200px" Height="200px">
-						<Canvas Width="200px" Height="200px" ClipToBounds="True">
-							<Ellipse Width="180" Height="180" Canvas.Left="-90" Canvas.Top="10" Stroke="#FFF" StrokeThickness="3"/>
-							<Path Stroke="#FF0" StrokeThickness="4" >
-								<Path.Data>
-									<GeometryGroup>
-										<LineGeometry StartPoint="140, 20" EndPoint="200, 20" />
-										<LineGeometry StartPoint="140, 60" EndPoint="200, 60"/>
-										<LineGeometry StartPoint="140, 100" EndPoint="200, 100"/>
-										<LineGeometry StartPoint="140, 140" EndPoint="200, 140"/>
-										<LineGeometry StartPoint="140, 180" EndPoint="200, 180"/>
-									</GeometryGroup>
-								</Path.Data>
-							</Path>
-							<Line X1="0" Y1="100" X2="90" Y2="100" Stroke="#EEE" StrokeThickness="1"/>
+				<Viewbox Stretch="Uniform" Height="128px" >
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1*"/>
+							<ColumnDefinition Width="1*" MinWidth="128px"/>
+						</Grid.ColumnDefinitions>
+						<Canvas Width="200px" Height="200px">
+							<Canvas Width="200px" Height="200px" ClipToBounds="True">
+								<Ellipse Width="180" Height="180" Canvas.Left="-90" Canvas.Top="10" Stroke="{DynamicResource Brush_TextBox_FG_Normal_Normal}" StrokeThickness="3"/>
+								<Path Stroke="#FF0" StrokeThickness="4" >
+									<Path.Data>
+										<GeometryGroup>
+											<LineGeometry StartPoint="140, 20" EndPoint="200, 20" />
+											<LineGeometry StartPoint="140, 60" EndPoint="200, 60"/>
+											<LineGeometry StartPoint="140, 100" EndPoint="200, 100"/>
+											<LineGeometry StartPoint="140, 140" EndPoint="200, 140"/>
+											<LineGeometry StartPoint="140, 180" EndPoint="200, 180"/>
+										</GeometryGroup>
+									</Path.Data>
+								</Path>
+								<Line X1="0" Y1="100" X2="90" Y2="100" Stroke="{DynamicResource Brush_TextBox_FG_Normal_Normal}" StrokeThickness="1"/>
 
+							</Canvas>
+							<Canvas Height="10" Width="95" Canvas.Top="95">
+								<Canvas.RenderTransform>
+									<RotateTransform Angle="{Binding Angle}" CenterX="0" CenterY="5"/>
+								</Canvas.RenderTransform>
+								<Line X1="0" Y1="5" X2="90" Y2="5" Stroke="{DynamicResource Brush_TextBox_FG_Normal_Normal}" StrokeThickness="1"/>
+								<Ellipse Width="10" Height="10" Fill="#F33" Canvas.Left="85" Canvas.Top="0"/>
+							</Canvas>
 						</Canvas>
-						<Canvas Height="10" Width="95" Canvas.Top="95">
-							<Canvas.RenderTransform>
-								<RotateTransform Angle="{Binding Angle}" CenterX="0" CenterY="5"/>
-							</Canvas.RenderTransform>
-							<Line X1="0" Y1="5" X2="90" Y2="5" Stroke="#FFF" StrokeThickness="1"/>
-							<Ellipse Width="10" Height="10" Fill="#F33" Canvas.Left="85" Canvas.Top="0"/>
-						</Canvas>
-					</Canvas>
 
-					<StackPanel Grid.Column="1">
-						<TextBlock>目标水平夹角</TextBlock>
-						<Slider Minimum="-90" Maximum="90" Value="{Binding Angle}"></Slider>
-					</StackPanel>
-				</Grid>
+						<StackPanel Grid.Column="1">
+							<TextBlock>目标水平夹角</TextBlock>
+							<Slider Minimum="-90" Maximum="90" Value="{Binding Angle}"></Slider>
+						</StackPanel>
+					</Grid>
+				</Viewbox>
 			</ControlTemplate>
 		</ResourceDictionary>
 	</Grid.Resources>

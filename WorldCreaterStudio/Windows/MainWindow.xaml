@@ -386,11 +386,11 @@
 			<MenuItem Header="关于" Command="local:Commands.About">
 			</MenuItem>
 		</Menu>
-		<ToolBar Grid.Row="1">
+		<!--<ToolBar Grid.Row="1">
 			<Button>Save</Button>
 			<Button>open</Button>
 			<Button>New Work</Button>
-		</ToolBar>
+		</ToolBar>-->
 		<Grid Grid.Row="2">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="1*"/>
@@ -400,7 +400,7 @@
 			<!--<Grid x:Name="FunctionPanelConter">
 	
 			</Grid>-->
-			<ContentControl x:Name="FunctionPanelConter" >
+			<ContentControl x:Name="FunctionPanelConter">
 
 			</ContentControl>
 
