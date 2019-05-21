@@ -9,7 +9,7 @@
 		xmlns:vcon ="clr-namespace:WorldCreaterStudio.ValueConverter"
         mc:Ignorable="d"
 		Background="{DynamicResource Brush_Panel_BG_Normal_Normal}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MiRaI WorldCreater" Height="450" Width="800">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ControlTemplate TargetType="ContentControl" x:Key="frontEndFactoryShowPanel">
@@ -444,8 +444,8 @@
 			</Grid>
 		</Grid>
 		<StatusBar Grid.Row="3" FontSize="16" Foreground="#000">
-			<TextBlock x:Name="txtPermillage" MinWidth="64px" MaxWidth="128px" Foreground="#000"/>
-			<TextBlock x:Name="txtState" Foreground="#000">就绪</TextBlock>
+			<TextBlock x:Name="txtPermillage" MinWidth="64px" MaxWidth="128px"/>
+			<TextBlock x:Name="txtState">就绪</TextBlock>
 			<!--<ComboBox Grid.Column="0" ItemsSource="{x:Static res:BackEndCalcFactories.AM}"/>-->
 		</StatusBar>
 	</Grid>

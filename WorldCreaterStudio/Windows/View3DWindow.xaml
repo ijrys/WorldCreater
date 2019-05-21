@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WorldCreaterStudio.Windows"
         mc:Ignorable="d"
-        Title="View3DWindow" Height="450" Width="800" 
+        Title="3DView" Height="450" Width="800" 
 		Background="{DynamicResource Brush_Control_BG_Normal_Normal}"
 		KeyDown="Grid_KeyDown"
 		MouseWheel="Window_MouseWheel"

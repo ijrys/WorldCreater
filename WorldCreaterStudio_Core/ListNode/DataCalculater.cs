@@ -69,6 +69,7 @@ namespace WorldCreaterStudio_Core.ListNode {
 	public interface IDataCalculaterFactoryAble<CalcT, ConfigT> 
 		where CalcT : IDataCalculaterAble
 		where ConfigT:IDataCalculaterConfigurationAble {
+
 		/// <summary>
 		/// 数据生成及模拟器的展示名称
 		/// </summary>

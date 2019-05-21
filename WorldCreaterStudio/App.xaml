@@ -46,11 +46,11 @@
 			<Style TargetType="MenuItem" BasedOn="{StaticResource StyleMenuItem}"/>
 			<Style TargetType="ToolBar" BasedOn="{StaticResource StyleToolBar}"/>
 			<Style TargetType="ListBox" BasedOn="{StaticResource StyleListBox}"/>
+			<Style TargetType="{x:Type StatusBar}" BasedOn="{StaticResource StyleStatusBar}"/>
 			<Style TargetType="TextBlock">
 				<Setter Property="Foreground" Value="{DynamicResource Brush_Control_FG_Normal_Normal}"/>
 			</Style>
 
-			<Style TargetType="StatusBar" BasedOn="{StaticResource StyleStatusBar}"/>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>
